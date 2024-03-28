@@ -47,7 +47,7 @@ class ProductController extends Controller
 
         $product = $request->all();
         if ($image = $request->file('image')) {
-            $saveImgRoute = 'image/';
+            $saveImgRoute = 'product-img/';
             $productImg = date('YmdHis') . "." . $image->getClientOriginalExtension();
             $image->move($saveImgRoute, $productImg);
             $product['image'] = $productImg;
@@ -67,7 +67,7 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Product $product)
     {
         return view('products.modify', compact('product'));
     }

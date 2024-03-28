@@ -94,3 +94,19 @@
     }
 </style>
 @stop
+
+@section('js')
+<script>
+    console.log("Hi, I'm using the Laravel-AdminLTE package!");
+</script>
+<script>
+    function previewImage(event) {
+        const reader = new FileReader();
+        reader.onload = function() {
+            const img = document.getElementById('selected-image');
+            img.src = reader.result;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    }
+</script>
+@stop

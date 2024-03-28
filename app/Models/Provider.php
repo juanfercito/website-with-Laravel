@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Provider extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        "name",
+        "category",
+        "description",
+        "logo",
+        "location",
+        "closing-order-date",
+        "application-date",
+        "status",
+    ];
 }

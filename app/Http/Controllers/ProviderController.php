@@ -20,7 +20,7 @@ class ProviderController extends Controller
      */
     public function index()
     {
-        $products = Provider::paginate(5);
+        $providers = Provider::paginate(5);
         return view('providers.index', compact('providers'));
     }
 
@@ -29,7 +29,7 @@ class ProviderController extends Controller
      */
     public function create()
     {
-        //
+        return view('providers.insert');
     }
 
     /**
@@ -37,7 +37,25 @@ class ProviderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        request()->validate([
+            'name' => 'required',
+            'category' => 'required',
+            'description' => 'required',
+            'image' => 'required|image|mimes:jpeg,png,svg|max:1024',
+            'location' => 'required',
+            'closing-order-date' => 'required',
+            'application-date' => 'required',
+        ]);
+
+        $provider = $request->all();
+        if ($image = $request->file('image')) {
+            $saveImgRoute = 'provider-img/';
+            $providerImg = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $image->move($saveImgRoute, $providerImg);
+            $provider['image'] = $providerImg;
+        }
+        Provider::create($provider);
+        return redirect()->route('providers.index');
     }
 
     /**
@@ -51,24 +69,35 @@ class ProviderController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Provider $provider)
     {
-        //
+        return view('providers.modify', compact('provider'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Provider $provider)
     {
-        //
+        request()->validate([
+            'name' => 'required',
+            'category' => 'required',
+            'description' => 'required',
+            'image' => 'required',
+            'location' => 'required',
+            'closing-order-date' => 'required',
+            'application-date' => 'required',
+        ]);
+        $provider->update($request->all());
+        return redirect()->route('providers.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Provider $provider)
     {
-        //
+        $provider->delete();
+        return redirect()->route('providers.index');
     }
 }

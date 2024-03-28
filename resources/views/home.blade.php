@@ -16,7 +16,7 @@
             <button type="button" onclick="window.location.href='/users'" class="item">Users</button>
             <button type="button" onclick="window.location.href='/products'" class="item">Products</button>
             <button type="button" onclick="window.location.href='/providers'" class="item">Providers</button>
-            <button type="button" onclick="window.location.href='/shipments'" class="item">Shipments</button>
+            <button type="button" onclick="window.location.href='/shipping'" class="item">Shipments</button>
             <button type="button" onclick="window.location.href='/roles'" class="item">Roles</button>
         </div>
     </div>
@@ -32,27 +32,36 @@
             $cant_users = User::count()
             @endphp
             <h2 class="text-right"><i class="fa fa-users f-left"></i><span class="mx-2">{{ $cant_users }}</span></h2>
-            <p class="m-b-0 text-right"><a href="/users" class="text-white mx-2">Watch more...</a></p>
+            <p class="m-b-0 text-right"><a href="/users" class="text-white text-decoration-none mx-2">Watch more...</a></p>
         </div>
 
-        <div class="bg-green col-md-4 col-xl-3 order-card">
+        <div class="bg-red col-md-4 col-xl-3 order-card">
             <h4 class="mt-2">Roles</h4>
             @php
             use Spatie\Permission\Models\Role;
             $cant_roles = Role::count()
             @endphp
-            <h2 class="text-right"><i class="fa fa-users f-left"></i><span class="mx-2">{{ $cant_roles }}</span></h2>
-            <p class="m-b-0 text-right"><a href="/roles" class="text-white mx-2">Watch more...</a></p>
+            <h2 class="text-right"><i class="fa fa-key f-left"></i><span class="mx-2">{{ $cant_roles }}</span></h2>
+            <p class="m-b-0 text-right"><a href="/roles" class="text-white text-decoration-none mx-2">Watch more...</a></p>
         </div>
 
-        <div class="bg-red col-md-4 col-xl-3 order-card">
+        <div class="bg-green col-md-4 col-xl-3 order-card">
             <h4 class="mt-2">Products</h4>
             @php
             use App\Models\Product;
             $cant_products = Product::count()
             @endphp
-            <h2 class="text-right"><i class="fa fa-users f-left"></i><span class="mx-2">{{ $cant_products }}</span></h2>
-            <p class="m-b-0 text-right"><a href="/products" class="text-white mx-2">Watch more...</a></p>
+            <h2 class="text-right"><i class="fa fa-shopping-bag f-left"></i><span class="mx-2">{{ $cant_products }}</span></h2>
+            <p class="m-b-0 text-right"><a href="/products" class="text-white text-decoration-none mx-2">Watch more...</a></p>
+        </div>
+        <div class="bg-orange col-md-4 col-xl-3 order-card">
+            <h4 class="mt-2 text-white">Providers</h4>
+            @php
+            use App\Models\Provider;
+            $cant_providers = Provider::count()
+            @endphp
+            <h2 class="text-right"><i class="fa fa-handshake f-left text-white"></i><span class="mx-2 text-white">{{ $cant_providers }}</span></h2>
+            <p class="m-b-0 text-right text-white"><a href="/providers" class="text-white text-decoration-none mx-2">Watch more...</a></p>
         </div>
 
     </div>
@@ -104,7 +113,7 @@
         align-items: center;
         justify-content: center;
         margin-top: 40px;
-        padding: 8px;
+        padding: 12px;
         background: #042f58;
         border-radius: 8px;
     }

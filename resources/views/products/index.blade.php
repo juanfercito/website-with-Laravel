@@ -34,7 +34,7 @@
                             <tr>
                                 <td>{{$product->title}}</td>
                                 <td>
-                                    <img src="/image/{{$product->image}}" alt="{{$product->image}}" style="width: 40px; height: 40px;">
+                                    <img src="/product-img/{{$product->image}}" alt="{{$product->image}}" style="width: 50px; height: 30px;">
                                 </td>
                                 <td>{{$product->price}}</td>
                                 <td>{{$product->cant}}</td>
