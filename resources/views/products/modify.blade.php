@@ -32,10 +32,30 @@
                         @csrf
                         @method('PUT')
 
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="form-group">
-                                <label for="title">Title</label>
-                                <input type="text" name="title" class="form-control" value="{{ $product->title }}">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-4">
+                                <div class="form-group">
+                                    <label for="title">Title</label>
+                                    <input type="text" name="title" class="form-control" value="{{ $product->title }}">
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4">
+                                <div class="form-floating">
+                                    <label for="product-class">Product Class</label>
+                                    <select type="text" name="product-class" class="form-control"></select>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4">
+                                <div class="form-floating">
+                                    <label for="category">Category</label>
+                                    <select type="text" name="category" class="form-control"></select>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4">
+                                <div class="form-floating">
+                                    <label for="product-type">Product Type</label>
+                                    <select type="text" name="product-type" class="form-control"></select>
+                                </div>
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12">

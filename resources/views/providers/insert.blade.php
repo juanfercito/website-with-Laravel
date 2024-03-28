@@ -40,6 +40,12 @@
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-4">
                                 <div class="form-floating">
+                                    <label for="provider-class">Provider Class</label>
+                                    <select type="text" name="provider-class" class="form-control"></select>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4">
+                                <div class="form-floating">
                                     <label for="category">Category</label>
                                     <select type="text" name="category" class="form-control"></select>
                                 </div>

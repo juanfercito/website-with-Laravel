@@ -41,8 +41,20 @@
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-4">
                                 <div class="form-floating">
+                                    <label for="product-class">Product Class</label>
+                                    <select type="text" name="product-class" class="form-control"></select>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4">
+                                <div class="form-floating">
                                     <label for="category">Category</label>
-                                    <select type="text" name="category" class="form-control">value="{{ $provider->category }}"</select>
+                                    <select type="text" name="category" class="form-control"></select>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4">
+                                <div class="form-floating">
+                                    <label for="product-type">Product Type</label>
+                                    <select type="text" name="product-type" class="form-control"></select>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-4">

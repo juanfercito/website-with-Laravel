@@ -30,20 +30,41 @@
 
                     <form action="{{route('products.store')}}" method="post" enctype="multipart/form-data">
                         @csrf
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="form-group">
-                                <label for="title">Title</label>
-                                <input type="text" name="title" class="form-control">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-4">
+                                <div class="form-group">
+                                    <label for="name">Name</label>
+                                    <input type="text" name="name" class="form-control">
+                                </div>
                             </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12">
-
+                            <div class="col-xs-12 col-sm-12 col-md-4">
                                 <div class="form-floating">
-                                    <label for="description">Description</label>
-                                    <textarea class="form-control" name="description" style="height:100px"></textarea>
+                                    <label for="product-class">Product Class</label>
+                                    <select type="text" name="product-class" class="form-control"></select>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4">
+                                <div class="form-floating">
+                                    <label for="category">Category</label>
+                                    <select type="text" name="category" class="form-control"></select>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4">
+                                <div class="form-floating">
+                                    <label for="product-type">Product Type</label>
+                                    <select type="text" name="product-type" class="form-control"></select>
                                 </div>
                             </div>
                         </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-floating">
+                                <label for="description">Description</label>
+                                <textarea class="form-control" name="description" style="height:100px;"></textarea>
+                            </div>
+                        </div>
+
                         <div class="form-group row">
+
                             <div class="col-md-3 mt-5 mb-5">
                                 <label for="image" class="control-label">Upload Image</label>
                                 <div class="input-group">
@@ -59,13 +80,19 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="price">Price</label>
-                            <input type="text" name="price" class="form-control" placeholder="0.00">
-                        </div>
-                        <div class="form-group">
-                            <label for="cant">Cant</label>
-                            <input class="form-control" type="number" name="cant" min="0" step="1" placeholder="0">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-4">
+                                <div class="form-group">
+                                    <label for="price">Price</label>
+                                    <input type="text" name="price" class="form-control" placeholder="0.00">
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4">
+                                <div class="form-group">
+                                    <label for="cant">Cant</label>
+                                    <input class="form-control" type="number" name="cant" min="0" step="1" placeholder="0">
+                                </div>
+                            </div>
                         </div>
                         <div class="flex items-center justify-center md:gap-8 gap-4 pt-5 pb-5">
                             <a href="{{route('products.index')}}" class="w-auto bg-gray-500 hover:bg-gray-700 rounded-lg shadow-x1 font-medium text-white px-4 py-2"></a>
