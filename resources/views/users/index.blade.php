@@ -81,8 +81,9 @@
 <script>
     console.log("Hi, I'm using the Laravel-AdminLTE package!");
 </script>
+
 <script>
-    // Activar el scroll horizontal con la rueda del ratón para el primer contenedor
+    // Activating the horizontal scrolling with the mouse wheel
     var contenedor1 = document.getElementById('scrolling-1');
 
     contenedor1.addEventListener('wheel', function(event) {

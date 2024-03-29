@@ -48,3 +48,5 @@ Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword']
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+//Route::get('products', 'App\Http\Controllers\RelationshipController@index');

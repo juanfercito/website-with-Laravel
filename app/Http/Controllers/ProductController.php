@@ -39,6 +39,9 @@ class ProductController extends Controller
     {
         request()->validate([
             'title' => 'required',
+            'class' => 'required',
+            'category' => 'required',
+            'type' => 'required',
             'description' => 'required',
             'image' => 'required|image|mimes:jpeg,png,svg|max:1024',
             'price' => 'required',
@@ -79,6 +82,9 @@ class ProductController extends Controller
     {
         request()->validate([
             'title' => 'required',
+            'class' => 'required',
+            'category' => 'required',
+            'type' => 'required',
             'description' => 'required',
             'image' => 'required',
             'price' => 'required',

@@ -42,19 +42,23 @@
                             <div class="col-xs-12 col-sm-12 col-md-4">
                                 <div class="form-floating">
                                     <label for="product-class">Product Class</label>
-                                    <select type="text" name="product-class" class="form-control"></select>
+                                    <select name="product-class" class="form-control">
+                                        @foreach ($productClass as $class)
+                                        <option value="{{ $class->id }}">{{ $class->name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-4">
                                 <div class="form-floating">
                                     <label for="category">Category</label>
-                                    <select type="text" name="category" class="form-control"></select>
+                                    <select type="text" name="category" class="form-control">{{ $product->category }}</select>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-4">
                                 <div class="form-floating">
                                     <label for="product-type">Product Type</label>
-                                    <select type="text" name="product-type" class="form-control"></select>
+                                    <select type="text" name="product-type" class="form-control">{{ $product->type }}</select>
                                 </div>
                             </div>
                         </div>
