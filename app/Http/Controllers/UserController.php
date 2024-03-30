@@ -16,7 +16,17 @@ class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
+     * 
+     *
      */
+
+    function construct()
+    {
+        $this->middleware('permission:watch-users|insert-user|modify-user|delete-user', ['only' => ['index']]);
+        $this->middleware('permission:insert-user', ['only' => ['create', 'store']]);
+        $this->middleware('permission:modify-user', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:delete-user', ['only' => ['destroy']]);
+    }
     public function index()
     {
         $users = User::paginate(5);
@@ -28,7 +38,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $roles = Role::pluck('name', 'name')->all();
+        $roles = Role::pluck('name', 'id')->all();
         return view('users.insert', compact('roles'));
     }
 
@@ -64,10 +74,10 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        $user = User::findOrFail($id);
-        $roles = Role::all();
+        $user = User::find($id);
+
         $roles = Role::pluck('name', 'name')->all();
         $userRole = $user->roles()->pluck('name', 'name')->all();
 
@@ -77,7 +87,7 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
         $this->validate($request, [
             'name' => 'required',
@@ -104,7 +114,7 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
         User::find($id)->delete();
         return redirect()->route('users.index');

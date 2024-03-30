@@ -63,12 +63,12 @@
                     <input type="password" name="confirm-password" class="form-control">
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="col-xs-12 col-sm-12 col-md-6">
                 <div class="form-group">
-                    <label for="roles">Roles</label>
+                    <label for="">Roles</label>
                     <select name="roles[]" id="roles" class="form-control" multiple>
-                        @foreach($roles as $role)
-                        <option value="{{ $role->id }}">{{ $role->name }}</option>
+                        @foreach($roles as $id => $role)
+                        <option value="{{ $id }}">{{ $role }}</option>
                         @endforeach
                     </select>
                 </div>

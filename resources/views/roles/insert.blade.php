@@ -48,7 +48,7 @@
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-6">
-                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                    <button type="submit" class="btn btn-primary">Save Role</button>
                 </div>
             </div>
         </form>

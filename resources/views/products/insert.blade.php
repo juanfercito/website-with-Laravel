@@ -33,26 +33,44 @@
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-4">
                                 <div class="form-group">
-                                    <label for="name">Name</label>
-                                    <input type="text" name="name" class="form-control">
+                                    <label for="title">Title</label>
+                                    <input type="text" name="title" class="form-control">
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-4">
                                 <div class="form-floating">
                                     <label for="product-class">Product Class</label>
-                                    <select type="text" name="product-class" class="form-control"></select>
+                                    <select name="product_class_id" id="product_class_id" class="form-control">
+                                        @foreach(App\Models\ProductClass::all() as $productClass)
+                                        <option value="{{ $productClass->id }}">{{ $productClass->name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
+
                             <div class="col-xs-12 col-sm-12 col-md-4">
                                 <div class="form-floating">
-                                    <label for="category">Category</label>
-                                    <select type="text" name="category" class="form-control"></select>
+                                    <label for="product-category">Product Category</label>
+                                    <select name="product_category_id" id="product_category_id" class="form-control">
+                                        @foreach(App\Models\ProductCategory::all() as $productCategory)
+                                        <option value="{{ $productCategory->id }}">{{ $productCategory->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-4">
                                 <div class="form-floating">
                                     <label for="product-type">Product Type</label>
-                                    <select type="text" name="product-type" class="form-control"></select>
+
+                                    <select name="product_type_id" id="product_type_id" class="form-control">
+                                        @foreach(App\Models\ProductType::all() as $productType)
+                                        <option value="{{ $productType->id }}">{{ $productType->name }}</option>
+                                        @endforeach
+                                    </select>
+
+                                    </select>
+
                                 </div>
                             </div>
                         </div>

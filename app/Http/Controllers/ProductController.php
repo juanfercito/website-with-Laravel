@@ -39,23 +39,35 @@ class ProductController extends Controller
     {
         request()->validate([
             'title' => 'required',
-            'class' => 'required',
-            'category' => 'required',
-            'type' => 'required',
+            'product_class_id' => 'required',
+            'product_category_id' => 'required',
+            'product_type_id' => 'required',
             'description' => 'required',
             'image' => 'required|image|mimes:jpeg,png,svg|max:1024',
             'price' => 'required',
             'cant' => 'required',
         ]);
 
-        $product = $request->all();
+        // getting all form data
+        $productData = $request->all();
         if ($image = $request->file('image')) {
             $saveImgRoute = 'product-img/';
             $productImg = date('YmdHis') . "." . $image->getClientOriginalExtension();
             $image->move($saveImgRoute, $productImg);
-            $product['image'] = $productImg;
+            $productData['image'] = $productImg;
         }
-        Product::create($product);
+
+        // create the product with the form data
+        $product = Product::create($productData);
+
+        // Update the tables relationship
+        $product->product_class_id = $request->product_class_id;
+        $product->product_category_id = $request->product_category_id;
+        $product->product_type_id = $request->product_type_id;
+
+        // Save the product and its relations
+        $product->save();
+
         return redirect()->route('products.index');
     }
 
@@ -80,19 +92,46 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        request()->validate([
+        // Validating the required fields
+        $request->validate([
             'title' => 'required',
-            'class' => 'required',
-            'category' => 'required',
-            'type' => 'required',
+            'product_class_id' => 'required',
+            'product_category_id' => 'required',
+            'product_type_id' => 'required',
             'description' => 'required',
-            'image' => 'required',
             'price' => 'required',
             'cant' => 'required',
         ]);
-        $product->update($request->all());
+
+        // Validating image onli if upload a new image
+        if ($request->hasFile('image')) {
+            $request->validate([
+                'image' => 'required|image|mimes:jpeg,png,svg|max:1024',
+            ]);
+
+            // Guardar la nueva imagen
+            $saveImgRoute = 'product-img/';
+            $productImg = date('YmdHis') . "." . $request->file('image')->getClientOriginalExtension();
+            $request->file('image')->move($saveImgRoute, $productImg);
+
+            // Asignar la nueva imagen al producto
+            $product->image = $productImg;
+        }
+
+        // Update the product data
+        $product->update($request->except('image'));
+
+        // Updating the product relations with tables
+        $product->product_class_id = $request->product_class_id;
+        $product->product_category_id = $request->product_category_id;
+        $product->product_type_id = $request->product_type_id;
+
+        // Save the changes
+        $product->save();
+
         return redirect()->route('products.index');
     }
+
 
     /**
      * Remove the specified resource from storage.

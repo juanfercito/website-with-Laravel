@@ -18,10 +18,4 @@ class RelationshipController extends Controller
         $products = Product::all();
         return view("products.index", compact("products"));
     }
-
-    public function show(ProductClass $productClass)
-    {
-
-        return view('products.modify', compact('product'));
-    }
 }

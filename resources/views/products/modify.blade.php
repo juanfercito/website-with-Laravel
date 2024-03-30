@@ -42,23 +42,38 @@
                             <div class="col-xs-12 col-sm-12 col-md-4">
                                 <div class="form-floating">
                                     <label for="product-class">Product Class</label>
-                                    <select name="product-class" class="form-control">
-                                        @foreach ($productClass as $class)
-                                        <option value="{{ $class->id }}">{{ $class->name }}</option>
+                                    <select name="product_class_id" id="product_class_id" class="form-control">
+                                        @foreach (App\Models\ProductClass::all() as $productClass)
+                                        <option value="{{ $productClass->id }}" {{ $product->product_class_id == $productClass->id ? 'selected' : '' }}>
+                                            {{ $productClass->name }}
+                                        </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-12 col-md-4">
+                                <div class="form-floating">
+                                    <label for="product-category">Category</label>
+                                    <select type="text" name="product_category_id" class="form-control">
+                                        @foreach (App\Models\ProductCategory::all() as $productCategory)
+                                        <option value="{{ $productCategory->id }}" {{ $product->product_category_id == $productCategory->id ? 'selected' : '' }}>
+                                            {{ $productCategory->name }}
+                                        </option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-4">
                                 <div class="form-floating">
-                                    <label for="category">Category</label>
-                                    <select type="text" name="category" class="form-control">{{ $product->category }}</select>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-4">
-                                <div class="form-floating">
                                     <label for="product-type">Product Type</label>
-                                    <select type="text" name="product-type" class="form-control">{{ $product->type }}</select>
+                                    <select type="text" name="product_type_id" class="form-control">
+                                        @foreach (App\Models\ProductType::all() as $productType)
+                                        <option value="{{ $productType->id }}" {{ $product->product_type_id == $productType->id ? 'selected' : '' }}>
+                                            {{ $productType->name }}
+                                        </option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -80,10 +95,15 @@
                                 </div>
                             </div>
                             <div class="col-md-9">
+                                @if ($product->image)
                                 <img src="/product-img/{{ $product->image }}" id="selected-image" style="max-height: 100px" class="mt-5">
-                                <p id="image-name" class="text-sm text-gray-400 group-hover:text-purple-600 pt-1 tracking-wider" style="display: none"></p>
+                                <p id="image-name" class="text-sm text-gray-400 group-hover:text-purple-600 pt-1 tracking-wider"></p>
+                                @else
+                                <p>No image selected</p>
+                                @endif
                             </div>
                         </div>
+
 
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
