@@ -1,5 +1,3 @@
-@extends('layouts.app')
-
 @extends('adminlte::page')
 
 @section('title', 'Home')
@@ -21,47 +19,87 @@
         </div>
     </div>
 
-    <div class="box-container col-lg-12">
+    <div class="section-body my-4">
 
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card" style="background: #ddd; border-radius: 12px; box-shadow:#233 8px 16px 8px;">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4 col-xl-4">
+                                <div class="card bg-purple order-card">
+                                    <div class="card-block">
+                                        <h4 class="mt-2 mx-2">Users</h4>
+                                        @php
+                                        use App\Models\User;
+                                        $cant_users = User::count()
+                                        @endphp
+                                        <h2 class="text-right"><i class="fa fa-users f-left"></i><span class="mx-2">{{ $cant_users }}</span></h2>
+                                        <p class="m-b-0 text-right"><a href="/users" class="text-white text-decoration-none mx-2">Watch more...</a></p>
+                                    </div>
+                                </div>
+                            </div>
 
+                            <div class="col-md-4 col-xl-4">
+                                <div class="card bg-red order-card">
+                                    <div class="card-block">
 
-        <div class="bg-purple col-md-4 col-xl-3 order-card">
-            <h4 class="mt-2">Users</h4>
-            @php
-            use App\Models\User;
-            $cant_users = User::count()
-            @endphp
-            <h2 class="text-right"><i class="fa fa-users f-left"></i><span class="mx-2">{{ $cant_users }}</span></h2>
-            <p class="m-b-0 text-right"><a href="/users" class="text-white text-decoration-none mx-2">Watch more...</a></p>
-        </div>
+                                        <h4 class="mt-2 mx-2">Roles</h4>
+                                        @php
+                                        use Spatie\Permission\Models\Role;
+                                        $cant_roles = Role::count()
+                                        @endphp
+                                        <h2 class="text-right"><i class="fa fa-key f-left"></i><span class="mx-2">{{ $cant_roles }}</span></h2>
+                                        <p class="m-b-0 text-right"><a href="/roles" class="text-white text-decoration-none mx-2">Watch more...</a></p>
 
-        <div class="bg-red col-md-4 col-xl-3 order-card">
-            <h4 class="mt-2">Roles</h4>
-            @php
-            use Spatie\Permission\Models\Role;
-            $cant_roles = Role::count()
-            @endphp
-            <h2 class="text-right"><i class="fa fa-key f-left"></i><span class="mx-2">{{ $cant_roles }}</span></h2>
-            <p class="m-b-0 text-right"><a href="/roles" class="text-white text-decoration-none mx-2">Watch more...</a></p>
-        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-        <div class="bg-green col-md-4 col-xl-3 order-card">
-            <h4 class="mt-2">Products</h4>
-            @php
-            use App\Models\Product;
-            $cant_products = Product::count()
-            @endphp
-            <h2 class="text-right"><i class="fa fa-shopping-bag f-left"></i><span class="mx-2">{{ $cant_products }}</span></h2>
-            <p class="m-b-0 text-right"><a href="/products" class="text-white text-decoration-none mx-2">Watch more...</a></p>
-        </div>
-        <div class="bg-orange col-md-4 col-xl-3 order-card">
-            <h4 class="mt-2 text-white">Providers</h4>
-            @php
-            use App\Models\Provider;
-            $cant_providers = Provider::count()
-            @endphp
-            <h2 class="text-right"><i class="fa fa-handshake f-left text-white"></i><span class="mx-2 text-white">{{ $cant_providers }}</span></h2>
-            <p class="m-b-0 text-right text-white"><a href="/providers" class="text-white text-decoration-none mx-2">Watch more...</a></p>
+                            <div class="col-md-4 col-xl-4">
+                                <div class="card bg-green order-card">
+                                    <div class="card-block">
+                                        <h4 class="mt-2 mx-2">Products</h4>
+                                        @php
+                                        use App\Models\Product;
+                                        $cant_products = Product::count()
+                                        @endphp
+                                        <h2 class="text-right"><i class="fa fa-shopping-bag f-left"></i><span class="mx-2">{{ $cant_products }}</span></h2>
+                                        <p class="m-b-0 text-right"><a href="/products" class="text-white text-decoration-none mx-2">Watch more...</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-xl-4">
+                                <div class="card bg-orange order-card">
+                                    <div class="card-block">
+                                        <h4 class="mt-2 mx-2 text-white">Providers</h4>
+                                        @php
+                                        use App\Models\Provider;
+                                        $cant_providers = Provider::count()
+                                        @endphp
+                                        <h2 class="text-right"><i class="fa fa-handshake f-left text-white"></i><span class="mx-2 text-white">{{ $cant_providers }}</span></h2>
+                                        <p class="m-b-0 text-right text-white"><a href="/providers" class="text-white text-decoration-none mx-2">Watch more...</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-xl-4">
+                                <div class="card order-card" style="background-color: olive;">
+                                    <div class="card-block">
+                                        <h4 class="mt-2 mx-2 text-white">Shipments</h4>
+                                        @php
+                                        use App\Models\Shipping;
+                                        $cant_shipping_services = Shipping::count()
+                                        @endphp
+                                        <h2 class="text-right"><i class="fa fa-truck f-left text-white"></i><span class="mx-2 text-white">{{ $cant_shipping_services }}</span></h2>
+                                        <p class="m-b-0 text-right text-white"><a href="/shipping" class="text-white text-decoration-none mx-2">Watch more...</a></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
     </div>

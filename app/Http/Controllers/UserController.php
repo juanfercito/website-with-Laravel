@@ -51,17 +51,26 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|same:confirm-password',
-            'roles' => 'required'
+            'roles' => 'required|array', // make sure the roles are an array
         ]);
 
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
 
         $user = User::create($input);
-        $user->assignRole($request->input('roles'));
+
+        // get the role names and assign them to.
+        $roles = $request->input('roles');
+        foreach ($roles as $roleName) {
+            $role = Role::where('name', $roleName)->first();
+            if ($role) {
+                $user->assignRole($role);
+            }
+        }
 
         return redirect()->route('users.index');
     }
+
 
     /**
      * Display the specified resource.

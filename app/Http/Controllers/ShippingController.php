@@ -20,8 +20,8 @@ class ShippingController extends Controller
      */
     public function index()
     {
-        $products = Shipping::paginate(5);
-        return view('shipping.index', compact('shipping'));
+        $shippings = Shipping::paginate(10); // Aquí obtienes los datos de envío de la base de datos
+        return view('shipping.index', compact('shippings'));
     }
 
     /**
