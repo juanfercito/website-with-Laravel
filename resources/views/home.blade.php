@@ -91,7 +91,7 @@
                                         $cant_shipping_services = Shipping::count()
                                         @endphp
                                         <h2 class="text-right"><i class="fa fa-truck f-left text-white"></i><span class="mx-2 text-white">{{ $cant_shipping_services }}</span></h2>
-                                        <p class="m-b-0 text-right text-white"><a href="/shipping" class="text-white text-decoration-none mx-2">Watch more...</a></p>
+                                        <p class="m-b-0 text-right text-white"><a href="/shippings" class="text-white text-decoration-none mx-2">Watch more...</a></p>
                                     </div>
                                 </div>
                             </div>

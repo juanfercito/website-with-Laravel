@@ -29,7 +29,7 @@ class ShippingController extends Controller
      */
     public function create()
     {
-        //
+        return view('shipping.insert');
     }
 
     /**
@@ -37,7 +37,38 @@ class ShippingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        request()->validate([
+            'name' => 'required',
+            'shipping_service_type_id' => 'required',
+            'shipping_routes_id' => 'required',
+            'description' => 'required',
+            'image' => 'required|image|mimes:jpeg,png,svg|max:1024',
+            'weight_cost' => 'required',
+            'size_cost' => 'required',
+            'total_cost' => 'required',
+            'estimated_delivery_time' => 'required',
+        ]);
+
+        // getting all form data
+        $shippingData = $request->all();
+        if ($image = $request->file('image')) {
+            $saveImgRoute = 'shipping-service-img/';
+            $shippingImg = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $image->move($saveImgRoute, $shippingImg);
+            $shippingData['image'] = $shippingImg;
+        }
+
+        // create the shipping service with the form data
+        $shipping = Shipping::create($shippingData);
+
+        // Update the tables relationship
+        $shipping->shipping_service_type_id = $request->shipping_service_type_id;
+        $shipping->shipping_routes_id = $request->shipping_routes_id;
+
+        // Save the shipping service and its relations
+        $shipping->save();
+
+        return redirect()->route('shipping.index');
     }
 
     /**

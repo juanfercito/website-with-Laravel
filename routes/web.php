@@ -34,7 +34,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('users', UserController::class);
     Route::resource('products', ProductController::class);
     Route::resource('providers', ProviderController::class);
-    Route::resource('shipping', ShippingController::class);
+    Route::resource('shippings', ShippingController::class);
 });
 
 // Define auth routes

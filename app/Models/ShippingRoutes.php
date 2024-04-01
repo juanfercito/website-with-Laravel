@@ -11,6 +11,6 @@ class ShippingRoutes extends Model
 
     public function shippings()
     {
-        return $this->hasManyThrough(Shipping::class, ShippingServiceType::class, 'shipping_service_type_id', 'id');
+        return $this->hasMany(Shipping::class, 'id');
     }
 }

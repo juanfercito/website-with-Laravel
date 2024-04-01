@@ -1,0 +1,157 @@
+@extends('adminlte::page')
+
+@section('title', 'Create')
+
+@section('content_header')
+<h1>New Shipping</h1>
+@stop
+
+@section('content')
+<p class="my-2">Create a New Shipping Service</p>
+
+<div class="section-body">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+
+                    @if ($errors->any())
+                    <div class="alert alert-dark alert-dimissible fade show" role="alert">
+                        <strong>¡Try Again!</strong>
+
+                        @foreach ($errors->all() as $error)
+                        <span class="badge badge-danger">{{$error}}</span>
+                        @endforeach
+                        <button type="button" class="close" data-dimiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    @endif
+
+                    <form action="{{route('shippings.store')}}" method="post" enctype="multipart/form-data">
+                        @csrf
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-4">
+                                <div class="form-group">
+                                    <label for="name">Name</label>
+                                    <input type="text" name="name" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4">
+                                <div class="form-floating">
+                                    <label for="service-type">Service Type</label>
+                                    <select name="shipping_service_type_id" id="shipping_service_type_id" class="form-control">
+                                        @foreach(App\Models\ShippingServiceType::all() as $shippingService)
+                                        <option value="{{ $shippingService->id }}">{{ $shippingService->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-12 col-md-4">
+                                <div class="form-floating">
+                                    <label for="service-route">Route</label>
+                                    <select name="shipping_route_id" id="shipping_route_id" class="form-control">
+                                        @foreach(App\Models\ShippingRoutes::all() as $shippingRoute)
+                                        <option value="{{ $shippingRoute->id }}">{{ $shippingRoute->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4">
+                                <div class="form-floating">
+                                    <label for="description">Description</label>
+                                    <textarea class="form-control" name="description" style="height:100px;"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-md-3 mt-5 mb-5">
+                                <label for="image" class="control-label">Upload Logo</label>
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="image" name="image" onchange="previewImage(event)">
+                                        <label class="custom-file-label" for="image">Choose file</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <img id="selected-image" style="max-height: 100px" class="mt-5">
+                                <p id="image-name" class="text-sm text-gray-400 group-hover:text-purple-600 pt-1 tracking-wider" style="display: none"></p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-4">
+                                <div class="form-group">
+                                    <label for="weight-cost">Weight Cost</label>
+                                    <input class="form-control" type="number" name="weight-cost" min="0" step="1" placeholder="0">
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4">
+                                <div class="form-group">
+                                    <label for="size-cost">Size Cost</label>
+                                    <input class="form-control" type="number" name="size-cost" min="0" step="1" placeholder="0">
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4">
+                                <div class="form-group">
+                                    <label for="total-cost">Total Cost</label>
+                                    <input class="form-control" type="number" name="total-cost" min="0" step="1" placeholder="0">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="delivery-time">Average Delivery Time</label>
+                            <div class="input-group">
+                                <input type="text" id="estimated-delivery-time" name="estimated-delivery-time" class="form-control">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">
+                                        <i class="far fa-calendar-alt"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-center md:gap-8 gap-4 pt-5 pb-5">
+                            <a href="{{route('shippings.index')}}" class="w-auto bg-gray-500 hover:bg-gray-700 rounded-lg shadow-x1 font-medium text-white px-4 py-2"></a>
+                            <button type="submit" class="btn btn-primary" style="width: auto;">Save Shipping</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@stop
+
+@section('css')
+{{-- Add here extra stylesheets --}}
+{{-- <link rel="stylesheet" href="/css/admin_custom.css"> --}}
+<style>
+    .btn {
+        width: 120px;
+        border-radius: 12px;
+    }
+
+    .btn:hover {
+        background: linear-gradient(to right, #0d4bf5, #040f74, #043e6e, #1093ff);
+    }
+</style>
+@stop
+
+@section('js')
+<script>
+    function previewImage(event) {
+        const reader = new FileReader();
+        reader.onload = function() {
+            const img = document.getElementById('selected-image');
+            img.src = reader.result;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    }
+</script>
+@stop

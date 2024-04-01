@@ -336,7 +336,7 @@ return [
                 ],
                 [
                     'text' => 'Shipping',
-                    'route' => 'shipping.index',
+                    'route' => 'shippings.index',
                     'icon' => 'fa fa-truck',
                 ],
                 [

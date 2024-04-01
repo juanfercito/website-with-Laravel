@@ -12,19 +12,18 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('shippings', function (Blueprint $table) {
-
             $table->id();
             $table->string('name');
+            $table->text('description')->nullable();
             $table->decimal('weight_cost', 8, 2)->nullable();
             $table->decimal('size_cost', 8, 2)->nullable();
-            $table->decimal('cost', 8, 2);
+            $table->decimal('total_cost', 8, 2);
             $table->string('estimated_delivery_time');
-            $table->text('description')->nullable();
             $table->timestamps();
 
             $table->foreignId('shipping_service_type_id')
                 ->nullable()
-                ->constrained('shipping_service_type')
+                ->constrained('shipping_service_types')
                 ->cascadeOnUpdate()
                 ->nullOnDelete();
 

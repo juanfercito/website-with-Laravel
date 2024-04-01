@@ -9,8 +9,20 @@ class Shipping extends Model
 {
     use HasFactory;
 
-    public function shipping_service_types()
+    protected $fillable = [
+        'name',
+        'shipping_service_type_id',
+        'shipping_routes_id',
+        'description',
+        'shipping_logo',
+        'weight_cost',
+        'size_cost',
+        'total_cost',
+        'estimated_delivery_time'
+    ];
+
+    public function shippingServiceTypes()
     {
-        return $this->belongsTo(ShippingServiceType::class, 'id');
+        return $this->belongsTo(ShippingServiceType::class, 'shipping_service_type_id');
     }
 }

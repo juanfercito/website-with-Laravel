@@ -13,14 +13,8 @@ return new class extends Migration
     {
         Schema::create('shipping_routes', function (Blueprint $table) {
             $table->id();
-            $table->text('description');
-            $table->timestamps();
-
-            $table->foreignId('shipping_service_type_id')
-                ->nullable()
-                ->constrained('shipping_service_type')
-                ->cascadeOnUpdate()
-                ->nullOnDelete();
+            $table->string('name');
+            $table->text('description')->nullable();
         });
     }
 

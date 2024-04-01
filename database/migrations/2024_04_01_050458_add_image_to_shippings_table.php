@@ -11,10 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('shipping_service_type', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->text('description');
+        Schema::table('shippings', function (Blueprint $table) {
+            $table->string('image')->nullable()->after('description');
         });
     }
 
@@ -23,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('shipping_service_type');
+        Schema::table('shippings', function (Blueprint $table) {
+            $table->dropColumn('image');
+        });
     }
 };
