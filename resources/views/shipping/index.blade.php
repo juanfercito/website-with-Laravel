@@ -21,6 +21,7 @@
                 <th style="color: #fff;">Logo</th>
                 <th style="color: #fff;">Weight Cost</th>
                 <th style="color: #fff;">Size Cost</th>
+                <th style="color: #fff;">Total Cost</th>
                 <th style="color: #fff;">Average Delivery Time</th>
                 <th style="color: #fff;">Actions</th>
             </tr>
@@ -30,27 +31,31 @@
             <tr>
                 <td style="display: none;">{{$shipping->id}}</td>
                 <td>{{$shipping->name}}</td>
-                <td>{{$shipping->shipping_service_type}}</td>
-                <td>{{$shipping->shipping_routes}}</td>
+                <td>{{$shipping->shippingServiceTypes->name}}</td>
+                <td>{{$shipping->shippingRoutes->name}}</td>
                 <td>
-                    <img src="/shipping-service-img/{{$shipping->image}}" alt="{{$shipping->image}}" style="width: 50px; height: 30px;">
+                    <img src="/shipping-img/{{$shipping->image}}" alt="{{$shipping->image}}" style="width: 50px; height: 30px;">
                 </td>
                 <td>{{$shipping->weight_cost}}</td>
                 <td>{{$shipping->size_cost}}</td>
+                <td>{{$shipping->total_cost}}</td>
                 <td>{{$shipping->estimated_delivery_time}}</td>
-                <a class="btn btn-info" href="{{ route('shipping.edit', $shipping->id) }}">
-                    <span class="d-none d-sm-inline-flex">Edit</span>
-                    <i class="d-inline d-sm-none fas fa-edit"></i>
-                </a>
+                <td>
+                    <form action="{{route('shippings.destroy', $shipping->id)}}" method="post">
+                        @can('modify-shipping')
+                        <a class="btn btn-info fas fa-edit" href="{{route('shippings.edit', $shipping->id)}}">Edit</a>
+                        @endcan
 
-                <form method="POST" action="{{ route('shipping.destroy', $shipping->id) }}" style="display: inline-flex">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger mx-2">
-                        <span class="d-none d-sm-inline">Delete</span>
-                        <i class="d-inline d-sm-none fas fa-trash-alt"></i>
-                    </button>
-                </form>
+                        <form action="{{ route('shippings.destroy', $shipping->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            @can('delete-shipping')
+                            <button type="submit" class="btn btn-danger fas fa-trash-alt" onclick="return confirm('Are you sure you want to delete this shipping?');">Delete</button>
+                            @endcan
+                        </form>
+
+                    </form>
+                </td>
                 </td>
             </tr>
             @endforeach

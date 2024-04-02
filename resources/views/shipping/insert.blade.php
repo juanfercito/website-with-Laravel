@@ -52,10 +52,11 @@
                                 <div class="form-floating">
                                     <label for="service-route">Route</label>
                                     <select name="shipping_route_id" id="shipping_route_id" class="form-control">
-                                        @foreach(App\Models\ShippingRoutes::all() as $shippingRoute)
+                                        @foreach(App\Models\ShippingRoute::all() as $shippingRoute)
                                         <option value="{{ $shippingRoute->id }}">{{ $shippingRoute->name }}</option>
                                         @endforeach
                                     </select>
+
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-4">
@@ -86,19 +87,19 @@
                             <div class="col-xs-12 col-sm-12 col-md-4">
                                 <div class="form-group">
                                     <label for="weight-cost">Weight Cost</label>
-                                    <input class="form-control" type="number" name="weight-cost" min="0" step="1" placeholder="0">
+                                    <input class="form-control" type="number" name="weight_cost" min="0" step="1" placeholder="0">
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-4">
                                 <div class="form-group">
                                     <label for="size-cost">Size Cost</label>
-                                    <input class="form-control" type="number" name="size-cost" min="0" step="1" placeholder="0">
+                                    <input class="form-control" type="number" name="size_cost" min="0" step="1" placeholder="0">
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-4">
                                 <div class="form-group">
                                     <label for="total-cost">Total Cost</label>
-                                    <input class="form-control" type="number" name="total-cost" min="0" step="1" placeholder="0">
+                                    <input class="form-control" type="number" name="total_cost" min="0" step="1" placeholder="0">
                                 </div>
                             </div>
                         </div>
@@ -106,7 +107,7 @@
                         <div class="form-group">
                             <label for="delivery-time">Average Delivery Time</label>
                             <div class="input-group">
-                                <input type="text" id="estimated-delivery-time" name="estimated-delivery-time" class="form-control">
+                                <input type="text" id="estimated-delivery-time" name="estimated_delivery_time" class="form-control">
                                 <div class="input-group-append">
                                     <span class="input-group-text">
                                         <i class="far fa-calendar-alt"></i>

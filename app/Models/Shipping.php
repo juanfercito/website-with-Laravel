@@ -14,7 +14,7 @@ class Shipping extends Model
         'shipping_service_type_id',
         'shipping_routes_id',
         'description',
-        'shipping_logo',
+        'image',
         'weight_cost',
         'size_cost',
         'total_cost',
@@ -24,5 +24,10 @@ class Shipping extends Model
     public function shippingServiceTypes()
     {
         return $this->belongsTo(ShippingServiceType::class, 'shipping_service_type_id');
+    }
+
+    public function shippingRoutes()
+    {
+        return $this->belongsTo(ShippingRoute::class, 'shipping_route_id');
     }
 }
