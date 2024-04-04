@@ -14,8 +14,8 @@ return [
     |
     */
 
-    'title' => 'Online Shop',
-    'title_prefix' => '',
+    'title' => '',
+    'title_prefix' => 'Online Shop | ',
     'title_postfix' => '',
 
     /*
@@ -30,7 +30,7 @@ return [
     |
     */
 
-    'use_ico_only' => false,
+    'use_ico_only' => true,
     'use_full_favicon' => false,
 
     /*
@@ -134,10 +134,10 @@ return [
     */
 
     'usermenu_enabled' => true,
-    'usermenu_header' => false,
-    'usermenu_header_class' => 'bg-primary',
-    'usermenu_image' => false,
-    'usermenu_desc' => false,
+    'usermenu_header' => true,
+    'usermenu_header_class' => 'bg-dark',
+    'usermenu_image' => true,
+    'usermenu_desc' => true,
     'usermenu_profile_url' => false,
 
     /*
@@ -154,10 +154,10 @@ return [
 
     'layout_topnav' => null,
     'layout_boxed' => null,
-    'layout_fixed_sidebar' => null,
-    'layout_fixed_navbar' => null,
-    'layout_fixed_footer' => null,
-    'layout_dark_mode' => null,
+    'layout_fixed_sidebar' => true,
+    'layout_fixed_navbar' => true,
+    'layout_fixed_footer' => true,
+    'layout_dark_mode' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -176,7 +176,7 @@ return [
     'classes_auth_body' => '',
     'classes_auth_footer' => '',
     'classes_auth_icon' => '',
-    'classes_auth_btn' => 'btn-flat btn-primary',
+    'classes_auth_btn' => 'btn btn-primary',
 
     /*
     |--------------------------------------------------------------------------
@@ -198,7 +198,7 @@ return [
     'classes_content' => '',
     'classes_sidebar' => 'sidebar-dark-primary elevation-4',
     'classes_sidebar_nav' => '',
-    'classes_topnav' => 'navbar-white navbar-light',
+    'classes_topnav' => 'navbar-dark navbar-light',
     'classes_topnav_nav' => 'navbar-expand',
     'classes_topnav_container' => 'container',
 
@@ -215,7 +215,7 @@ return [
     */
 
     'sidebar_mini' => 'lg',
-    'sidebar_collapse' => false,
+    'sidebar_collapse' => true,
     'sidebar_collapse_auto_size' => false,
     'sidebar_collapse_remember' => false,
     'sidebar_collapse_remember_no_transition' => true,
@@ -304,6 +304,10 @@ return [
             'type' => 'fullscreen-widget',
             'topnav_right' => true,
         ],
+        [
+            'type' => 'icon',
+            'topnav_right' => true,
+        ],
 
         // Sidebar items:
         [
@@ -316,47 +320,58 @@ return [
             'can' => 'manage-blog',
         ],
         [
-            'text' => 'Business Resources',
+            'text' => 'BUSINESS RESOURCES',
             'icon' => 'fas fa-fw fa-building',
             'submenu' => [
                 [
                     'text' => 'Users',
                     'route' => 'users.index',
                     'icon' => 'fa fa-users',
+                    'icon_color' => 'purple',
                 ],
                 [
                     'text' => 'Products',
                     'route' => 'products.index',
                     'icon' => 'fa fa-shopping-bag',
+                    'icon_color' => 'green',
                 ],
                 [
                     'text' => 'Providers',
                     'route' => 'providers.index',
                     'icon' => 'fa fa-handshake',
+                    'icon_color' => 'orange',
                 ],
                 [
                     'text' => 'Shipping',
                     'route' => 'shippings.index',
                     'icon' => 'fa fa-truck',
+                    'icon_color' => 'info',
                 ],
                 [
                     'text' => 'Roles',
                     'route' => 'roles.index',
                     'icon' => 'fa fa-key',
+                    'icon_color' => 'red',
                 ],
             ],
         ],
-        ['header' => 'account_settings'],
         [
-            'text' => 'profile',
-            'url' => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
+            'text' => 'account_settings',
+            'icon' => 'fa fa-cog',
+            'submenu' => [
+                [
+                    'text' => 'profile',
+                    'url' => 'admin/settings',
+                    'icon' => 'fas fa-fw fa-user',
+                ],
+                [
+                    'text' => 'change_password',
+                    'url' => 'admin/settings',
+                    'icon' => 'fas fa-fw fa-lock',
+                ],
+            ],
         ],
-        [
-            'text' => 'change_password',
-            'url' => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
-        ],
+
         [
             'text' => 'multilevel',
             'icon' => 'fas fa-fw fa-share',

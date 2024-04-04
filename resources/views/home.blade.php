@@ -106,6 +106,17 @@
 </section>
 @stop
 
+@section('footer')
+<div class="footer-container">
+    <div class="col-xs-12 col-md-12 col-lg-12">
+        <h4>juanfercito Corp.</h4>
+        <h5>By Juanfercito Content Inc.</h5>
+        <h6>Almost All Rights Reserver</h6>
+    </div>
+</div>
+
+@stop
+
 @section('css')
 <style>
     .scroll-container {
@@ -171,6 +182,28 @@
 
     .order-card a:hover {
         font-weight: bolder;
+    }
+
+
+    footer {
+        display: grid;
+        align-items: center;
+        justify-content: center;
+        max-height: max-content;
+    }
+
+    .footer-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        h4,
+        h5,
+        h6 {
+            font-size: smaller;
+            display: flex;
+            justify-content: center;
+        }
     }
 </style>
 {{-- Add here extra stylesheets --}}

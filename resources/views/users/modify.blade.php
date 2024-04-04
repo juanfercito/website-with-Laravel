@@ -24,19 +24,40 @@
         </div>
         @endif
 
-        <form method="POST" action="{{ route('users.update', $user->id) }}">
+        <form method="POST" action="{{ route('users.update', $user->id) }}" enctype="multipart/form-data">
             @csrf
-            @method('PATCH')
-            <div class="col-xs-12 col-sm-12 col-md-12">
+            @method('PUT')
+
+            <div class="form-group row">
+                <div class="col-md-3 mt-5 mb-5">
+                    <label for="image" class="control-label">Upload Profile Image</label>
+                    <div class="input-group">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="user_image" name="user_image" onchange="previewImage(event)">
+                            <label class="custom-file-label" for="user-image">Choose file</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    @if ($user->user_image)
+                    <img src="{{ asset('profile_img/' . $user->user_image) }}" id="selected-image" style="max-height: 100px" class="mt-5">
+                    <p id="image-name" class="text-sm text-gray-400 group-hover:text-purple-600 pt-1 tracking-wider"></p>
+                    @else
+                    <p>No image selected</p>
+                    @endif
+                </div>
+            </div>
+
+            <div class="col-xs-5 col-sm-5 col-md-5">
                 <div class="form-group">
                     <label for="name">Name</label>
                     <input type="text" name="name" value="{{ $user->name }}" class="form-control">
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="col-xs-5 col-sm-5 col-md-5">
                 <div class="form-group">
                     <label for="username">Username</label>
-                    <input type="text" name="username" value="{{ $user->username }}" class="form-control">
+                    <input type="text" name="username" value="{{ $user->profile_name }}" class="form-control">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
@@ -79,5 +100,20 @@
         </form>
     </div>
 </div>
+
+@stop
+
+@section('js')
+
+<script>
+    function previewImage(event) {
+        var reader = new FileReader();
+        reader.onload = function() {
+            var output = document.getElementById('selected-image');
+            output.src = reader.result;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    }
+</script>
 
 @stop
