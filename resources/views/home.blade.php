@@ -2,9 +2,8 @@
 
 @section('title', 'Home')
 
-@section('content_header')
-<h1>Dashboard</h1>
-@stop
+@section('content_header_title', 'Home')
+@section('content_header_subtitle', 'Dashboard')
 
 @section('content')
 <p>Welcome to this beautiful admin panel.</p>
@@ -172,6 +171,10 @@
 
     .order-card a:hover {
         font-weight: bolder;
+    }
+
+    .btn:hover {
+        background: linear-gradient(to right, #0d4bf5, #040f74, #043e6e, #1093ff);
     }
 </style>
 {{-- Add here extra stylesheets --}}

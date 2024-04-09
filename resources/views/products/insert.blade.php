@@ -1,10 +1,9 @@
-@extends('adminlte::page')
+@extends('layouts.app')
 
 @section('title', 'Create')
 
-@section('content_header')
-<h1>Create Product</h1>
-@stop
+@section('content_header_title', 'Products')
+@section('content_header_subtitle', 'New')
 
 @section('content')
 <p>Panel to Create a New Product.</p>

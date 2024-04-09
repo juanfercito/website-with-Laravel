@@ -100,11 +100,17 @@
         </form>
     </div>
 </div>
+@stop
 
+@section('css')
+<style>
+    .btn:hover {
+        background: linear-gradient(to right, #0d4bf5, #040f74, #043e6e, #1093ff);
+    }
+</style>
 @stop
 
 @section('js')
-
 <script>
     function previewImage(event) {
         var reader = new FileReader();
@@ -115,5 +121,4 @@
         reader.readAsDataURL(event.target.files[0]);
     }
 </script>
-
 @stop

@@ -1,10 +1,10 @@
-@extends('adminlte::page')
+@extends('layouts.app')
 
 @section('title', 'Providers')
 
-@section('content_header')
-<h1>Providers</h1>
-@stop
+@section('content_header_title', 'Providers')
+@section('content_header_subtitle', 'View')
+
 
 @section('content')
 <p>Providers admin panel.</p>

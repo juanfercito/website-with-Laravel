@@ -1,13 +1,13 @@
-@extends('adminlte::page')
+@extends('layouts.app')
 
 @section('title', 'Shiping')
 
-@section('content_header')
-<h1>Shipping</h1>
-@stop
+@section('content_header_title', 'Shipping Services')
+@section('content_header_subtitle', 'View')
+
 
 @section('content')
-<p>Welcome to this beautiful admin panel.</p>
+<p>Welcome to Shipment admin panel.</p>
 
 <a class="btn btn-warning my-2" href="{{ route('shippings.create') }}">New</a>
 <div style="overflow-x: auto;">

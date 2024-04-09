@@ -17,9 +17,17 @@
                 <div class="card-body">
                     <div class="text-center">
                         <img src="/storage/{{Auth::user()->image}}" alt="{{Auth::user()->image}}" style="max-width: 150px; max-height: 150px;">
-                        <h2>{{ Auth::user()->name }}</h2>
+                        <h2>{{ Auth::user()->profile_name }}</h2>
+                        <p>{{ Auth::user()->name }}</p>
                         <p>{{ Auth::user()->email }}</p>
-                        <p>{{ Auth::user()->profile_name }}</p>
+                        <p>
+                            <span>DNI: </span>
+                            {{ Auth::user()->dni }}
+                        </p>
+                        <p>
+                            <span>Telephone: </span>
+                            {{ Auth::user()->telephone }}
+                        </p>
 
                     </div>
                     <a class="btn btn-info" href="{{ route('profile.edit', Auth::user()) }}">

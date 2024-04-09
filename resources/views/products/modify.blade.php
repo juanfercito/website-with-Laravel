@@ -1,13 +1,11 @@
-@extends('adminlte::page')
+@extends('layouts.app')
 
 @section('title', 'Edit')
 
-@section('content_header')
-<h1>Edit Product</h1>
-@stop
+@section('content_header_title', 'Products')
+@section('content_header_subtitle', 'Edit')
 
 @section('content')
-<p>Panel to Modify the Product Features.</p>
 
 <div class="section-body">
     <div class="row">

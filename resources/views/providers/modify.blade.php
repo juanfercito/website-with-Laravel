@@ -1,13 +1,13 @@
-@extends('adminlte::page')
+@extends('layouts.app')
 
 @section('title', 'Edit')
 
-@section('content_header')
-<h1>Edit Provider</h1>
-@stop
+@section('content_header_title', 'Providers')
+@section('content_header_subtitle', 'Edit')
+
 
 @section('content')
-<p>Panel to Modify the Provider Features.</p>
+
 <link rel="stylesheet" href="{{ asset('css/flatpickr.min.css') }}">
 
 <div class="section-body">

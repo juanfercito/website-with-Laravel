@@ -1,13 +1,11 @@
-@extends('adminlte::page')
+@extends('layouts.app')
 
 @section('title', 'Modify Role')
 
-@section('content_header')
-<h1>Edit Role</h1>
-@stop
+@section('content_header_title', 'Roles')
+@section('content_header_subtitle', 'Edit')
 
 @section('content')
-<p>Update the Features of Role.</p>
 
 <div class="card">
     <div class="card-body">
@@ -36,7 +34,9 @@
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
+                    <br>
                     <label for="username">Role Permissions</label>
+                    <br>
                     <br>
                     @foreach ($permission as $value)
                     <label>
@@ -48,7 +48,7 @@
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <button type="submit" class="btn btn-primary">Update</button>
+                <button type="submit" class="btn btn-primary">Update Role</button>
             </div>
         </form>
     </div>

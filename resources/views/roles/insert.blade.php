@@ -1,10 +1,9 @@
-@extends('adminlte::page')
+@extends('layouts.app')
 
 @section('title', 'Create')
 
-@section('content_header')
-<h1>Create Role Panel</h1>
-@stop
+@section('content_header_title', 'Roles')
+@section('content_header_subtitle', 'New')
 
 @section('content')
 <p>Creating new role into this admin panel.</p>

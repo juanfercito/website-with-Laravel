@@ -26,6 +26,8 @@ class User extends Authenticatable
         'name',
         'profile_name',
         'email',
+        'dni',
+        'telephone',
         'password',
         'image',
     ];
@@ -84,5 +86,10 @@ class User extends Authenticatable
         }
 
         return 'Guest'; // Retorna 'Guest' si no se encuentra un usuario autenticado o no tiene rol asignado
+    }
+
+    public function adminlte_profile_url()
+    {
+        return route('profile.index');
     }
 }

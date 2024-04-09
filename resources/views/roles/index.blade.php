@@ -1,13 +1,12 @@
-@extends('adminlte::page')
+@extends('layouts.app')
 
 @section('title', 'Roles')
 
-@section('content_header')
-<h1>Role Panel</h1>
-@stop
+@section('content_header_title', 'Roles')
+@section('content_header_subtitle', 'View')
 
 @section('content')
-<p>Welcome to this beautiful admin panel.</p>
+<p>Welcome to Role and Permissions admin panel.</p>
 
 <div class="row">
     <div class="col-lg-12">
@@ -31,14 +30,14 @@
             <td>{{ $role->name }}</td>
             <td>
                 @can('modify-role')
-                <a class="btn btn-primary mx-2" href="{{ route('roles.edit', $role->id) }}">Modify</a>
+                <a class="btn btn-primary mx-2 fas fa-edit" href="{{ route('roles.edit', $role->id) }}"> Modify</a>
                 @endcan
 
                 @can('delete-role')
                 <form method="POST" action="{{ route('roles.destroy', $role->id) }}" style="display: inline">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-danger">Delete</button>
+                    <button type="submit" class="btn btn-danger fas fa-trash-alt"> Delete</button>
                 </form>
                 @endcan
             </td>

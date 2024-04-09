@@ -37,6 +37,22 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6">
+                <div class="form-group">
+                    <label for="dni">Dni or Passport</label>
+                    <input id="dni" type="text" name="dni" value="{{ $user->dni }}" class="form-control">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6">
+                <div class="form-group">
+                    <label for="telephone">Telephone</label>
+                    <input id="telephone" type="text" name="telephone" value="{{ $user->telephone }}" class="form-control">
+                </div>
+            </div>
+        </div>
         <div class="form-group row">
             <div class="col-md-3 mt-5 mb-5">
                 <label for="image" class="control-label">Upload Image</label>

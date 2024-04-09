@@ -1,13 +1,11 @@
-@extends('adminlte::page')
+@extends('layouts.app')
 
 @section('title', 'Create')
 
-@section('content_header')
-<h1>New Shipping</h1>
-@stop
+@section('content_header_title', 'Shipping')
+@section('content_header_subtitle', 'New')
 
 @section('content')
-<p class="my-2">Create a New Shipping Service</p>
 
 <div class="section-body">
     <div class="row">

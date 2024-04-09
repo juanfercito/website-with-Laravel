@@ -47,6 +47,8 @@ class ProfileController extends Controller
         $user->name = $request->input('name');
         $user->email = $request->input('email');
         $user->profile_name = $request->input('profile_name');
+        $user->dni = $request->input('dni');
+        $user->telephone = $request->input('telephone');
         // Continuar con otros campos que desees actualizar
 
         // Verifica si se ha proporcionado una nueva imagen

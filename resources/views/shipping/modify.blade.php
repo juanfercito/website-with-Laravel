@@ -1,13 +1,11 @@
-@extends('adminlte::page')
+@extends('layouts.app')
 
 @section('title', 'Modify')
 
-@section('content_header')
-<h3>Edit Shipping Service</h3>
-@stop
+@section('content_header_title', 'Shipping')
+@section('content_header_subtitle', 'Edit')
 
 @section('content')
-<p class="mx-2 my-2">Modify the features of the Shipping Service</p>
 
 <div class="section-body">
     <div class="row">

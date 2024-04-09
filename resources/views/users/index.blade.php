@@ -8,7 +8,7 @@
 
 @section('content')
 <p>Here you can view all the features about customers</p>
-<a class="btn btn-warning my-2" href="{{ route('users.create') }}">New</a>
+<a class="btn btn-warning my-2" href="{{ route('users.create') }}">New User</a>
 
 <div style="overflow-x: auto;">
     <table class="table table-stripped mt-3">
