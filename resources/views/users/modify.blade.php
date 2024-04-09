@@ -1,4 +1,4 @@
-@extends('adminlte::page')
+@extends('layouts.app')
 
 @section('title', 'Modify')
 
@@ -39,8 +39,8 @@
                     </div>
                 </div>
                 <div class="col-md-9">
-                    @if ($user->user_image)
-                    <img src="{{ asset('profile_img/' . $user->user_image) }}" id="selected-image" style="max-height: 100px" class="mt-5">
+                    @if ($user->image)
+                    <img src="{{ asset('storage/' . $user->image) }}" id="selected-image" style="max-height: 100px" class="mt-5">
                     <p id="image-name" class="text-sm text-gray-400 group-hover:text-purple-600 pt-1 tracking-wider"></p>
                     @else
                     <p>No image selected</p>
@@ -57,7 +57,7 @@
             <div class="col-xs-5 col-sm-5 col-md-5">
                 <div class="form-group">
                     <label for="username">Username</label>
-                    <input type="text" name="username" value="{{ $user->profile_name }}" class="form-control">
+                    <input type="text" name="profile_name" id="profile_name" value="{{ $user->profile_name }}" class="form-control">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">

@@ -1,4 +1,4 @@
-@extends('adminlte::page')
+@extends('layouts.app')
 
 @section('title', 'Users')
 
@@ -32,7 +32,7 @@
             <tr>
                 <td style="display: none;">{{$user->id}}</td>
                 <td>{{$user->name}}</td>
-                <td>{{$user->username}}</td>
+                <td>{{$user->profile_name}}</td>
                 <td>{{$user->email}}</td>
                 <td>{{$user->dni}}</td>
                 <td>{{$user->telephone}}</td>

@@ -1,4 +1,4 @@
-@extends('adminlte::page')
+@extends('layouts.app')
 
 @section('title', 'Home')
 
@@ -8,13 +8,14 @@
 
 @section('content')
 <p>Welcome to this beautiful admin panel.</p>
+
 <section>
     <div class="scroll-container">
         <div class="wrapper" id="scrolling-1" style="background-color:#ccc; width: 400px; overflow-x:auto; overflow-y:hidden; white-space:nowrap; border-radius:8px; padding-top:25px; box-shadow:#042f58 8px 16px 8px;">
             <button type="button" onclick="window.location.href='/users'" class="item">Users</button>
             <button type="button" onclick="window.location.href='/products'" class="item">Products</button>
             <button type="button" onclick="window.location.href='/providers'" class="item">Providers</button>
-            <button type="button" onclick="window.location.href='/shipping'" class="item">Shipments</button>
+            <button type="button" onclick="window.location.href='/shippings'" class="item">Shipments</button>
             <button type="button" onclick="window.location.href='/roles'" class="item">Roles</button>
         </div>
     </div>
@@ -106,17 +107,6 @@
 </section>
 @stop
 
-@section('footer')
-<div class="footer-container">
-    <div class="col-xs-12 col-md-12 col-lg-12">
-        <h4>juanfercito Corp.</h4>
-        <h5>By Juanfercito Content Inc.</h5>
-        <h6>Almost All Rights Reserver</h6>
-    </div>
-</div>
-
-@stop
-
 @section('css')
 <style>
     .scroll-container {
@@ -182,28 +172,6 @@
 
     .order-card a:hover {
         font-weight: bolder;
-    }
-
-
-    footer {
-        display: grid;
-        align-items: center;
-        justify-content: center;
-        max-height: max-content;
-    }
-
-    .footer-container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        h4,
-        h5,
-        h6 {
-            font-size: smaller;
-            display: flex;
-            justify-content: center;
-        }
     }
 </style>
 {{-- Add here extra stylesheets --}}

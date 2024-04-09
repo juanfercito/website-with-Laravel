@@ -18,6 +18,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\ShippingController;
+use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -35,6 +36,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('products', ProductController::class);
     Route::resource('providers', ProviderController::class);
     Route::resource('shippings', ShippingController::class);
+    Route::resource('profile', ProfileController::class);
 });
 
 // Define auth routes
@@ -48,5 +50,7 @@ Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword']
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('profile/modify', [ProfileController::class, 'edit'])->name('profile.modify');
 
 //Route::get('products', 'App\Http\Controllers\RelationshipController@index');

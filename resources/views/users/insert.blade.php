@@ -1,4 +1,4 @@
-@extends('adminlte::page')
+@extends('layouts.app')
 
 @section('title', 'Users')
 
@@ -53,7 +53,7 @@
                 <div class="col-xs-12 col-sm-12 col-md-6">
                     <div class="form-group">
                         <label for="username">Username</label>
-                        <input type="text" name="username" class="form-control">
+                        <input type="text" name="profile_name" id="profile_name" class="form-control">
                     </div>
                 </div>
             </div>

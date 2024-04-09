@@ -24,9 +24,10 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'profile_name',
         'email',
         'password',
-        'user_image',
+        'image',
     ];
 
     /**
@@ -54,17 +55,12 @@ class User extends Authenticatable
 
     public function adminlte_image()
     {
-        // Check if the user has a user_image set
-        if ($this->user_image) {
-            // If user has uploaded an image, return its URL
-            return asset('profile_img/' . $this->user_image);
+        if ($this->image) {
+            return asset('storage/' . $this->image); // Agrega el separador de directorios '/'
         } else {
-            // If user has not uploaded an image, return a default image URL
-            return asset('profile_img/default.jpg'); // Cambia 'default.jpg' por el nombre de tu imagen predeterminada
+            return 'https://picsum.photos/300/300';
         }
     }
-
-
 
 
 
