@@ -2,9 +2,8 @@
 
 @section('title', 'Users')
 
-@section('content_header')
-<h1>Users</h1>
-@stop
+@section('content_header_title', 'Users')
+@section('content_header_subtitle', 'View')
 
 @section('content')
 <p>Here you can view all the features about customers</p>
@@ -73,6 +72,11 @@
 @stop
 
 @section('css')
+<style>
+    .btn {
+        border-radius: 32px;
+    }
+</style>
 {{-- Add here extra stylesheets --}}
 {{-- <link rel="stylesheet" href="/css/admin_custom.css"> --}}
 @stop

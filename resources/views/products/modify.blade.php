@@ -133,7 +133,6 @@
 <style>
     .btn {
         width: 120px;
-        border-radius: 12px;
     }
 
     .btn:hover {

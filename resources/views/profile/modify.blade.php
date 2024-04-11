@@ -83,6 +83,10 @@
 @section('css')
 
 <style>
+    .btn {
+        border-radius: 32px;
+    }
+
     .btn:hover {
         background: linear-gradient(to right, #0d4bf5, #040f74, #043e6e, #1093ff);
     }

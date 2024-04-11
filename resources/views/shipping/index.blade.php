@@ -9,7 +9,7 @@
 @section('content')
 <p>Welcome to Shipment admin panel.</p>
 
-<a class="btn btn-warning my-2" href="{{ route('shippings.create') }}">New</a>
+<a class="btn btn-warning my-2" href="{{ route('shippings.create') }}">New Service</a>
 <div style="overflow-x: auto;">
     <table class="table table-stripped mt-3">
         <thead style="background-color: #6777ef;">

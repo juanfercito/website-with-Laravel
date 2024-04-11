@@ -1,0 +1,270 @@
+* {
+    font-size: 62.5%;
+    font-family: Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
+}
+
+html {
+    background: linear-gradient(to bottom, #1b2029, #4299E1, #1b2029);
+    background-attachment: fixed;
+    height: 100%;
+    margin: 0%;
+    padding: 0%;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    width: 100%; 
+    z-index: 1000; 
+    background: linear-gradient(#1b2029);
+
+    .bars-menu {
+        background: transparent;
+        color: white;
+        border: none;
+        font-size: 2rem;
+    };
+    .bars-menu:hover {
+        color: wheat;
+        cursor: pointer;
+    }
+
+    .launch-logo {
+        max-width: 150px;
+        max-height: 150px;
+    };
+
+    .nav-info {
+        font-size: 1.6rem;
+        font-weight: bolder;
+        color: white;
+        text-decoration: none;
+        margin-right: 20px;
+    }
+
+    .search-bar {
+        display: flex;
+        align-items: center;
+        flex: 1; /* Ocupar el espacio restante */
+        text-align: center; /* Centrar elementos */
+        justify-content:flex-end;
+        font-size: 3rem;
+
+        /* Estilo para el campo de entrada de búsqueda */
+        .search-input {
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            border-radius: 20px; /* Bordes redondeados */
+            font-size: 2rem;
+            outline: none; /* Eliminar contorno al hacer clic */
+        };
+
+        /* Estilo para el botón de búsqueda */
+        .search-button {
+            background-color: #4299E1; /* Color de fondo del botón */
+            color: white; /* Color del texto */
+            border: none;
+            border-radius: 20px; /* Bordes redondeados */
+            padding: 8px 12px;
+            margin-left: 8px; /* Espacio entre el campo de entrada y el botón */
+            cursor: pointer;
+            width: 50px;
+            height: 40px;
+        };
+        .search-button:hover {
+            background: linear-gradient(to right, #4299E1, #1b2029, #4299E1);
+        }
+
+        /* Estilo para el icono de búsqueda dentro del botón */
+        .search-button i {
+            font-size: 2rem;
+            color: white;
+        };
+        .search-button i:hover {
+            color: rgb(255, 255, 120);
+        }
+    };
+
+    .navbar {
+        font-size: 3rem;
+        background-color: transparent; /* Fondo transparente */
+        display: flex;
+        justify-content: space-between; /* Elementos en los extremos */
+        align-items: center;
+        padding: 10px 15px;
+        z-index: 2;
+    };
+
+    .navbar-brand {
+        margin-right: auto; /* Empujar hacia la izquierda */
+    };
+
+    .navbar-nav {
+        display: flex;
+        gap: 20px;
+    };
+    
+    .nav-link {
+        color: white;
+        text-decoration: none; /* Sin subrayado */
+        padding: 10px 8px;
+    };
+    .nav-link:hover {
+        color: wheat;
+    }
+    
+}
+
+main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /*aside {
+        display: grid;
+        align-items: center;
+        justify-content: center;
+        width: 20%;
+        height: 50vh;
+        background: #ccc;
+
+        div {
+            color: white;
+            width: 100%;
+            height: auto;
+        }
+    }*/
+
+    section {
+        display: grid;
+        align-items: center;
+        justify-content: center;
+        /*width: 60%;*/
+        margin-top: 20px;
+
+        .title-beginning {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+
+            h2 {
+                font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+                font-size: 5rem;
+                color: aliceblue;
+            }
+        }
+
+        .image-beginning {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+
+            .background {
+                position: relative;
+                width: 500px;
+                height: 450px;
+                background: radial-gradient(ellipse at center, transparent 0%, rgba(255,255,255,0) 80%);
+            }
+
+            .image-container {
+                position: relative;
+                overflow: hidden;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 10px;
+
+                img {
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+                    mask-image: radial-gradient(ellipse at center, black 40%, transparent 70%);
+                    border-radius: 32px;
+                };
+                /*.overlay {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: radial-gradient(ellipse at center, transparent 60%, rgba(255, 255, 255, 0) 80%);
+                }*/
+            }
+        }
+    }
+}
+
+footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%; 
+    background-color: transparent;
+    z-index: 1000; 
+
+    .credits {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        .parr-1 {
+            font-size: 1.5rem;
+            margin-inline: 10px;
+        }
+        .parr-2 {
+            font-size: 1.5rem;
+            margin-inline: 10px;
+        }
+        .parr-3 {
+            font-size: 1.5rem;
+            margin-inline: 10px;
+        }
+        .float-right {
+            display: flex;
+            font-size: 1.5rem;
+            margin-left: 10vw;
+            z-index: 1;
+         }
+    }
+}
+
+/* Estilos responsive */
+@media screen and (max-width: 500px) {
+    .navbar {
+        flex-direction: column; /* Apilar elementos en dispositivos pequeños */
+        align-items: center;
+        text-align: center;
+    }
+
+    .search-bar {
+        margin-top: 10px;
+        font-size: 1.8rem;
+    }
+
+    .navbar-nav {
+        margin-top: 10px; /* Espacio entre enlaces */
+    }
+
+    .nav-link {
+        font-size: 1.5rem;
+    }
+
+    .background{
+        width: 500px;
+        height: 450px;
+    }
+
+    .parr-1, .parr-2, .parr-3 {
+        font-size: 1rem;
+        margin-inline: 10px;
+    }
+}
+

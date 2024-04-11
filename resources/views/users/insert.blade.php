@@ -2,9 +2,8 @@
 
 @section('title', 'Users')
 
-@section('content_header')
-<h1>Users</h1>
-@stop
+@section('content_header_title', 'Users')
+@section('content_header_subtitle', 'New')
 
 @section('content')
 <div class="card">
@@ -74,6 +73,20 @@
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-6">
                     <div class="form-group">
+                        <label for="telephone">Telephone</label>
+                        <input type="text" name="telephone" class="form-control">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-6">
+                    <div class="form-group">
+                        <label for="address">Address</label>
+                        <textarea type="text" name="address" class="form-control"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-6">
+                    <div class="form-group">
                         <label for="password">Password</label>
                         <input type="password" name="password" class="form-control">
                     </div>
@@ -111,7 +124,7 @@
 <style>
     .btn {
         width: 120px;
-        border-radius: 12px;
+        border-radius: 32px;
     }
 
     .btn:hover {
