@@ -13,6 +13,8 @@
     <table class="table table-stripped mt-3">
         <thead style="background-color: #6777ef;">
             <tr>
+
+                <th style="color: #fff; display: flex; justify-content:center;">Actions</th>
                 <th style="display: none;">ID</th>
                 <th style="color: #fff; white-space: nowrap;">Name</th>
                 <th style="color: #fff;">Username</th>
@@ -23,12 +25,31 @@
                 <th style="color: #fff;">city</th>
                 <th style="color: #fff;">Province</th>
                 <th style="color: #fff;">Role</th>
-                <th style="color: #fff;">Actions</th>
+
             </tr>
         </thead>
         <tbody>
             @foreach($users as $user)
             <tr>
+
+                <td>
+                    <div class="btn-action">
+                        <a class="btn btn-info btn-sm" href="{{ route('users.edit', $user->id) }}">
+                            <i class="d-inline d-sm-none fas fa-pen"></i>
+                            <span class="d-none d-sm-inline-flex">Modify</span>
+                        </a>
+                        <form method="POST" action="{{ route('users.destroy', $user->id) }}">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger btn-sm">
+                                <span class="d-none d-sm-inline">Delete</span>
+                                <i class="d-inline d-sm-none fas fa-trash-alt"></i>
+                            </button>
+                        </form>
+                    </div>
+                </td>
+
+
                 <td style="display: none;">{{$user->id}}</td>
                 <td>{{$user->name}}</td>
                 <td>{{$user->profile_name}}</td>
@@ -45,21 +66,7 @@
                     @endforeach
                     @endif
                 </td>
-                <td>
-                    <a class="btn btn-info" href="{{ route('users.edit', $user->id) }}">
-                        <span class="d-none d-sm-inline-flex">Edit</span>
-                        <i class="d-inline d-sm-none fas fa-edit"></i>
-                    </a>
 
-                    <form method="POST" action="{{ route('users.destroy', $user->id) }}" style="display: inline-flex">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger mx-2">
-                            <span class="d-none d-sm-inline">Delete</span>
-                            <i class="d-inline d-sm-none fas fa-trash-alt"></i>
-                        </button>
-                    </form>
-                </td>
             </tr>
             @endforeach
         </tbody>
@@ -72,11 +79,7 @@
 @stop
 
 @section('css')
-<style>
-    .btn {
-        border-radius: 32px;
-    }
-</style>
+
 {{-- Add here extra stylesheets --}}
 {{-- <link rel="stylesheet" href="/css/admin_custom.css"> --}}
 @stop

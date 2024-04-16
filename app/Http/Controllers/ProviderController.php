@@ -37,26 +37,30 @@ class ProviderController extends Controller
      */
     public function store(Request $request)
     {
-        request()->validate([
+        $validatedData = $request->validate([
             'name' => 'required',
-            'category' => 'required',
+            'provider_class_id' => 'required',
+            'provider_category_id' => 'required',
             'description' => 'required',
             'image' => 'required|image|mimes:jpeg,png,svg|max:1024',
             'location' => 'required',
-            'closing-order-date' => 'required',
-            'application-date' => 'required',
+            'closing_order_date' => 'required',
+            'application_date' => 'required',
         ]);
 
-        $provider = $request->all();
-        if ($image = $request->file('image')) {
-            $saveImgRoute = 'provider-img/';
-            $providerImg = date('YmdHis') . "." . $image->getClientOriginalExtension();
-            $image->move($saveImgRoute, $providerImg);
-            $provider['image'] = $providerImg;
+        $provider = $validatedData; // Utilizar los datos validados
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->storeAs('public/provider_img', $imageName); // Guardar la imagen en la carpeta storage/app/public/provider_img
+            $provider['image'] = $imageName; // Asignar el nombre de la imagen al arreglo $provider
         }
+
         Provider::create($provider);
         return redirect()->route('providers.index');
     }
+
 
     /**
      * Display the specified resource.
@@ -79,16 +83,24 @@ class ProviderController extends Controller
      */
     public function update(Request $request, Provider $provider)
     {
-        request()->validate([
+        $validatedData = $request->validate([
             'name' => 'required',
-            'category' => 'required',
+            'provider_class_id' => 'required',
+            'provider_category_id' => 'required',
             'description' => 'required',
-            'image' => 'required',
+            'image' => 'image|mimes:jpeg,png,svg|max:1024',
             'location' => 'required',
-            'closing-order-date' => 'required',
-            'application-date' => 'required',
+            'closing_order_date' => 'required',
+            'application_date' => 'required',
         ]);
-        $provider->update($request->all());
+
+        // Si la imagen no se cambia, no es necesaria
+        if (!$request->hasFile('image')) {
+            unset($validatedData['image']);
+        }
+
+        $provider->update($validatedData);
+
         return redirect()->route('providers.index');
     }
 

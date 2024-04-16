@@ -41,13 +41,21 @@
                             <div class="col-xs-12 col-sm-12 col-md-4">
                                 <div class="form-floating">
                                     <label for="provider-class">Provider Class</label>
-                                    <select type="text" name="provider-class" class="form-control"></select>
+                                    <select name="provider_class_id" id="provider_class_id" class="form-control">
+                                        @foreach(App\Models\ProviderClass::all() as $providerClass)
+                                        <option value="{{ $providerClass->id }}">{{ $providerClass->name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-4">
                                 <div class="form-floating">
                                     <label for="category">Category</label>
-                                    <select type="text" name="category" class="form-control"></select>
+                                    <select name="provider_category_id" id="provider_category_id" class="form-control">
+                                        @foreach(App\Models\ProviderCategory::all() as $providerCategory)
+                                        <option value="{{ $providerCategory->id }}">{{ $providerCategory->name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-4">
@@ -104,7 +112,7 @@
                         </div>
 
                         <div class="flex items-center justify-center md:gap-8 gap-4 pt-5 pb-5">
-                            <a href="{{route('products.index')}}" class="w-auto bg-gray-500 hover:bg-gray-700 rounded-lg shadow-x1 font-medium text-white px-4 py-2"></a>
+                            <a href="{{route('providers.index')}}" class="w-auto bg-gray-500 hover:bg-gray-700 rounded-lg shadow-x1 font-medium text-white px-4 py-2"></a>
                             <button type="submit" class="btn btn-primary">Save Provider</button>
                         </div>
                     </form>

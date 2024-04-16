@@ -29,7 +29,7 @@
                     </div>
                     @endif
 
-                    <form action="{{route('providers.store')}}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('providers.update', ['provider' => $provider->id]) }}" method="post" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="row">
@@ -41,28 +41,38 @@
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-4">
                                 <div class="form-floating">
-                                    <label for="product-class">Product Class</label>
-                                    <select type="text" name="product-class" class="form-control"></select>
+                                    <label for="provider-class">Provider Class</label>
+                                    <select name="provider_class_id" id="provider_class_id" class="form-control">
+                                        @foreach(App\Models\ProviderClass::all() as $providerClass)
+                                        <option value="{{ $providerClass->id }}" {{ $provider->provider_class_id == $providerClass->id ? 'selected' : '' }}>
+                                            {{ $providerClass->name }}
+                                        </option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
+
                             <div class="col-xs-12 col-sm-12 col-md-4">
                                 <div class="form-floating">
-                                    <label for="category">Category</label>
-                                    <select type="text" name="category" class="form-control"></select>
+                                    <label for="provider-category">Category</label>
+                                    <select name="provider_category_id" id="provider_category_id" class="form-control">
+                                        @foreach(App\Models\ProviderCategory::all() as $providerCategory)
+                                        <option value="{{ $providerCategory->id }}" {{ $provider->provider_category_id == $providerCategory->id ? 'selected' : '' }}>
+                                            {{ $providerCategory->name }}
+                                        </option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
-                            <div class="col-xs-12 col-sm-12 col-md-4">
-                                <div class="form-floating">
-                                    <label for="product-type">Product Type</label>
-                                    <select type="text" name="product-type" class="form-control"></select>
-                                </div>
-                            </div>
+
+
                             <div class="col-xs-12 col-sm-12 col-md-4">
                                 <div class="form-floating">
                                     <label for="description">Description</label>
-                                    <textarea class="form-control" name="description" style="height:100px;">value="{{ $provider->description }}"</textarea>
+                                    <textarea class="form-control" name="description" style="height:100px;">{{ $provider->description }}</textarea>
                                 </div>
                             </div>
+
                         </div>
 
                         <div class="form-group row">
@@ -76,7 +86,8 @@
                                 </div>
                             </div>
                             <div class="col-md-9">
-                                <img src="/provider-img/{{ $provider->image }}" id="selected-image" style="max-height: 100px" class="mt-5">
+                                <img src="{{ asset('storage/public/provider_img/' . $provider->image) }}" id="selected-image" style="max-height: 100px" class="mt-5">
+
                                 <p id="image-name" class="text-sm text-gray-400 group-hover:text-purple-600 pt-1 tracking-wider" style="display: none"></p>
                             </div>
                         </div>

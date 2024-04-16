@@ -11,12 +11,23 @@ class Provider extends Model
 
     protected $fillable = [
         "name",
-        "category",
+        "provider_class_id",
+        "provider_category_id",
         "description",
-        "logo",
+        "image",
         "location",
-        "closing-order-date",
-        "application-date",
+        "closing_order_date",
+        "application_date",
         "status",
     ];
+
+    public function providerClass()
+    {
+        return $this->belongsTo(ProviderClass::class, 'provider_class_id');
+    }
+
+    public function providerCategory()
+    {
+        return $this->belongsTo(ProviderCategory::class, 'provider_category_id');
+    }
 }

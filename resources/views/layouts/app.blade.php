@@ -58,22 +58,27 @@
 
 @push('css')
 <style type="text/css">
+    .btn-action {
+        display: flex;
+        align-items: center;
+        margin-right: 4px;
+    }
+
     .btn {
-        border-radius: 32px;
+        margin-inline: 4px;
+        border-radius: 12px;
     }
 
     .btn:hover {
         background: linear-gradient(to right, #0d4bf5, #040f74, #043e6e, #1093ff);
     }
 
+    @media(max-width: 600px) {
+        thead {
+            font-size: 0.8rem;
+        }
+    }
+
     /*{{-- You can add AdminLTE customizations here --}}*/
-    /*
-.card-header {
-border-bottom: none;
-}
-.card-title {
-font-weight: 600;
-}
-*/
 </style>
 @endpush

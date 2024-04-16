@@ -17,9 +17,10 @@
                     <a class="btn btn-warning" href="{{route('products.create')}}">New Product</a>
                     @endcan
 
-                    <div style="overflow-x:auto">
+                    <div style="overflow-x: auto;">
                         <table class="table table-stripped mt-3">
                             <thead style="background-color: #6777ef;">
+                                <th style="color: #fff; display: flex; justify-content:center;">Actions</th>
                                 <th style="display: none;">ID</th>
                                 <th style="color: #fff;">Title</th>
                                 <th style="color: #fff;">Class</th>
@@ -28,12 +29,35 @@
                                 <th style="color: #fff;">Image</th>
                                 <th style="color: #fff;">Price</th>
                                 <th style="color: #fff;">Cant</th>
-                                <th style="color: #fff;">Actions</th>
+
                             </thead>
 
                             <tbody>
                                 @foreach($products as $product)
                                 <tr>
+
+                                    <td>
+                                        <div class="btn-action">
+                                            @can('modify-product')
+                                            <a class="btn btn-info btn-sm" href="{{ route('products.edit', $product->id) }}">
+                                                <i class="d-inline d-sm-none fas fa-pen"></i>
+                                                <span class="d-none d-sm-inline-flex">Modify</span>
+                                            </a>
+                                            @endcan
+
+                                            <form action="{{ route('products.destroy', $product->id) }}" method="post">
+                                                @csrf
+                                                @method('DELETE')
+                                                @can('delete-product')
+                                                <button type="submit" class="btn btn-danger btn-sm">
+                                                    <i class="d-inline d-sm-none fas fa-trash-alt"></i>
+                                                    <span class="d-none d-sm-inline-flex">Delete</span>
+                                                </button>
+                                                @endcan
+                                            </form>
+                                        </div>
+                                    </td>
+
                                     <td>{{$product->title}}</td>
                                     <td>{{$product->productClass->name}}</td>
                                     <td>{{$product->productCategory->name}}</td>
@@ -43,19 +67,7 @@
                                     </td>
                                     <td>{{$product->price}}</td>
                                     <td>{{$product->cant}}</td>
-                                    <td>
-                                        <form action="{{route('products.destroy', $product->id)}}" method="post">
-                                            @can('modify-product')
-                                            <a class="btn btn-info fas fa-edit" href="{{route('products.edit', $product->id)}}">Edit</a>
-                                            @endcan
 
-                                            @csrf
-                                            @method('DELETE')
-                                            @can('delete-product')
-                                            <button type="submit" class="btn btn-danger fas fa-trash-alt">delete</button>
-                                            @endcan
-                                        </form>
-                                    </td>
                                 </tr>
                                 @endforeach
                             </tbody>

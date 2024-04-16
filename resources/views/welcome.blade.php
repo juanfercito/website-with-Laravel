@@ -88,15 +88,16 @@
                 </main>
 
                 <footer>
-                    <div>
-                        <div class="row">
-                            <div class="credits">
-                                <p class="parr-1">juanfercito Corp.</p>
-                                <p class="parr-2">By Juanfercito Content Inc.</p>
-                                <p class="parr-3">Almost All Rights Reserved</p>
+                    <div class="row">
+                        <div class="credits">
+                            <div class="parr-1">
+                                <p>juanfercito Corp.</p>
                             </div>
-                            <div class="float-right">
-                                Version: {{ config('app.version', '1.0.0') }}
+                            <div class="parr-2">
+                                <p>By Juanfercito Content Inc.</p>
+                            </div>
+                            <div class="parr-3">
+                                <p>Almost All Rights Reserved</p>
                             </div>
                         </div>
                     </div>

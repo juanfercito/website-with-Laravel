@@ -11,13 +11,13 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card flex items-center justify-center">
+            <div class="card flex items-center justify-center" style="border-radius:24px; background-color: #2b3b4b;">
                 <div class="card-header">Preview</div>
 
                 <div class="card-body">
                     <div class="text-center">
-                        <img src="/storage/{{Auth::user()->image}}" alt="{{Auth::user()->image}}" style="max-width: 150px; max-height: 150px;">
-                        <h2>{{ Auth::user()->profile_name }}</h2>
+                        <img src="/storage/{{Auth::user()->image}}" alt="{{Auth::user()->image}}" style="max-width: 150px; max-height: 150px; border-radius: 12px;">
+                        <h2 class="my-3">{{ Auth::user()->profile_name }}</h2>
                         <p>{{ Auth::user()->name }}</p>
                         <p>{{ Auth::user()->email }}</p>
                         <p>

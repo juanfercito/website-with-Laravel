@@ -45,11 +45,14 @@ header {
         text-decoration: none;
         margin-right: 20px;
     }
+    .nav-info:hover {
+        color: wheat;
+    }
 
     .search-bar {
         display: flex;
         align-items: center;
-        flex: 1; /* Ocupar el espacio restante */
+        flex-grow: 1; /* Ocupar el espacio restante */
         text-align: center; /* Centrar elementos */
         justify-content:flex-end;
         font-size: 3rem;
@@ -201,9 +204,6 @@ main {
 }
 
 footer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     position: fixed;
     bottom: 0;
     width: 100%; 
@@ -214,25 +214,32 @@ footer {
         display: flex;
         align-items: center;
         justify-content: center;
-        color: white;
+        width: 100%;
+        color: #aaa;
+
         .parr-1 {
-            font-size: 1.5rem;
-            margin-inline: 10px;
+            display: flex;
+            align-items: center;
+            justify-content:flex-start;
+            width: 33.3%;
+            font-size: 2rem;
+            margin-left: 10px;
         }
         .parr-2 {
-            font-size: 1.5rem;
-            margin-inline: 10px;
+            display: flex;
+            align-items: center;
+            justify-content:center;
+            width: 33.3%;
+            font-size: 2rem;
         }
         .parr-3 {
-            font-size: 1.5rem;
-            margin-inline: 10px;
-        }
-        .float-right {
             display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            width: 33.3%;
             font-size: 1.5rem;
-            margin-left: 10vw;
-            z-index: 1;
-         }
+            margin-right: 20px;
+        }
     }
 }
 
