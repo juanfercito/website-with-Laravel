@@ -89,6 +89,20 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <label for="city">City</label>
+                        <input type="text" name="city" value="{{ $user->city }}" class="form-control">
+                    </div>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <label for="province">Province</label>
+                        <input type="text" name="province" value="{{ $user->province }}" class="form-control">
+                    </div>
+                </div>
+            </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <label for="password">Password</label>

@@ -10,12 +10,31 @@
 <div class="section-body">
     <div class="row">
         <div class="col-lg-12">
-            <div class="card">
+            <div class="card" style="border-radius: 16px;">
                 <div class="card-body">
 
-                    @can('insert-product')
-                    <a class="btn btn-warning" href="{{route('products.create')}}">New Product</a>
-                    @endcan
+                    <div class="row">
+                        @can('insert-product')
+                        <a class="btn btn-warning my-2 text-white" href="{{route('products.create')}}">New Product</a>
+                        @endcan
+
+                        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+                            <div class="input-group my-2">
+                                <form action="{{ route('products.index') }}" method="GET" class="input-group mb-6">
+
+                                    <span class="input-group"><i class="bi bi-search"></i></span>
+                                    <input type="text" class="form-control" name="search" placeholder="Search for..." value="{{ request('search') }}">
+                                    <button class="btn bg-secondary search-button" type="submit">
+                                        <i class="text-white fas fa-search"></i> <!-- Icono de búsqueda -->
+                                    </button>
+                                    <button class="btn" type="reset" onclick="clearSearch();">
+                                        <i class="text-white fa fa-sync"></i> <!-- Icono de búsqueda -->
+                                    </button>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
 
                     <div style="overflow-x: auto;">
                         <table class="table table-stripped mt-3">
@@ -107,5 +126,13 @@
     }, {
         passive: true
     });
+</script>
+
+{{-- link for refreshing screen --}}
+<script>
+    function clearSearch() {
+        document.querySelector('.form-control[name="search"]').value = ''; // Establece el valor del campo de búsqueda en vacío
+        document.querySelector('.input-group.mb-6').submit();
+    }
 </script>
 @stop

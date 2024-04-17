@@ -28,6 +28,18 @@
                             <span>Telephone: </span>
                             {{ Auth::user()->telephone }}
                         </p>
+                        <p>
+                            <span>Address: </span>
+                            {{ Auth::user()->address }}
+                        </p>
+                        <p>
+                            <span>City: </span>
+                            {{ Auth::user()->city }}
+                        </p>
+                        <p>
+                            <span>Province: </span>
+                            {{ Auth::user()->province }}
+                        </p>
 
                     </div>
                     <a class="btn btn-info" href="{{ route('profile.edit', Auth::user()) }}">

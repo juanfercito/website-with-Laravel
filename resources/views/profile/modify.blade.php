@@ -53,6 +53,30 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6">
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <input id="address" type="text" name="address" value="{{ $user->address }}" class="form-control">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6">
+                <div class="form-group">
+                    <label for="city">City</label>
+                    <input id="city" type="text" name="city" value="{{ $user->city }}" class="form-control">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6">
+                <div class="form-group">
+                    <label for="province">Province</label>
+                    <input id="province" type="text" name="province" value="{{ $user->province }}" class="form-control">
+                </div>
+            </div>
+        </div>
         <div class="form-group row">
             <div class="col-md-3 mt-5 mb-5">
                 <label for="image" class="control-label">Upload Image</label>

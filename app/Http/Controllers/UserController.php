@@ -28,11 +28,21 @@ class UserController extends Controller
         $this->middleware('permission:modify-user', ['only' => ['edit', 'update']]);
         $this->middleware('permission:delete-user', ['only' => ['destroy']]);
     }
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::paginate(5);
+        $query = $request->input('search');
+
+        $users = User::where(function ($q) use ($query) {
+            $q->where('name', 'like', "%$query%")
+                ->orWhere('dni', 'like', "%$query%")
+                ->orWhere('city', 'like', "%$query%")
+                ->orWhere('province', 'like', "%$query%");
+        })
+            ->paginate(5);
+
         return view('users.index', compact('users'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -54,6 +64,9 @@ class UserController extends Controller
             'email' => 'required|email|unique:users,email',
             'dni' => 'required',
             'telephone' => 'required',
+            'address' => 'required',
+            'city' => 'required',
+            'province' => 'required',
             'password' => 'required|same:confirm-password',
             'roles' => 'required|array', // make sure the roles are an array
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Make user_image field optional
@@ -119,6 +132,9 @@ class UserController extends Controller
             'email' => 'required|email|unique:users,email,' . $id,
             'dni' => 'required',
             'telephone' => 'nullable',
+            'address' => 'nullable',
+            'city' => 'required',
+            'province' => 'required',
             'password' => 'same:confirm-password',
             'roles' => 'required',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',

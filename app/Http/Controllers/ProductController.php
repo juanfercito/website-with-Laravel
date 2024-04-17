@@ -18,9 +18,25 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::paginate(5);
+        $query = $request->input('search');
+
+        $products = Product::where(function ($q) use ($query) {
+            $q->where('title', 'like', "%$query%")
+                ->orWhereHas('productClass', function ($q) use ($query) {
+                    $q->where('name', 'like', "%$query%");
+                })
+                ->orWhereHas('productCategory', function ($q) use ($query) {
+                    $q->where('name', 'like', "%$query%");
+                })
+                ->orWhereHas('productType', function ($q) use ($query) {
+                    $q->where('name', 'like', "%$query%");
+                });
+        })
+            ->paginate(5);
+
+
         return view('products.index', compact('products'));
     }
 
