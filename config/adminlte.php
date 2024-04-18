@@ -357,7 +357,7 @@ return [
                     'text' => 'Shipping',
                     'route' => 'shippings.index',
                     'icon' => 'fa fa-truck',
-                    'icon_color' => 'info',
+                    'icon_color' => 'olive',
                 ],
                 [
                     'text' => 'Roles',
@@ -373,10 +373,12 @@ return [
                             'text' => ' Incomes',
                             'url' => '#',
                             'icon' => 'fa fa-plus-square',
+                            'icon_color' => 'success',
                         ],
                         [
                             'text' => 'Sales',
                             'icon' => 'fa fa-shopping-basket',
+                            'icon_color' => 'info',
                             'submenu' => [
                                 [
                                     'text' => 'level_two',
