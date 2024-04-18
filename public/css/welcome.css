@@ -52,7 +52,7 @@ header {
     .search-bar {
         display: flex;
         align-items: center;
-        flex-grow: 1; /* Ocupar el espacio restante */
+        flex: 2; /* Ocupar el espacio restante */
         text-align: center; /* Centrar elementos */
         justify-content:flex-end;
         font-size: 3rem;
@@ -91,6 +91,18 @@ header {
             color: rgb(255, 255, 120);
         }
     };
+
+    .shopping-cart {
+        background-color: transparent;
+        color: white;
+        border: none;
+        font-size: 2rem;
+        margin-left: 20px;
+        margin-right: 10px;
+    }
+    .shopping-cart:hover {
+        color: wheat;
+    }
 
     .navbar {
         font-size: 3rem;

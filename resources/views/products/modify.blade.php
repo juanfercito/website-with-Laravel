@@ -102,19 +102,13 @@
                             </div>
                         </div>
 
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <label for="stock">Stock</label>
+                                <input type="number" name="stock" class="form-control" value="{{ $product->stock }}">
+                            </div>
+                        </div>
 
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="form-group">
-                                <label for="price">Price</label>
-                                <input type="text" name="price" class="form-control" value="{{ $product->price }}">
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="form-group">
-                                <label for="cant">Cant</label>
-                                <input type="number" name="cant" class="form-control" value="{{ $product->cant }}">
-                            </div>
-                        </div>
                         <br>
                         <button type="submit" class="btn btn-primary">Save Changes</button>
 

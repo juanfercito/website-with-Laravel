@@ -60,8 +60,7 @@ class ProductController extends Controller
             'product_type_id' => 'required',
             'description' => 'required',
             'image' => 'required|image|mimes:jpeg,png,svg|max:1024',
-            'price' => 'required',
-            'cant' => 'required',
+            'stock' => 'required',
         ]);
 
         // getting all form data
@@ -115,8 +114,7 @@ class ProductController extends Controller
             'product_category_id' => 'required',
             'product_type_id' => 'required',
             'description' => 'required',
-            'price' => 'required',
-            'cant' => 'required',
+            'stock' => 'required',
         ]);
 
         // Validating image onli if upload a new image
@@ -143,6 +141,7 @@ class ProductController extends Controller
         $product->product_type_id = $request->product_type_id;
 
         // Save the changes
+        $product->status = ($product->stock > 0) ? 'Available' : 'Unavailable';
         $product->save();
 
         return redirect()->route('products.index');

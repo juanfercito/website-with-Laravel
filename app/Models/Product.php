@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'title',
         'product_class_id',
@@ -15,9 +16,28 @@ class Product extends Model
         'product_type_id',
         'description',
         'image',
-        'price',
-        'cant',
+        'stock',
+        'status', // Asegúrate de incluir el campo 'status' en los atributos masivos (mass assignable)
     ];
+
+    protected $attributes = [
+        'status' => 'Available',
+    ];
+
+    // Definición del evento para actualizar el campo 'status'
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::updating(function ($product) {
+            // Actualizar el campo 'status' basado en la cantidad de unidades disponibles
+            if ($product->stock > 0) {
+                $product->status = 'Available';
+            } else {
+                $product->status = 'Unavailable';
+            }
+        });
+    }
 
     public function productClass()
     {

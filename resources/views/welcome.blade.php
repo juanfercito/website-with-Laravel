@@ -10,6 +10,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image" href="favicons/favicon.ico">
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('css/welcome.css') }}">
@@ -41,6 +42,10 @@
                         <button class="search-button">
                             <i class="text-white fas fa-search"></i> <!-- Icono de búsqueda -->
                         </button>
+                    </div>
+
+                    <div class="flex lg:justify-center lg:col-start-2">
+                        <a href="/" class="shopping-cart fa fa-cart-plus" aria-hidden="true"></a>
                     </div>
 
 

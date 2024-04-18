@@ -46,8 +46,8 @@
                                 <th style="color: #fff;">Category</th>
                                 <th style="color: #fff;">Type</th>
                                 <th style="color: #fff;">Image</th>
-                                <th style="color: #fff;">Price</th>
-                                <th style="color: #fff;">Cant</th>
+                                <th style="color: #fff;">Stock</th>
+                                <th style="color: #fff;">Status</th>
 
                             </thead>
 
@@ -84,8 +84,8 @@
                                     <td>
                                         <img src="/product-img/{{$product->image}}" alt="{{$product->image}}" style="width: 50px; height: 30px;">
                                     </td>
-                                    <td>{{$product->price}}</td>
-                                    <td>{{$product->cant}}</td>
+                                    <td>{{$product->stock}}</td>
+                                    <td>{{$product->status}}</td>
 
                                 </tr>
                                 @endforeach

@@ -100,14 +100,8 @@
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-4">
                                 <div class="form-group">
-                                    <label for="price">Price</label>
-                                    <input type="text" name="price" class="form-control" placeholder="0.00">
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-4">
-                                <div class="form-group">
-                                    <label for="cant">Cant</label>
-                                    <input class="form-control" type="number" name="cant" min="0" step="1" placeholder="0">
+                                    <label for="stock">Stock</label>
+                                    <input class="form-control" type="number" name="stock" min="0" step="1" placeholder="0">
                                 </div>
                             </div>
                         </div>

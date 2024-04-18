@@ -110,7 +110,7 @@ return [
     */
 
     'preloader' => [
-        'enabled' => true,
+        'enabled' => false,
         'mode' => 'fullscreen',
         'img' => [
             'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
@@ -332,15 +332,6 @@ return [
 
         // Sidebar items:
         [
-            'type' => 'sidebar-menu-search',
-            'text' => 'search',
-        ],
-        [
-            'text' => 'blog',
-            'url' => 'admin/blog',
-            'can' => 'manage-blog',
-        ],
-        [
             'text' => 'BUSINESS RESOURCES',
             'icon' => 'fas fa-fw fa-building',
             'submenu' => [
@@ -373,6 +364,45 @@ return [
                     'route' => 'roles.index',
                     'icon' => 'fa fa-key',
                     'icon_color' => 'red',
+                ],
+                [
+                    'text' => 'Inventary',
+                    'icon' => 'fas fa-fw fa fa-file',
+                    'submenu' => [
+                        [
+                            'text' => ' Incomes',
+                            'url' => '#',
+                            'icon' => 'fa fa-plus-square',
+                        ],
+                        [
+                            'text' => 'Sales',
+                            'icon' => 'fa fa-shopping-basket',
+                            'submenu' => [
+                                [
+                                    'text' => 'level_two',
+                                    'url' => '#',
+                                ],
+                                [
+                                    'text' => 'level_two',
+                                    'url' => '#',
+                                    'submenu' => [
+                                        [
+                                            'text' => 'level_three',
+                                            'url' => '#',
+                                        ],
+                                        [
+                                            'text' => 'level_three',
+                                            'url' => '#',
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                        [
+                            'text' => 'level_one',
+                            'url' => '#',
+                        ],
+                    ],
                 ],
             ],
         ],
