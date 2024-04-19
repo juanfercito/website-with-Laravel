@@ -16,6 +16,7 @@
             <button type="button" onclick="window.location.href='/providers'" class="item">Providers</button>
             <button type="button" onclick="window.location.href='/shippings'" class="item">Shipments</button>
             <button type="button" onclick="window.location.href='/roles'" class="item">Roles</button>
+            <button type="button" onclick="window.location.href='/statistics'" class="item">Statistics</button>
         </div>
     </div>
 
@@ -92,6 +93,19 @@
                                         @endphp
                                         <h2 class="text-right"><i class="fa fa-truck f-left text-white"></i><span class="mx-2 text-white">{{ $cant_shipping_services }}</span></h2>
                                         <p class="m-b-0 text-right text-white"><a href="/shippings" class="text-white text-decoration-none mx-2">Watch more...</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-xl-4">
+                                <div class="card order-card" style="background-color: #906030;">
+                                    <div class="card-block">
+                                        <h4 class="mt-2 mx-2 text-white">Statistics</h4>
+                                        @php
+                                        /*use App\Models\Shipping;
+                                        $cant_shipping_services = Shipping::count()*/
+                                        @endphp
+                                        <h2 class="text-right"><i class="fa fa-tasks f-left text-white" aria-hidden="true"></i><span class="mx-2 text-white"></span></h2>
+                                        <p class="m-b-0 text-right text-white"><a href="/statistics" class="text-white text-decoration-none mx-2">Watch more...</a></p>
                                     </div>
                                 </div>
                             </div>

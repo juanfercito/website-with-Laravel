@@ -301,11 +301,6 @@ return [
             'topnav' => true,
         ],
         [
-            'type' => 'navbar-search',
-            'text' => 'search',
-            'topnav_right' => true,
-        ],
-        [
             'type' => 'fullscreen-widget',
             'topnav_right' => true,
         ],
@@ -365,49 +360,63 @@ return [
                     'icon' => 'fa fa-key',
                     'icon_color' => 'red',
                 ],
+            ],
+        ],
+
+        [
+            'text' => 'INVENTARY',
+            'icon' => 'fas fa-fw fa fa-file',
+            'submenu' => [
                 [
-                    'text' => 'Inventary',
-                    'icon' => 'fas fa-fw fa fa-file',
+                    'text' => ' Income-Products',
+                    'url' => '#',
+                    'icon' => 'fa fa-plus-square',
+                    'icon_color' => 'success',
+                ],
+                [
+                    'text' => ' Sales',
+                    'url' => '#',
+                    'icon' => 'fa fa-shopping-basket',
+                    'icon_color' => 'warning',
+                ],
+                [
+                    'text' => 'Accounting Staitment',
+                    'icon' => 'fa fa-fw fa-money',
+                    'icon_color' => 'info',
                     'submenu' => [
                         [
-                            'text' => ' Incomes',
+                            'text' => 'Income-Products',
                             'url' => '#',
-                            'icon' => 'fa fa-plus-square',
-                            'icon_color' => 'success',
+                            'icon_color' => 'success'
                         ],
                         [
-                            'text' => 'Sales',
-                            'icon' => 'fa fa-shopping-basket',
-                            'icon_color' => 'info',
+                            'text' => 'Sale',
+                            'url' => '#',
+                            'icon_color' => 'warning'
+                        ],
+                        [
+                            'text' => 'Statistics',
+                            'icon' => 'fa fa-fw',
                             'submenu' => [
                                 [
-                                    'text' => 'level_two',
+                                    'text' => 'Income-Products',
                                     'url' => '#',
+                                    'icon' => 'fas fa-signal',
+                                    'icon_color' => 'success'
                                 ],
                                 [
-                                    'text' => 'level_two',
+                                    'text' => 'Sales',
                                     'url' => '#',
-                                    'submenu' => [
-                                        [
-                                            'text' => 'level_three',
-                                            'url' => '#',
-                                        ],
-                                        [
-                                            'text' => 'level_three',
-                                            'url' => '#',
-                                        ],
-                                    ],
+                                    'icon' => 'fas fa-signal',
+                                    'icon_color' => 'warning'
                                 ],
                             ],
-                        ],
-                        [
-                            'text' => 'level_one',
-                            'url' => '#',
                         ],
                     ],
                 ],
             ],
         ],
+
         [
             'text' => 'account_settings',
             'icon' => 'fa fa-cog',
@@ -426,7 +435,7 @@ return [
         ],
 
         [
-            'text' => 'multilevel',
+            'text' => 'MY BUSINESS',
             'icon' => 'fas fa-fw fa-share',
             'submenu' => [
                 [

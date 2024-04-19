@@ -14,7 +14,7 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('css/welcome.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="{{ asset('fonts/fontawsome-font_awsome5.15.4.css') }}" integrity="sha384-4btnbNA1LDi0I/ALO38oumWvDNakjBRUAIaTOUTae/KOAv2o2Gwc8Vw1F8HDN6bE" crossorigin="anonymous">
 
 </head>
 
