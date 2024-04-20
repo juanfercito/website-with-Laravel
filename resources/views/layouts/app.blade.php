@@ -52,7 +52,6 @@
         // Add your common script logic here...
     });
 </script>
-<script defer src="/public/fonts/fontawsome/font_awsome5.15.4.css" integrity="sha384-4btnbNA1LDi0I/ALO38oumWvDNakjBRUAIaTOUTae/KOAv2o2Gwc8Vw1F8HDN6bE" crossorigin="anonymous"></script>
 @endpush
 
 {{-- Add common CSS customizations --}}

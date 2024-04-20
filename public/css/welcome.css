@@ -1,15 +1,22 @@
-* {
+/** {
     font-size: 62.5%;
     font-family: Arial, Helvetica, sans-serif;
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
 }
 
 html {
-    background: linear-gradient(to bottom, #1b2029, #4299E1, #1b2029);
     background-attachment: fixed;
-    height: 100%;
-    margin: 0%;
-    padding: 0%;
+}
+
+body {
+    margin: 0; 
+    padding: 0; 
 }
 
 header {
@@ -20,18 +27,7 @@ header {
     top: 0;
     width: 100%; 
     z-index: 1000; 
-    background: linear-gradient(#1b2029);
-
-    .bars-menu {
-        background: transparent;
-        color: white;
-        border: none;
-        font-size: 2rem;
-    };
-    .bars-menu:hover {
-        color: wheat;
-        cursor: pointer;
-    }
+    background: #1b2029;
 
     .launch-logo {
         max-width: 150px;
@@ -52,37 +48,36 @@ header {
     .search-bar {
         display: flex;
         align-items: center;
-        flex: 2; /* Ocupar el espacio restante */
-        text-align: center; /* Centrar elementos */
+        flex: 2; 
+        text-align: center; 
         justify-content:flex-end;
-        font-size: 3rem;
 
-        /* Estilo para el campo de entrada de búsqueda */
+        
         .search-input {
             padding: 8px 12px;
             border: 1px solid #ccc;
-            border-radius: 20px; /* Bordes redondeados */
-            font-size: 2rem;
-            outline: none; /* Eliminar contorno al hacer clic */
+            border-radius: 20px; 
+            font-size: 1.6rem;
+            outline: none; 
         };
 
-        /* Estilo para el botón de búsqueda */
+        
         .search-button {
-            background-color: #4299E1; /* Color de fondo del botón */
-            color: white; /* Color del texto */
+            background-color: #4299E1; 
+            color: white; 
             border: none;
-            border-radius: 20px; /* Bordes redondeados */
+            border-radius: 20px; 
             padding: 8px 12px;
-            margin-left: 8px; /* Espacio entre el campo de entrada y el botón */
+            margin-left: 8px; 
             cursor: pointer;
-            width: 50px;
-            height: 40px;
+            width: 45px;
+            height: 37px;
         };
         .search-button:hover {
             background: linear-gradient(to right, #4299E1, #1b2029, #4299E1);
         }
 
-        /* Estilo para el icono de búsqueda dentro del botón */
+        
         .search-button i {
             font-size: 2rem;
             color: white;
@@ -106,17 +101,15 @@ header {
 
     .navbar {
         font-size: 3rem;
-        background-color: transparent; /* Fondo transparente */
+        background-color: transparent; 
         display: flex;
-        justify-content: space-between; /* Elementos en los extremos */
-        align-items: center;
+        justify-content: space-between; 
         padding: 10px 15px;
         z-index: 2;
     };
 
     .navbar-brand {
-        margin-right: auto; /* Empujar hacia la izquierda */
-    };
+        margin-right: auto;
 
     .navbar-nav {
         display: flex;
@@ -125,7 +118,7 @@ header {
     
     .nav-link {
         color: white;
-        text-decoration: none; /* Sin subrayado */
+        text-decoration: none; 
         padding: 10px 8px;
     };
     .nav-link:hover {
@@ -138,6 +131,7 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
+    background: linear-gradient(to bottom, #1b2029, #4299E1, #1b2029);
 
     /*aside {
         display: grid;
@@ -152,20 +146,26 @@ main {
             width: 100%;
             height: auto;
         }
-    }*/
+    }
 
     section {
         display: grid;
         align-items: center;
         justify-content: center;
-        /*width: 60%;*/
         margin-top: 20px;
+
+        .dark-overlay {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
 
         .title-beginning {
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-top: 20px;
+            position: absolute;
 
             h2 {
                 font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
@@ -182,8 +182,8 @@ main {
 
             .background {
                 position: relative;
-                width: 500px;
-                height: 450px;
+                width: 750px;
+                height: 650px;
                 background: radial-gradient(ellipse at center, transparent 0%, rgba(255,255,255,0) 80%);
             }
 
@@ -202,14 +202,6 @@ main {
                     mask-image: radial-gradient(ellipse at center, black 40%, transparent 70%);
                     border-radius: 32px;
                 };
-                /*.overlay {
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    background: radial-gradient(ellipse at center, transparent 60%, rgba(255, 255, 255, 0) 80%);
-                }*/
             }
         }
     }
@@ -255,12 +247,21 @@ footer {
     }
 }
 
-/* Estilos responsive */
+
 @media screen and (max-width: 500px) {
+
+    header {
+        font-size: 1.4rem; 
+    }
+
     .navbar {
-        flex-direction: column; /* Apilar elementos en dispositivos pequeños */
+        flex-direction: column; 
         align-items: center;
         text-align: center;
+    }
+
+    .nav-info {
+        font-size: 0.8rem; 
     }
 
     .search-bar {
@@ -269,7 +270,7 @@ footer {
     }
 
     .navbar-nav {
-        margin-top: 10px; /* Espacio entre enlaces */
+        margin-top: 10px; 
     }
 
     .nav-link {
@@ -285,5 +286,78 @@ footer {
         font-size: 1rem;
         margin-inline: 10px;
     }
+}*/
+
+/* Estilos para la barra de navegación */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 8px;
+    background-color: #1b2029; /* Color de fondo de la barra de navegación */
+}
+
+.container-fluid {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+/* Estilos para el logo */
+.navbar-brand img {
+    width: 80px;
+    max-height: 80px; /* Altura máxima del logo */
+    display: flex;
+    background: radial-gradient(ellipse at center, rgba(255,255,255,1) 50%, transparent 70%);
+}
+
+.search {
+    display: flex;
+    align-items: center;
+    width: 50%;
+}
+
+/* Estilos para la barra de búsqueda */
+.form-control {
+    width: 100%; /* Ocupar todo el espacio disponible */
+    flex: 1;
+    margin-right: 10px;
+    border-radius: 8px;
+    width: 100%;
+    height: 30px;
+    border: none;
+}
+.form-control:hover {
+    border: none;
+    
+}
+
+.shopping-cart {
+    background-color: transparent;
+    color: white;
+    border: none;
+    font-size: 1.3rem;
+}
+.shopping-cart:hover {
+    color: wheat;
+}
+
+/* Estilos para los elementos de tipo enlace */
+.navbar-nav {
+    display: flex;
+    gap: 20px; /* Espacio entre los elementos */
+}
+
+.navbar-nav .nav-link {
+    color: white; /* Color del texto de los enlaces */
+    text-decoration: none; /* Quitar subrayado */
+    font-weight: bold; /* Texto en negrita */
+    margin-right: 8px;
+}
+
+/* Estilos para los elementos de tipo enlace al pasar el mouse */
+.navbar-nav .nav-link:hover {
+    color: wheat; /* Color del texto de los enlaces al pasar el mouse */
 }
 

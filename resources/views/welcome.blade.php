@@ -14,18 +14,41 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('css/welcome.css') }}">
-    <link rel="stylesheet" href="{{ asset('fonts/fontawsome-font_awsome5.15.4.css') }}" integrity="sha384-4btnbNA1LDi0I/ALO38oumWvDNakjBRUAIaTOUTae/KOAv2o2Gwc8Vw1F8HDN6bE" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
 </head>
 
 <body class="font-sans antialiased dark:bg-black dark:text-white/50">
-    <div class="bg-gray-50 text-black/50 dark:bg-black dark:text-white/50">
-        <div class="relative min-h-screen flex flex-col items-center justify-center selection:bg-[#FF2D99] selection:text-white">
-            <div class="relative w-full max-w-2xl px-6 lg:max-w-7xl">
+    <div class="row items-center gap-2 py-10 lg:grid-cols-3">
+        <header class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <!-- Logo -->
+                <a class="navbar-brand" href="#">
+                    <img src="{{ asset('assets/onlineshop1.png') }}" alt="logo" style="max-height: 40px;">
+                </a>
+
+                <!-- Barra de búsqueda -->
+
+                <form class="search d-flex flex-grow-1">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+
+                <a href="/" class="shopping-cart fa fa-cart-plus" aria-hidden="true"></a>
+
+                <!-- Elementos de tipo enlace -->
+                <div class="navbar-nav flex-row">
+                    <a href="{{ route('login') }}" class="nav-link">Log in</a>
+                    <a href="{{ route('register') }}" class="nav-link">Register</a>
+                </div>
+            </div>
+        </header>
+
+    </div>
+
+    <!--
                 <header class="row items-center gap-2 py-10 lg:grid-cols-3">
-                    <div class="flex lg:justify-center lg:col-start-2">
-                        <button class="bars-menu fas fa-bars"></button>
-                    </div>
+
                     <div class="flex lg:justify-center lg:col-start-2">
                         <img class="launch-logo" src="{{ asset('assets/onlineshop1.png') }}" alt="logo">
                     </div>
@@ -40,7 +63,7 @@
                     <div class="search-bar">
                         <input type="text" placeholder="Search..." class="search-input">
                         <button class="search-button">
-                            <i class="text-white fas fa-search"></i> <!-- Icono de búsqueda -->
+                            <i class="text-white fas fa-search"></i> 
                         </button>
                     </div>
 
@@ -69,47 +92,49 @@
                     </nav>
                     @endif
                 </header>
-                <main>
-                    <div>
-                        <section>
-                            <div class="title-beginning">
+                
+    <main>
+        <div class="dark-overlay">
+            <section>
+
+                <div>
+                    <div class="image-beginning">
+                        <div class="background">
+
+                            <div class="image-container">
+                                <img src="{{ asset('assets/trabajodesdecasa.jpg') }}" alt="landing_image">
+                            </div>
+
+                        </div>
+                        <div class="title-beginning">
+                            <div>
                                 <div>
-                                    <div>
-                                        <h2>All in a one Place</h2>
-                                    </div>
+                                    <h2>All in a one Place</h2>
                                 </div>
-                            </div>
-                            <div class="image-beginning">
-                                <div class="background">
-
-                                    <div class="image-container">
-                                        <img src="{{ asset('assets/trabajodesdecasa.jpg') }}" alt="landing_image">
-                                    </div>
-
-                                </div>
-                            </div>
-                        </section>
-                    </div>
-                </main>
-
-                <footer>
-                    <div class="row">
-                        <div class="credits">
-                            <div class="parr-1">
-                                <p>juanfercito Corp.</p>
-                            </div>
-                            <div class="parr-2">
-                                <p>By Juanfercito Content Inc.</p>
-                            </div>
-                            <div class="parr-3">
-                                <p>Almost All Rights Reserved</p>
                             </div>
                         </div>
                     </div>
-                </footer>
+                </div>
+
+            </section>
+        </div>
+    </main> -->
+
+    <footer>
+        <div class="row">
+            <div class="credits">
+                <div class="parr-1">
+                    <p>juanfercito Corp.</p>
+                </div>
+                <div class="parr-2">
+                    <p>By Juanfercito Content Inc.</p>
+                </div>
+                <div class="parr-3">
+                    <p>Almost All Rights Reserved</p>
+                </div>
             </div>
         </div>
-    </div>
+    </footer>
 </body>
 
 </html>
