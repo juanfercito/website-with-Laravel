@@ -1,133 +1,4 @@
-/** {
-    font-size: 62.5%;
-    font-family: Arial, Helvetica, sans-serif;
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-html, body {
-    height: 100%;
-}
-
-html {
-    background-attachment: fixed;
-}
-
-body {
-    margin: 0; 
-    padding: 0; 
-}
-
-header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    top: 0;
-    width: 100%; 
-    z-index: 1000; 
-    background: #1b2029;
-
-    .launch-logo {
-        max-width: 150px;
-        max-height: 150px;
-    };
-
-    .nav-info {
-        font-size: 1.6rem;
-        font-weight: bolder;
-        color: white;
-        text-decoration: none;
-        margin-right: 20px;
-    }
-    .nav-info:hover {
-        color: wheat;
-    }
-
-    .search-bar {
-        display: flex;
-        align-items: center;
-        flex: 2; 
-        text-align: center; 
-        justify-content:flex-end;
-
-        
-        .search-input {
-            padding: 8px 12px;
-            border: 1px solid #ccc;
-            border-radius: 20px; 
-            font-size: 1.6rem;
-            outline: none; 
-        };
-
-        
-        .search-button {
-            background-color: #4299E1; 
-            color: white; 
-            border: none;
-            border-radius: 20px; 
-            padding: 8px 12px;
-            margin-left: 8px; 
-            cursor: pointer;
-            width: 45px;
-            height: 37px;
-        };
-        .search-button:hover {
-            background: linear-gradient(to right, #4299E1, #1b2029, #4299E1);
-        }
-
-        
-        .search-button i {
-            font-size: 2rem;
-            color: white;
-        };
-        .search-button i:hover {
-            color: rgb(255, 255, 120);
-        }
-    };
-
-    .shopping-cart {
-        background-color: transparent;
-        color: white;
-        border: none;
-        font-size: 2rem;
-        margin-left: 20px;
-        margin-right: 10px;
-    }
-    .shopping-cart:hover {
-        color: wheat;
-    }
-
-    .navbar {
-        font-size: 3rem;
-        background-color: transparent; 
-        display: flex;
-        justify-content: space-between; 
-        padding: 10px 15px;
-        z-index: 2;
-    };
-
-    .navbar-brand {
-        margin-right: auto;
-
-    .navbar-nav {
-        display: flex;
-        gap: 20px;
-    };
-    
-    .nav-link {
-        color: white;
-        text-decoration: none; 
-        padding: 10px 8px;
-    };
-    .nav-link:hover {
-        color: wheat;
-    }
-    
-}
-
-main {
+/*main {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -288,6 +159,14 @@ footer {
     }
 }*/
 
+* {
+    font-size: 62.5%;
+    font-family: Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 /* Estilos para la barra de navegación */
 .navbar {
     display: flex;
@@ -312,32 +191,65 @@ footer {
     background: radial-gradient(ellipse at center, rgba(255,255,255,1) 50%, transparent 70%);
 }
 
+.nav-info {
+    font-weight: bolder;
+    color: white;
+    text-decoration: none;
+    margin-right: 10px;
+    font-size: 1.2rem;
+}
+.nav-info:hover {
+    color: wheat;
+}
+
 .search {
     display: flex;
     align-items: center;
-    width: 50%;
+    width: 60%;
+
 }
 
 /* Estilos para la barra de búsqueda */
 .form-control {
-    width: 100%; /* Ocupar todo el espacio disponible */
-    flex: 1;
-    margin-right: 10px;
-    border-radius: 8px;
     width: 100%;
     height: 30px;
-    border: none;
+    flex: 1;
+    margin-right: 4px;
+    border-radius: 8px;
+    padding: 8px 12px;
+    border: 1px solid #ccc; 
+    font-size: 1.2rem;
+    outline: none;
 }
 .form-control:hover {
     border: none;
     
 }
 
+.search-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #4299E1; 
+    color: white;
+    font-size: 2rem;
+    border: none;
+    border-radius: 8px; 
+    padding: 8px 12px;
+    cursor: pointer;
+    width: 40px;
+    height: 30px;
+}
+.search-btn:hover {
+    background: linear-gradient(to right, #4299E1, #1b2029, #4299E1);
+}
+
 .shopping-cart {
     background-color: transparent;
     color: white;
     border: none;
-    font-size: 1.3rem;
+    font-size: 2rem;
+    margin-left: 6px;
 }
 .shopping-cart:hover {
     color: wheat;
@@ -346,7 +258,7 @@ footer {
 /* Estilos para los elementos de tipo enlace */
 .navbar-nav {
     display: flex;
-    gap: 20px; /* Espacio entre los elementos */
+    gap: 14px;  /* Espacio entre los elementos */
 }
 
 .navbar-nav .nav-link {
@@ -354,6 +266,7 @@ footer {
     text-decoration: none; /* Quitar subrayado */
     font-weight: bold; /* Texto en negrita */
     margin-right: 8px;
+    font-size: 1.2rem;
 }
 
 /* Estilos para los elementos de tipo enlace al pasar el mouse */
@@ -361,3 +274,199 @@ footer {
     color: wheat; /* Color del texto de los enlaces al pasar el mouse */
 }
 
+/* Estilos para el botón del menú */
+.bars-menu {
+    display: none;
+}
+
+.navbar-toggler {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 3rem;
+}
+.navbar-toggler:hover {
+    color: wheat;
+}
+
+/* Styles for dropdown menu from bars-menu */
+
+#menuDropdown {
+    display: none;
+}
+
+.menu-dropdown {
+    display: none;
+    position: absolute;
+    top: 48px;
+    right: 0; /* Posición en la esquina superior derecha */
+    width: 200px; /* Ancho del menú desplegable */
+    padding: 10px;
+    background-color: #1b2029;
+    border: 1px solid #ccc;
+    border-radius: 0 0 0 12px;
+    z-index: 1000;; /* Asegura que el menú esté por encima de otros elementos */
+}
+
+.menu-dropdown li {
+    list-style: none;
+    margin: 5px 0;
+}
+
+.menu-dropdown li a {
+    text-decoration: none;
+    color: white;
+    display: block;
+    padding: 5px 10px;
+    font-size: 1.2rem;
+}
+
+.menu-dropdown li a:hover {
+    background-color: #4299E1;
+}
+
+.li-drop {
+    display: none;
+}
+
+/* Styles for Main */
+.main-content {
+    position: relative;
+    height: 100vh;
+}
+
+.title-beginning {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 40px; /* Ajusta la posición desde la parte superior según sea necesario */
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 80%; /* Ajusta el ancho según sea necesario */
+    max-width: 600px; /* Ajusta el ancho máximo según sea necesario */
+
+    h2 {
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        font-size: 5rem;
+        color: #2089E1;
+    }
+}
+
+
+/* Styles for carrousel, background-image and it components */
+.background-carousel {
+    position: relative;
+    width: 100%;
+    height: 100%; /* Ajusta la altura según tus necesidades */
+    overflow: hidden;
+    mask-image: linear-gradient(to top, rgba(255, 255, 255, 1) 50%, transparent 85%);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.card {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+
+.card-body {
+    width: 90%;
+    padding: 20px;
+    margin-bottom: 10px;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.card-body h3 {
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+/* footer */
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.5); /* Color de fondo con transparencia */
+    padding: 10px 0;
+    text-align: center;
+    z-index: 1000; /* Asegura que el footer esté por encima de otros elementos */
+
+    /* Estilos para el contenido del footer */
+    .credits {
+        display: flex;
+        align-items: center;
+        justify-content: space-between; /* Distribuye los elementos horizontalmente */
+        margin: 0 auto; /* Centra el contenido horizontalmente */
+        color: #aaa;
+
+        /* Estilos para cada sección del footer */
+        .parr-1, .parr-2, .parr-3 {
+            font-size: 2rem;
+            margin-inline: 6px;
+        }
+        .parr-3 {
+            font-size: 1.5rem;
+        }
+    }
+}
+
+
+/* Responsive Styles */
+@media (max-width:550px) {
+    
+    /* header */
+    .nav-info {
+        display: none;
+    }
+
+    .menu-dropdown {
+        display: block;
+    }
+
+    .li-drop {
+        display: block;
+    }
+
+    /* main */
+    .title-beginning h2 {
+        font-size: 3rem;
+    }
+}
+
+@media (max-width:850px) {
+
+    /* header */
+    .nav-info {
+        font-size: 1rem;
+    }
+    .bars-menu {
+        display:block;
+        margin-right: 6px;
+    }
+    .menu-dropdown {
+        display: block;
+    }
+    .shopping-cart {
+        margin-left: 6px;
+    }
+    .nav-link {
+        display: none;
+    }
+
+    /* main */
+    .title-beginning h2 {
+        font-size: 4rem;
+    }
+}

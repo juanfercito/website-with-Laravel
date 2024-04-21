@@ -27,51 +27,30 @@
                     <img src="{{ asset('assets/onlineshop1.png') }}" alt="logo" style="max-height: 40px;">
                 </a>
 
-                <!-- Barra de búsqueda -->
+                <!-- links to info -->
+                <div class="flex lg:justify-center lg:col-start-2">
+                    <a href="#" class="nav-info">About Us</a>
+                </div>
+                <div class="flex lg:justify-center lg:col-start-2">
+                    <a href="#" class="nav-info">Workshop</a>
+                </div>
+                <div class="flex lg:justify-center lg:col-start-2">
+                    <a href="#" class="nav-info">Contact</a>
+                </div>
+
+                <!-- Search Bar -->
 
                 <form class="search d-flex flex-grow-1">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
+                    <button class="search-btn" type="submit">
+                        <i class="text-white fas fa-search"></i>
+                    </button>
                 </form>
 
                 <a href="/" class="shopping-cart fa fa-cart-plus" aria-hidden="true"></a>
 
                 <!-- Elementos de tipo enlace -->
                 <div class="navbar-nav flex-row">
-                    <a href="{{ route('login') }}" class="nav-link">Log in</a>
-                    <a href="{{ route('register') }}" class="nav-link">Register</a>
-                </div>
-            </div>
-        </header>
-
-    </div>
-
-    <!--
-                <header class="row items-center gap-2 py-10 lg:grid-cols-3">
-
-                    <div class="flex lg:justify-center lg:col-start-2">
-                        <img class="launch-logo" src="{{ asset('assets/onlineshop1.png') }}" alt="logo">
-                    </div>
-
-                    <div class="flex lg:justify-center lg:col-start-2">
-                        <a href="#" class="nav-info">About Us</a>
-                    </div>
-                    <div class="flex lg:justify-center lg:col-start-2">
-                        <a href="#" class="nav-info">Contact</a>
-                    </div>
-
-                    <div class="search-bar">
-                        <input type="text" placeholder="Search..." class="search-input">
-                        <button class="search-button">
-                            <i class="text-white fas fa-search"></i> 
-                        </button>
-                    </div>
-
-                    <div class="flex lg:justify-center lg:col-start-2">
-                        <a href="/" class="shopping-cart fa fa-cart-plus" aria-hidden="true"></a>
-                    </div>
-
-
                     @if (Route::has('login'))
                     <nav class="navbar navbar-brand navbar-nav -mx-3 flex flex-1 justify-end">
                         @auth
@@ -91,50 +70,99 @@
                         @endauth
                     </nav>
                     @endif
-                </header>
-                
-    <main>
-        <div class="dark-overlay">
-            <section>
+                </div>
 
-                <div>
-                    <div class="image-beginning">
-                        <div class="background">
+                <div class="bars-menu">
+                    <button class="navbar-toggler" id="menuToggleBtn" aria-controls="menuDropdown" aria-expanded="false">
+                        <i class="text-white fas fa-bars"></i>
+                    </button>
+                    <ul class="menu-dropdown" id="menuDropdown">
+                        <li><a href="{{ route('login') }}" class="nav-link">Log in</a></li>
+                        <li><a href="{{ route('register') }}" class="nav-link">Register</a></li>
+                        <li class="li-drop"><a href="" class="nav-link">About Us</a></li>
+                        <li class="li-drop"><a href="" class="nav-link">Workshop</a></li>
+                        <li class="li-drop"><a href="" class="nav-link">Contact</a></li>
+                        <!-- Agrega más opciones según sea necesario -->
+                    </ul>
+                </div>
 
-                            <div class="image-container">
-                                <img src="{{ asset('assets/trabajodesdecasa.jpg') }}" alt="landing_image">
+
+
+                </ul>
+            </div>
+
+    </div>
+    </header>
+
+    </div>
+
+    <main class="main-content">
+
+        <div class="title-beginning">
+            <h2>All in a One PLace</h2>
+        </div>
+        <div class="background-carousel" style="background-image: url('assets/foreground-nature.jpg');">
+            <div class="container">
+                <div class="row justify-content-center align-items-end" style="position: absolute; bottom: 0; width: 100%;">
+                    <div class="col-md-6">
+                        <!-- Contenido de Últimos añadidos -->
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title">Últimos añadidos</h3>
+                                <!-- Agrega aquí el contenido de los últimos productos -->
                             </div>
-
                         </div>
-                        <div class="title-beginning">
-                            <div>
-                                <div>
-                                    <h2>All in a one Place</h2>
-                                </div>
+                    </div>
+                    <div class="col-md-6">
+                        <!-- Contenido de Lo más vendido -->
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title">Lo más vendido</h3>
+                                <!-- Agrega aquí el contenido de los productos más vendidos -->
                             </div>
                         </div>
                     </div>
                 </div>
-
-            </section>
+            </div>
         </div>
-    </main> -->
 
-    <footer>
-        <div class="row">
-            <div class="credits">
-                <div class="parr-1">
-                    <p>juanfercito Corp.</p>
-                </div>
-                <div class="parr-2">
-                    <p>By Juanfercito Content Inc.</p>
-                </div>
-                <div class="parr-3">
-                    <p>Almost All Rights Reserved</p>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="credits">
+                    <div class="parr-1">
+                        <p>juanfercito Corp.</p>
+                    </div>
+                    <div class="parr-2">
+                        <p>By Juanfercito Content Inc.</p>
+                    </div>
+                    <div class="parr-3">
+                        <p>Almost All Rights Reserved</p>
+                    </div>
                 </div>
             </div>
         </div>
     </footer>
+
+
+    <!-- Script JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#menuToggleBtn').click(function() {
+                $('#menuDropdown').toggle();
+            });
+
+            $(document).on('click', function(event) {
+                if (!$(event.target).closest('#menuToggleBtn, #menuDropdown').length) {
+                    $('#menuDropdown').hide();
+                }
+            });
+        });
+    </script>
+
 </body>
 
 </html>
