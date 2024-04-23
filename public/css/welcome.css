@@ -174,9 +174,18 @@ footer {
     align-items: center;
     padding: 4px 8px;
     background-color: #1b2029; /* Color de fondo de la barra de navegación */
+    position: fixed; /* Hace que la barra de navegación sea fija en la parte superior */
+    top: 0; /* Ajusta la posición desde la parte superior */
+    left: 0;
+    right: 0;
+    z-index: 1000; /* Asegura que la barra de navegación esté por encima de otros elementos */
+    width: 100%; /* Ajusta el ancho de la barra de navegación */
+    box-sizing: border-box; /* Incluye el padding y el borde en el ancho total */
+    overflow-x: auto; /* Agrega desplazamiento horizontal si es necesario */
+    white-space: nowrap; /* Evita que los elementos se envuelvan */
 }
 
-.container-fluid {
+.header-fluid {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -258,14 +267,13 @@ footer {
 /* Estilos para los elementos de tipo enlace */
 .navbar-nav {
     display: flex;
-    gap: 14px;  /* Espacio entre los elementos */
+    gap: 14px; /* Espacio entre los elementos */
+    margin-right: 10px; /* Margen derecho para evitar desbordamientos */
 }
-
 .navbar-nav .nav-link {
     color: white; /* Color del texto de los enlaces */
     text-decoration: none; /* Quitar subrayado */
     font-weight: bold; /* Texto en negrita */
-    margin-right: 8px;
     font-size: 1.2rem;
 }
 
@@ -276,6 +284,7 @@ footer {
 
 /* Estilos para el botón del menú */
 .bars-menu {
+    position: relative; /* Asegura que el menú desplegable esté posicionado correctamente */
     display: none;
 }
 
@@ -289,6 +298,7 @@ footer {
     cursor: pointer;
     font-size: 3rem;
 }
+
 .navbar-toggler:hover {
     color: wheat;
 }
@@ -302,18 +312,21 @@ footer {
 .menu-dropdown {
     display: none;
     position: absolute;
-    top: 48px;
-    right: 0; /* Posición en la esquina superior derecha */
+    top: 48px; /* Posición debajo del botón de menú */
+    right: 0; /* Posición a la derecha del botón de menú */
     width: 200px; /* Ancho del menú desplegable */
     padding: 10px;
     background-color: #1b2029;
     border: 1px solid #ccc;
     border-radius: 0 0 0 12px;
-    z-index: 1000;; /* Asegura que el menú esté por encima de otros elementos */
+    z-index: 1000; /* Asegura que el menú esté por encima de otros elementos */
 }
-
-.menu-dropdown li {
+.menu-dropdown ul {
     list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.menu-dropdown li {
     margin: 5px 0;
 }
 
@@ -336,15 +349,14 @@ footer {
 /* Styles for Main */
 .main-content {
     position: relative;
-    height: 100vh;
 }
 
 .title-beginning {
     display: flex;
     align-items: center;
     justify-content: center;
-    position: absolute;
-    top: 40px; /* Ajusta la posición desde la parte superior según sea necesario */
+    position: fixed;
+    top: 100px; /* Ajusta la posición desde la parte superior según sea necesario */
     left: 0;
     right: 0;
     margin: auto;
@@ -361,66 +373,83 @@ footer {
 
 /* Styles for carrousel, background-image and it components */
 .background-carousel {
-    position: relative;
+    position: absolute;
     width: 100%;
-    height: 100%; /* Ajusta la altura según tus necesidades */
+    height: 100vh; /* Ajusta la altura según tus necesidades */
     overflow: hidden;
-    mask-image: linear-gradient(to top, rgba(255, 255, 255, 1) 50%, transparent 85%);
+    mask-image: linear-gradient(to top, rgba(255, 255, 255, 1) 60%, transparent 90%);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
+
 .card {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
     justify-content: center;
-    margin-top: 50px;
+    position: relative; /* Establece posición relativa para que z-index funcione */
+    z-index: 1; /* Ajusta el z-index para que esté por delante del fondo */
+    top: 340px;
 }
-
 
 .card-body {
     width: 90%;
-    padding: 20px;
-    margin-bottom: 10px;
+    height: 200px;
+    padding: 10px;
+    margin-bottom: 20px;
     background-color: #f0f0f0;
+    border: 1px solid rgba(0, 0, 0, 0.4);
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.4);
+    position: relative; /* Establece posición relativa para que z-index funcione */
+    z-index: 1; /* Ajusta el z-index para que esté por delante del fondo */
 }
 
 .card-body h3 {
+    width: fit-content;
+    padding: 8px;
     margin-bottom: 10px;
     font-size: 1.5rem;
-    color: #333;
+    color: #ddd;
+    background: #212;
+    border: 4px solid rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
 }
 
 /* footer */
-footer {
+.footer {
     position: fixed;
     bottom: 0;
     width: 100%;
-    background-color: rgba(255, 255, 255, 0.5); /* Color de fondo con transparencia */
+    background-color: rgba(0, 0, 0, 0.4);
     padding: 10px 0;
     text-align: center;
-    z-index: 1000; /* Asegura que el footer esté por encima de otros elementos */
+    z-index: 1000; /* Asegura que esté por encima de otros elementos */
+}
 
+.footer .footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
     /* Estilos para el contenido del footer */
-    .credits {
-        display: flex;
-        align-items: center;
-        justify-content: space-between; /* Distribuye los elementos horizontalmente */
-        margin: 0 auto; /* Centra el contenido horizontalmente */
-        color: #aaa;
-
-        /* Estilos para cada sección del footer */
-        .parr-1, .parr-2, .parr-3 {
-            font-size: 2rem;
-            margin-inline: 6px;
-        }
-        .parr-3 {
-            font-size: 1.5rem;
-        }
+.footer .credits {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Distribuye los elementos horizontalmente */
+    margin: 0 auto; /* Centra el contenido horizontalmente */
+    color: #aaa;
+    margin-bottom: 0;
+    
+    .parr-1, .parr-2, .parr-3 {
+        font-size: 1.6rem;
+        margin-inline: 6px
+        ;
     }
 }
+
 
 
 /* Responsive Styles */
@@ -470,3 +499,10 @@ footer {
         font-size: 4rem;
     }
 }
+
+@media (min-width: 851px) {
+    .menu-dropdown {
+        visibility: hidden;
+    }
+}
+

@@ -331,10 +331,22 @@ return [
             'icon' => 'fas fa-fw fa-building',
             'submenu' => [
                 [
-                    'text' => 'Users',
-                    'route' => 'users.index',
-                    'icon' => 'fa fa-users',
+                    'text' => 'Traffic',
                     'icon_color' => 'purple',
+                    'submenu' => [
+                        [
+                            'text' => 'Users',
+                            'route' => 'users.index',
+                            'icon' => 'fa fa-users',
+                            'icon_color' => 'purple',
+                        ],
+                        [
+                            'text' => 'Customers',
+                            'route' => 'customers.index',
+                            'icon' => 'fa fa-users',
+                            'icon_color' => 'purple',
+                        ],
+                    ]
                 ],
                 [
                     'text' => 'Products',

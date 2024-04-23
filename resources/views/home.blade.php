@@ -10,7 +10,7 @@
 
 <section>
     <div class="scroll-container">
-        <div class="wrapper" id="scrolling-1" style="background-color:#ccc; width: 400px; overflow-x:auto; overflow-y:hidden; white-space:nowrap; border-radius:8px; padding-top:25px; box-shadow:#042f58 8px 16px 8px;">
+        <div class="wrapper" id="scrolling-1" style="background-color:#ccc; width: 400px; overflow-x:auto; overflow-y:hidden; white-space:nowrap; border-radius:8px; padding-top:25px; box-shadow:#233 8px 16px 8px;">
             <button type="button" onclick="window.location.href='/users'" class="item">Users</button>
             <button type="button" onclick="window.location.href='/products'" class="item">Products</button>
             <button type="button" onclick="window.location.href='/providers'" class="item">Providers</button>
