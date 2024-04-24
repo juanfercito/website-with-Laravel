@@ -62,7 +62,7 @@
                                                 <i class="d-inline d-sm-none fas fa-pen"></i>
                                                 <span class="d-none d-sm-inline-flex">Modify</span>
                                             </a>
-                                            <form method="POST" action="{{ route('customers.destroy', $user->id) }}">
+                                            <form method="POST" action="{{ route('customers.destroy', $customer->id) }}">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger btn-sm">
@@ -79,9 +79,6 @@
                                     <td>{{$customer->email}}</td>
                                     <td>{{$customer->dni}}</td>
                                     <td>{{$customer->telephone}}</td>
-                                    <td>{{$user->address}}</td>
-                                    <td>{{$user->city}}</td>
-                                    <td>{{$user->province}}</td>
 
                                 </tr>
                                 @endforeach
