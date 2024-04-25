@@ -381,7 +381,7 @@ return [
             'submenu' => [
                 [
                     'text' => ' Income-Products',
-                    'url' => '#',
+                    'route' => 'incomes.index',
                     'icon' => 'fa fa-plus-square',
                     'icon_color' => 'success',
                 ],

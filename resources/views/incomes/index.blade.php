@@ -1,12 +1,10 @@
 @extends('layouts.app')
 
-@section('title', 'Customers')
-
-@section('content_header_title', 'Customers')
+@section('content_header_title', 'Incomes')
 @section('content_header_subtitle', 'View')
 
 @section('content')
-<p>Here you can view all the features about customers</p>
+<p>Watch the whole sumary of product incomes</p>
 
 <div class="section-body">
     <div class="row">
@@ -15,13 +13,15 @@
                 <div class="card-body">
                     <div class="row">
 
-
+                        @can('insert-income')
+                        <a class="btn btn-warning my-3 text-white" href="{{route('incomes.create')}}">New Income Order</a>
+                        @endcan
                         <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
                             <div class="input-group my-3">
-                                <form action="{{ route('customers.index') }}" method="GET" class="input-group mb-6">
+                                <form action="{{ route('incomes.index') }}" method="GET" class="input-group mb-6">
 
                                     <span class="input-group"><i class="bi bi-search"></i></span>
-                                    <input type="text" class="form-control" name="search" placeholder="Search for customers..." value="{{ request('search') }}">
+                                    <input type="text" class="form-control" name="search" placeholder="Search for ticket features..." value="{{ request('search') }}">
                                     <button class="btn bg-secondary search-button" type="submit">
                                         <i class="text-white fas fa-search"></i> <!-- Icono de búsqueda -->
                                     </button>
@@ -41,28 +41,27 @@
                                 <tr>
 
                                     <th style="color: #fff; display: flex; justify-content:center;">Actions</th>
-                                    <th style="display: none;">ID</th>
-                                    <th style="color: #fff; white-space: nowrap;">Name</th>
-                                    <th style="color: #fff;">Email</th>
-                                    <th style="color: #fff;">Dni</th>
-                                    <th style="color: #fff;">Telephone</th>
-                                    <th style="color: #fff;">Address</th>
-                                    <th style="color: #fff;">city</th>
-                                    <th style="color: #fff;">Province</th>
+                                    <th style="color: #fff">ID</th>
+                                    <th style="color: #fff; white-space: nowrap;">Provider</th>
+                                    <th style="color: #fff;">Payment_proof</th>
+                                    <th style="color: #fff;">Proof_number</th>
+                                    <th style="color: #fff;">date_time</th>
+                                    <th style="color: #fff;">fee_tax</th>
+                                    <th style="color: #fff;">status</th>
 
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($customers as $customer)
+                                @foreach($incomes as $income)
                                 <tr>
 
                                     <td>
                                         <div class="btn-action">
-                                            <a class="btn btn-info btn-sm" href="{{ route('customers.edit', $customer->id) }}">
+                                            <a class="btn btn-info btn-sm" href="{{ route('incomes.edit', $income->id) }}">
                                                 <i class="d-inline d-sm-none fas fa-pen"></i>
-                                                <span class="d-none d-sm-inline-flex">Modify</span>
+                                                <span class="d-none d-sm-inline-flex">Details</span>
                                             </a>
-                                            <form method="POST" action="{{ route('customers.destroy', $customer->id) }}">
+                                            <form method="POST" action="{{ route('incomes.destroy', $income->id) }}">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger btn-sm">
@@ -74,11 +73,13 @@
                                     </td>
 
 
-                                    <td style="display: none;">{{$customer->id}}</td>
-                                    <td>{{$customer->name}}</td>
-                                    <td>{{$customer->email}}</td>
-                                    <td>{{$customer->dni}}</td>
-                                    <td>{{$customer->telephone}}</td>
+                                    <td>{{$income->id}}</td>
+                                    <td>{{$income->provider_id->name}}</td>
+                                    <td>{{$income->payment_proof}}</td>
+                                    <td>{{$income->proof_number}}</td>
+                                    <td>{{$income->date_time}}</td>
+                                    <td>{{$income->fee_tax}}</td>
+                                    <td>{{$income->status}}</td>
 
                                 </tr>
                                 @endforeach
@@ -92,7 +93,7 @@
     </div>
 </div>
 <div class="pagination justify-content-end">
-    {!! $customers->links() !!}
+    {!! $incomes->links() !!}
 </div>
 @stop
 

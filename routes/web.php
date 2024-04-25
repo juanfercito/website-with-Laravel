@@ -12,6 +12,7 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\CustomerController;
 // Adding the controllers
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\IncomeController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
@@ -37,6 +38,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('shippings', ShippingController::class);
     Route::resource('profile', ProfileController::class);
     Route::resource('customers', CustomerController::class);
+    Route::resource('incomes', IncomeController::class);
 });
 
 // Define auth routes

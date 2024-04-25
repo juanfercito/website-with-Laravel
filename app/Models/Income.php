@@ -13,8 +13,6 @@ class Income extends Model
 
     protected $primaryKey = 'id';
 
-    protected $timestamps = false;
-
     protected $fillable = [
         'provider_id',
         'payment_proof',
