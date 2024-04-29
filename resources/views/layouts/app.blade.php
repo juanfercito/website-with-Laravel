@@ -52,11 +52,15 @@
         // Add your common script logic here...
     });
 </script>
+
+<script src="{{ asset('js/bootstrap-select.min.js') }}"></script>
+@stack('scripts')
 @endpush
 
 {{-- Add common CSS customizations --}}
 
 @push('css')
+<link rel="stylesheet" href="{{ asset('css/bootstrap-select.min.css') }}">
 <style type="text/css">
     .btn-action {
         display: flex;
@@ -71,6 +75,10 @@
 
     .btn:hover {
         background: linear-gradient(to right, #0d4bf5, #040f74, #043e6e, #1093ff);
+    }
+
+    .bootstrap-select:hover {
+        color: white !important;
     }
 
     @media(max-width: 600px) {

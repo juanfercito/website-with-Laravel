@@ -47,6 +47,7 @@
                                     <th style="color: #fff;">Proof_number</th>
                                     <th style="color: #fff;">date_time</th>
                                     <th style="color: #fff;">fee_tax</th>
+                                    <th style="color: #fff;">Total</th>
                                     <th style="color: #fff;">status</th>
 
                                 </tr>

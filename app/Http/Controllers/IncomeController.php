@@ -46,8 +46,13 @@ class IncomeController extends Controller
      */
     public function create()
     {
-        return view('incomes.insert');
+        $incomes = Income::all();
+        $products = DB::table('products')
+            ->select(DB::raw('products.title, products.id, products.stock'))
+            ->get();
+        return view('incomes.insert', ['products' => $products, 'incomes' => $incomes]);
     }
+
 
     /**
      * Store a newly created resource in storage.
