@@ -30,8 +30,8 @@
 
                             <div class="col-xs-12 col-sm-12 col-md-4">
                                 <div class="form-floating">
-                                    <label for="provider-class">Select Provider</label>
-                                    <select name="provider_class_id" id="provider_class_id" class="form-control">
+                                    <label for="provider-id">Select Provider</label>
+                                    <select name="provider_id" id="provider_id" class="form-control">
                                         @foreach(App\Models\Provider::all() as $provider)
                                         <option value="{{ $provider->id }}">{{ $provider->name }}</option>
                                         @endforeach
@@ -53,35 +53,9 @@
 
                             <div class="col-xs-12 col-sm-12 col-md-4">
                                 <div class="form-floating">
-                                    <label for="product-type">Ticket Number</label>
-
+                                    <label for="proof-number">Ticket Number</label>
                                     <input type="number" class="form-control" id="proof_number" name="proof_number">
-
                                     </select>
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-12 col-md-4">
-                                <div class="form-group">
-                                    <label for="fee-tax">Fee or Tax</label>
-                                    <input class="form-control" type="number" name="fee_tax" min="0" step="1" placeholder="0">
-                                </div>
-                            </div>
-
-                            <div class="col-xs-12 col-sm-12 col-md-6">
-                                <div class="form-group">
-                                    <label for="closing-order-date">Closing Order Date</label>
-                                    <div class="input-group">
-                                        <input type="text" id="closing-order-date" name="closing-order-date" class="form-control">
-                                        <div class="input-group-append">
-                                            <span class="input-group-text">
-                                                <i class="far fa-calendar-alt"></i>
-                                            </span>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -90,7 +64,7 @@
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="products">Products</label>
-                                    <select name="id_product" id="id_product" class="form-control selectpicker" data-live-search="true">
+                                    <select name="product_id[]" id="product_id" class="form-control selectpicker" data-live-search="true">
                                         @foreach($products as $product)
                                         <option value="{{ $product->id }}">{{ $product->title }}</option>
                                         @endforeach
@@ -119,50 +93,54 @@
 
                             <div class="col-xs-12 col-sm-12 col-md-2 add-button">
                                 <div class="form-floating ">
-
                                     <button type="button" id="add_product" class="btn btn-outline-success">Add Product</button>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="card-content">
-                            <div class="card-body">
-                                <table class="table table-bordered table-hover">
-                                    <thead style="background-color: #6777ef;">
-                                        <tr>
-                                            <th>Options</th>
-                                            <th>Product</th>
-                                            <th>Cant</th>
-                                            <th>Purchase Price</th>
-                                            <th>Sale Price</th>
-                                            <th>Subtotal</th>
-                                        </tr>
-                                    </thead>
-                                    <tfoot>
-                                        <th>TOTAL</th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th>
-                                            <h5 id="total">$0.00</h5>
-                                        </th>
-                                    </tfoot>
-                                    <tbody>
-
-                                    </tbody>
-                                </table>
+                        <div class="card my-3">
+                            <div class="card-header">
+                                <h4 class="card-title">Selected Products</h4>
+                            </div>
+                            <div class="card-content">
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table id="details" class="table table-bordered table-hover">
+                                            <thead class="thead-dark">
+                                                <tr>
+                                                    <th>Options</th>
+                                                    <th>Product</th>
+                                                    <th>Quantity</th>
+                                                    <th>Purchase Price</th>
+                                                    <th>Sale Price</th>
+                                                    <th>Subtotal</th>
+                                                </tr>
+                                            </thead>
+                                            <tfoot>
+                                                <tr>
+                                                    <th colspan="5">TOTAL</th>
+                                                    <th>
+                                                        <h5 id="total">$0.00</h5>
+                                                    </th>
+                                                </tr>
+                                            </tfoot>
+                                            <tbody>
+                                                <!-- Aquí se agregarán dinámicamente las filas de productos -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
 
-                        <div class="flex items-center justify-center md:gap-8 gap-4 pt-5 pb-5">
-                            <a href="{{route('incomes.index')}}" class="w-auto bg-gray-500 hover:bg-gray-700 rounded-lg shadow-x1 font-medium text-white px-4 py-2"></a>
-                            <button type="submit" class="btn btn-primary" id="save">Save Order</button>
 
-                            <button type="reset" class="btn btn-danger me-1 mb-1">Cancel</button>
+                        <div class="flex items-center justify-center md:gap-8 gap-4 pt-3 pb-3">
+                            <button type="submit" class="btn btn-success me-1 mb-1" id="save">Save Order</button>
+                            <button type="button" class="btn btn-danger me-1 mb-1" onclick="window.history.back()">Cancel</button>
                         </div>
                     </form>
+
                 </div>
             </div>
         </div>
@@ -173,54 +151,84 @@
 <script>
     $(document).ready(function() {
         $('#add_product').click(function() {
-            {
-                add();
-            }
+            add();
         });
 
-    });
+        var count = 0;
+        var total = 0;
+        var subtotal = [];
 
-    var count = 0;
-    total = 0;
-    subtotal = [];
+        $('#save').hide();
+        $('#product_id').change(showValues);
 
-    $('#save').hide();
-    $('#id_product').change(showValues);
-
-    function showValues() {
-        articleData = document.getElementById('id_product').value.split('_');
-        $('#cant').val(articleData[1]);
-        $('#unit').html(articleData[2]);
-    }
-
-    function add() {
-        articleData = document.getElementById('id_product').value.split('_');
-        idProduct = articleData[0];
-        product = $('#id_product option:selected').text();
-        cant = $('#cant').val();
-        purchase_price = $('#purchase_price').val();
-        sale_price = $('#sale_price').val();
-
-        if (idProduct != "" && cant != "" && cant > 0 && purchase_price != "" && sale_price != "") {
-            subtotal[count] = (cant * purchase_price);
-            total = total + subtotal[count];
-
-        };
-    }
-
-    function clean() {
-        $('#cant').val("");
-        $('#purchase_price').val("");
-        $('#sale_price').val("");
-    }
-
-    function evaluate() {
-        if (total > 0) {
-            $('#save').show();
-        } else {
-            $('#save').hide();
+        function showValues() {
+            var articleData = $('#product_id').val().split('_');
+            $('#cant').val(articleData[1]);
+            $('#unit').html(articleData[2]);
         }
-    }
+
+        function add() {
+            var articleData = $('#product_id').val().split('_');
+            var idProduct = articleData[0];
+            var productName = $('#product_id option:selected').text();
+            var cant = $('#cant').val();
+            var purchase_price = $('#purchase_price').val();
+            var sale_price = $('#sale_price').val();
+
+            if (idProduct != "" && cant != "" && cant > 0 && purchase_price != "" && sale_price != "") {
+                var subtotalItem = (parseFloat(cant) * parseFloat(purchase_price));
+                subtotal.push(subtotalItem);
+                total += subtotalItem;
+
+                var row = '<tr class="selected"><td><button type="button" class="btn btn-warning btn-delete" onclick="destroy(' + count + ');">X</button></td><td>' + productName +
+                    '</td><td><input type="number" name="cant[]" value="' + cant +
+                    '"></td><td><input type="purchase_price" name="purchase_price[]" value="' + purchase_price +
+                    '"></td><td><input type="number" name="sale_price[]" value="' + sale_price +
+                    '"></td><td class="subtotal">' + subtotalItem.toFixed(2) + '</td></tr>';
+
+                count++;
+                cleanInputs();
+                $('#total').html("$" + total.toFixed(2));
+                evaluate();
+                $('#details tbody').append(row);
+            } else {
+                alert('Failed to enter product information');
+            }
+        }
+
+        function evaluate() {
+            if (total > 0) {
+                $('#save').show();
+            } else {
+                $('#save').hide();
+            }
+        }
+
+        $(document).on('click', '.btn-delete', function() {
+            var row = $(this).closest('tr');
+            var index = row.index();
+            var subtotalItem = parseFloat(row.find('.subtotal').text());
+            total -= subtotalItem;
+            $('#total').html("$" + total.toFixed(2));
+            row.remove();
+            evaluate();
+        });
+
+        function cleanInputs() {
+            $('#cant').val('');
+            $('#purchase_price').val('');
+            $('#sale_price').val('');
+        }
+
+        function destroy(index) {
+            total -= subtotal[index];
+            $('#total').html("$" + total.toFixed(2));
+            $('#details tbody tr:eq(' + index + ')').remove();
+            subtotal.splice(index, 1);
+            evaluate();
+        }
+
+    });
 </script>
 @endpush
 
@@ -229,12 +237,20 @@
 @section('css')
 
 <style>
+    .card {
+        border-radius: 12px;
+    }
+
     .add-button {
         display: flex;
         align-items: center;
         justify-content: center;
-        top: 10px;
+        top: 8px;
         bottom: 0;
+    }
+
+    #save {
+        display: none;
     }
 </style>
 

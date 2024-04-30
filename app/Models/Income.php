@@ -23,4 +23,9 @@ class Income extends Model
     ];
 
     protected $guarded = [];
+
+    public function provider()
+    {
+        return $this->belongsTo(Provider::class);
+    }
 }

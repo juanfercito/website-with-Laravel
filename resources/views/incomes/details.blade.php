@@ -1,0 +1,51 @@
+@extends('layouts.app')
+
+@section('content_header_title', 'Incomes')
+@section('content_header_subtitle', 'Details')
+
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card" style="border-radius: 12px;">
+                <div class="card-header">Income Details</div>
+
+                <div class="card-body">
+                    <h2>Income ID: {{ $income->id }}</h2>
+                    <p>Date Time: {{ $income->date_time }}</p>
+                    <p>Payment Proof: {{ $income->payment_proof }}</p>
+                    <p>Proof Number: {{ $income->proof_number }}</p>
+                    <p>Fee Tax: {{ $income->fee_tax }}</p>
+                    <p>Status: {{ $income->status }}</p>
+                    <p style="font-size: 1.6rem; font-weight: bolder;">Total: ${{ $income->total }}</p>
+
+                    <h3>Income Details</h3>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Quantity</th>
+                                <th>Purchase Price</th>
+                                <th>Sale Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($details as $detail)
+                            <tr>
+                                <td>{{ $detail->product }}</td>
+                                <td>{{ $detail->cant }}</td>
+                                <td>${{ $detail->purchase_price }}</td>
+                                <td>${{ $detail->sale_price }}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+
+                    <a href="{{ route('incomes.index') }}" class="btn btn-primary">Back to List</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@stop

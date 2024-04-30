@@ -58,10 +58,11 @@
 
                                     <td>
                                         <div class="btn-action">
-                                            <a class="btn btn-info btn-sm" href="{{ route('incomes.edit', $income->id) }}">
-                                                <i class="d-inline d-sm-none fas fa-pen"></i>
+                                            <a class="btn btn-info btn-sm" href="{{ route('incomes.show', $income->id) }}">
+                                                <i class="d-inline d-sm-none fas fa-info"></i>
                                                 <span class="d-none d-sm-inline-flex">Details</span>
                                             </a>
+
                                             <form method="POST" action="{{ route('incomes.destroy', $income->id) }}">
                                                 @csrf
                                                 @method('DELETE')
@@ -75,11 +76,12 @@
 
 
                                     <td>{{$income->id}}</td>
-                                    <td>{{$income->provider_id->name}}</td>
+                                    <td>{{$income->provider->name}}</td>
                                     <td>{{$income->payment_proof}}</td>
                                     <td>{{$income->proof_number}}</td>
                                     <td>{{$income->date_time}}</td>
                                     <td>{{$income->fee_tax}}</td>
+                                    <td>{{ $income->total }}</td>
                                     <td>{{$income->status}}</td>
 
                                 </tr>

@@ -13,7 +13,7 @@ class IncomeDetail extends Model
 
     protected $primaryKey = 'id';
 
-    protected $timestamps = false;
+    public $timestamps = false;
 
     protected $fillable = [
         'income_id',
