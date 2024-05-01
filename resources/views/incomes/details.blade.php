@@ -11,7 +11,8 @@
                 <div class="card-header">Income Details</div>
 
                 <div class="card-body">
-                    <h2>Income ID: {{ $income->id }}</h2>
+                    <h2 class="mb-4">ORDER ID: {{ $income->id }}</h2>
+                    <p style="font-size: 1.4rem; font-weight: bold;">Provider: {{ $income->name }}</p>
                     <p>Date Time: {{ $income->date_time }}</p>
                     <p>Payment Proof: {{ $income->payment_proof }}</p>
                     <p>Proof Number: {{ $income->proof_number }}</p>
