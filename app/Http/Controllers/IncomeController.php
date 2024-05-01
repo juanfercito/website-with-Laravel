@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use App\Models\Product;
 use App\Models\Income;
 use App\Models\IncomeDetail;
 use Illuminate\Support\Carbon;
@@ -28,22 +28,37 @@ class IncomeController extends Controller
      */
     public function index(Request $request)
     {
-        $query = $request->input('search');
+        if ($request->has('search')) {
+            $query = trim($request->get('search'));
 
-        $incomes = Income::where(function ($q) use ($query) {
-            $q->where('payment_proof', 'like', "%$query%")
-                ->orWhere('proof_number', 'like', "%$query%")
-                ->orWhere('date_time', 'like', "%$query%")
-                ->orWhere('status', 'like', "%$query%");
-        })
-            ->paginate(6);
+            // Cambio la consulta para usar un builder de consultas
+            $incomes = DB::table('incomes as i')
+                ->join('providers as p', 'i.provider_id', '=', 'p.id')
+                ->join('income_details as inde', 'inde.income_id', '=', 'i.id')
+                ->select('i.id', 'i.date_time', 'p.name', 'i.payment_proof', 'i.proof_number', 'i.fee_tax', 'i.status', DB::raw('sum(inde.cant*inde.purchase_price) as total'))
+                ->where(function ($queryBuilder) use ($query) {
+                    $queryBuilder->where('i.proof_number', 'LIKE', '%' . $query . '%')
+                        ->orWhere('i.payment_proof', 'LIKE', '%' . $query . '%')
+                        ->orWhere('p.name', 'LIKE', '%' . $query . '%')
+                        ->orWhereDate('i.date_time', '=', $query); // Buscar por fecha
+                })
+                ->groupBy('i.id', 'i.date_time', 'p.name', 'i.payment_proof', 'i.proof_number', 'i.fee_tax', 'i.status')
+                ->orderBy('i.id', 'desc')
+                ->paginate(5);
 
-        foreach ($incomes as $income) {
-            $income->total = IncomeDetail::where('income_id', $income->id)
-                ->sum(DB::raw('cant * purchase_price'));
+            return view('incomes.index', ["incomes" => $incomes, "search" => $query]);
+        } else {
+            // Si no hay parámetro de búsqueda, simplemente obtener todos los ingresos
+            $incomes = DB::table('incomes as i')
+                ->join('providers as p', 'i.provider_id', '=', 'p.id')
+                ->join('income_details as inde', 'inde.income_id', '=', 'i.id')
+                ->select('i.id', 'i.date_time', 'p.name', 'i.payment_proof', 'i.proof_number', 'i.fee_tax', 'i.status', DB::raw('sum(inde.cant*inde.purchase_price) as total'))
+                ->groupBy('i.id', 'i.date_time', 'p.name', 'i.payment_proof', 'i.proof_number', 'i.fee_tax', 'i.status')
+                ->orderBy('i.id', 'desc')
+                ->paginate(5);
+
+            return view('incomes.index', ["incomes" => $incomes]);
         }
-
-        return view('incomes.index', compact('incomes'));
     }
 
     /**
@@ -51,12 +66,14 @@ class IncomeController extends Controller
      */
     public function create()
     {
+        $providers = DB::table('providers')->get();
         $incomes = Income::all();
-        $products = DB::table('products')
-            ->select(DB::raw('products.title, products.id, products.stock'))
-            ->where('products.status', '=', 'Available')
+
+        $products = DB::table('products as prod')
+            ->select(DB::raw('CONCAT(prod.id, " ", prod.title) AS Product'), 'prod.id', 'prod.stock')
             ->get();
-        return view('incomes.insert', ['products' => $products, 'incomes' => $incomes]);
+
+        return view("incomes.insert", ["providers" => $providers, "products" => $products, "incomes" => $incomes]);
     }
 
     /**
@@ -67,55 +84,68 @@ class IncomeController extends Controller
         try {
             DB::beginTransaction();
 
-            // Crear el ingreso principal
-            $income = new Income;
-            $income->provider_id = $request->get('provider_id');
-            $income->payment_proof = $request->get('payment_proof');
-            $income->proof_number = $request->get('proof_number');
-            $income->date_time = Carbon::now('America/Guayaquil')->toDateTimeString();
-            $income->fee_tax = '12';
-            $income->status = 'Incoming';
-            $income->save();
-            // Crear los detalles del ingreso
-            $product_ids = $request->get('product_id');
-            $cants = $request->get('cant');
-            $purchase_prices = $request->get('purchase_price');
-            $sale_prices = $request->get('sale_price');
+            $incomes = new Income;
+            $incomes->provider_id = $request->get('provider_id');
+            $incomes->payment_proof = $request->get('payment_proof');
+            $incomes->proof_number = $request->get('proof_number');
+            $incomes->date_time = Carbon::now('America/Guayaquil')->toDateTimeString();
+            $incomes->fee_tax = '12';
+            $incomes->status = 'Incoming';
 
-            foreach ($product_ids as $index => $product_id) {
-                $detail = new IncomeDetail();
-                $detail->income_id = $income->id;
-                $detail->product_id = $product_id;
-                $detail->cant = $cants[$index]; // Asegurarse de que se obtenga correctamente
-                $detail->purchase_price = $purchase_prices[$index];
-                $detail->sale_price = $sale_prices[$index];
-                $detail->save();
+            $incomes->save();
+
+            $product_id = $request->get('idArticle');
+            $cant = $request->get('cant');
+            $purchase_price = $request->get('purchase_price');
+            $sale_price = $request->get('sale_price');
+
+            $cont = 0;
+
+            while ($cont < count($product_id)) {
+                $details = new IncomeDetail();
+                $details->income_id = $incomes->id;
+                $details->product_id = $product_id[$cont];
+                $details->cant = $cant[$cont];
+                $details->purchase_price = $purchase_price[$cont];
+                $details->sale_price = $sale_price[$cont];
+                $details->save();
+
+                // Actualizar el stock de productos
+                $product = Product::find($product_id[$cont]);
+                $product->stock += $cant[$cont];
+                $product->save();
+
+                $cont++;
             }
 
             DB::commit();
-            return redirect()->route('incomes.index')->with('success', 'Income created successfully');
         } catch (\Exception $e) {
             DB::rollback();
             return response()->json(['success' => false, 'error' => $e->getMessage()]);
         }
+
+        return redirect()->route('incomes.index')->with('success', 'Income created successfully');
     }
+
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
         $income = DB::table('incomes as i')
-            ->leftJoin('income_details as inde', 'i.id', '=', 'inde.income_id')
-            ->select('i.id', 'i.date_time', 'i.payment_proof', 'i.proof_number', 'i.fee_tax', 'i.status', DB::raw('sum(inde.cant * inde.purchase_price) as total'))
+            ->join('providers as p', 'i.provider_id', '=', 'p.id') // Corregir la columna de join
+            ->join('income_details as inde', 'i.id', '=', 'inde.income_id')
+            ->select('i.id', 'i.date_time', 'p.name', 'i.payment_proof', 'i.proof_number', 'i.fee_tax', 'i.status', DB::raw('sum(inde.cant * inde.purchase_price) as total'))
             ->where('i.id', '=', $id)
-            ->groupBy('i.id', 'i.date_time', 'i.payment_proof', 'i.proof_number', 'i.fee_tax', 'i.status')
+            ->groupBy('i.id', 'i.date_time', 'p.name', 'i.payment_proof', 'i.proof_number', 'i.fee_tax', 'i.status') // Incluir p.name en el GROUP BY
+            ->orderBy('i.id', 'desc')
             ->first();
 
-        $details = DB::table('income_details as d')
-            ->join('products as prod', 'd.product_id', '=', 'prod.id')
-            ->select('prod.title as product', 'd.cant', 'd.purchase_price', 'd.sale_price')
-            ->where('d.income_id', '=', $id)
+        $details = DB::table('income_details as inde')
+            ->join('products as prod', 'inde.product_id', '=', 'prod.id') // Corregir la columna de join
+            ->select('prod.title as product', 'inde.cant', 'inde.purchase_price', 'inde.sale_price')
+            ->where('inde.income_id', '=', $id)
             ->get();
 
         return view('incomes.details', ["income" => $income, "details" => $details]);
@@ -140,7 +170,7 @@ class IncomeController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
         try {
             $income = Income::findOrFail($id);

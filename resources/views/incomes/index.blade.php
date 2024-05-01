@@ -76,7 +76,7 @@
 
 
                                     <td>{{$income->id}}</td>
-                                    <td>{{$income->provider->name}}</td>
+                                    <td>{{$income->name}}</td>
                                     <td>{{$income->payment_proof}}</td>
                                     <td>{{$income->proof_number}}</td>
                                     <td>{{$income->date_time}}</td>

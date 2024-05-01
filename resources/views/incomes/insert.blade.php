@@ -64,9 +64,9 @@
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="products">Products</label>
-                                    <select name="product_id[]" id="product_id" class="form-control selectpicker" data-live-search="true">
+                                    <select name="product_id" id="product_id" class="form-control selectpicker" data-live-search="true">
                                         @foreach($products as $product)
-                                        <option value="{{ $product->id }}">{{ $product->title }}</option>
+                                        <option value="{{ $product->id }}">{{ $product->Product }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -108,11 +108,11 @@
                                         <table id="details" class="table table-bordered table-hover">
                                             <thead class="thead-dark">
                                                 <tr>
-                                                    <th>Options</th>
-                                                    <th>Product</th>
-                                                    <th>Quantity</th>
-                                                    <th>Purchase Price</th>
-                                                    <th>Sale Price</th>
+                                                    <th style="min-width: 80px;">Options</th> <!-- Ajustar el ancho -->
+                                                    <th style="min-width: 300px;">Description</th> <!-- Ajustar el ancho -->
+                                                    <th style="min-width: 80px;">Quantity</th> <!-- Ajustar el ancho -->
+                                                    <th style="min-width: 80px;">Purchase Price</th> <!-- Ajustar el ancho -->
+                                                    <th style="min-width: 80px;">Sale Price</th> <!-- Ajustar el ancho -->
                                                     <th>Subtotal</th>
                                                 </tr>
                                             </thead>
@@ -133,8 +133,6 @@
                             </div>
                         </div>
 
-
-
                         <div class="flex items-center justify-center md:gap-8 gap-4 pt-3 pb-3">
                             <button type="submit" class="btn btn-success me-1 mb-1" id="save">Save Order</button>
                             <button type="button" class="btn btn-danger me-1 mb-1" onclick="window.history.back()">Cancel</button>
@@ -153,82 +151,72 @@
         $('#add_product').click(function() {
             add();
         });
-
-        var count = 0;
-        var total = 0;
-        var subtotal = [];
-
-        $('#save').hide();
-        $('#product_id').change(showValues);
-
-        function showValues() {
-            var articleData = $('#product_id').val().split('_');
-            $('#cant').val(articleData[1]);
-            $('#unit').html(articleData[2]);
-        }
-
-        function add() {
-            var articleData = $('#product_id').val().split('_');
-            var idProduct = articleData[0];
-            var productName = $('#product_id option:selected').text();
-            var cant = $('#cant').val();
-            var purchase_price = $('#purchase_price').val();
-            var sale_price = $('#sale_price').val();
-
-            if (idProduct != "" && cant != "" && cant > 0 && purchase_price != "" && sale_price != "") {
-                var subtotalItem = (parseFloat(cant) * parseFloat(purchase_price));
-                subtotal.push(subtotalItem);
-                total += subtotalItem;
-
-                var row = '<tr class="selected"><td><button type="button" class="btn btn-warning btn-delete" onclick="destroy(' + count + ');">X</button></td><td>' + productName +
-                    '</td><td><input type="number" name="cant[]" value="' + cant +
-                    '"></td><td><input type="purchase_price" name="purchase_price[]" value="' + purchase_price +
-                    '"></td><td><input type="number" name="sale_price[]" value="' + sale_price +
-                    '"></td><td class="subtotal">' + subtotalItem.toFixed(2) + '</td></tr>';
-
-                count++;
-                cleanInputs();
-                $('#total').html("$" + total.toFixed(2));
-                evaluate();
-                $('#details tbody').append(row);
-            } else {
-                alert('Failed to enter product information');
-            }
-        }
-
-        function evaluate() {
-            if (total > 0) {
-                $('#save').show();
-            } else {
-                $('#save').hide();
-            }
-        }
-
-        $(document).on('click', '.btn-delete', function() {
-            var row = $(this).closest('tr');
-            var index = row.index();
-            var subtotalItem = parseFloat(row.find('.subtotal').text());
-            total -= subtotalItem;
-            $('#total').html("$" + total.toFixed(2));
-            row.remove();
-            evaluate();
-        });
-
-        function cleanInputs() {
-            $('#cant').val('');
-            $('#purchase_price').val('');
-            $('#sale_price').val('');
-        }
-
-        function destroy(index) {
-            total -= subtotal[index];
-            $('#total').html("$" + total.toFixed(2));
-            $('#details tbody tr:eq(' + index + ')').remove();
-            subtotal.splice(index, 1);
-            evaluate();
-        }
-
     });
+
+    var cont = 0;
+    total = 0;
+    subtotal = [];
+
+    $("#save").hide();
+    $("#product_id").change(showValues);
+
+    function showValues() {
+        articleData = document.getElementById('product_id').value.split('-');
+        $("#cant").val(articleData[1]);
+        $("#unit").html(articleData[2]);
+    }
+
+    function add() {
+        articleData = document.getElementById('product_id').value.split('_');
+
+        idArticle = articleData[0];
+        article = $("#product_id option:selected").text();
+        cant = $("#cant").val();
+        purchase_price = $("#purchase_price").val();
+        sale_price = $("#sale_price").val();
+
+        if (idArticle != "" && cant != "" && cant > 0 && purchase_price != "" && sale_price != "") {
+            subtotal[cont] = (cant * purchase_price);
+            total = total + subtotal[cont];
+
+            var row = '<tr class="selected" id="row' + cont +
+                '"><td><button type="button" class="btn btn-warning fas fa-trash-alt" onclick="rmRow(' + cont +
+                ');"></button></td><td><input type="hidden" name="idArticle[]" value="' + idArticle + '">' + article +
+                '</td><td><input type="number" name="cant[]" value="' + cant +
+                '"></td><td><input type="number" name="purchase_price[]" value="' + purchase_price +
+                '"></td><td><input type="number" name="sale_price[]" value="' + sale_price + '"></td><td>' +
+                subtotal[cont] + '</td></tr>';
+
+            cont++;
+            cleanItems();
+            $("#total").html("$ " + total);
+            evaluate();
+            $("#details").append(row);
+        } else {
+            alert("Failed putting details of Income. Please try again");
+        }
+    }
+
+    function cleanItems() {
+        $('#cant').val("");
+        $('#purchase_price').val("");
+        $('#sale_price').val("");
+    }
+
+    function evaluate() {
+        if (total > 0) {
+            $("#save").show();
+        } else {
+            $("#save").hide();
+        }
+    }
+
+    function rmRow(index) {
+        total = total - subtotal[index];
+        $("#total").html("$ " + total);
+        $("#row" + index).remove();
+        evaluate();
+    }
 </script>
 @endpush
 

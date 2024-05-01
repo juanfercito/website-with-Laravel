@@ -17,10 +17,10 @@
                     <p>Proof Number: {{ $income->proof_number }}</p>
                     <p>Fee Tax: {{ $income->fee_tax }}</p>
                     <p>Status: {{ $income->status }}</p>
-                    <p style="font-size: 1.6rem; font-weight: bolder;">Total: ${{ $income->total }}</p>
+                    <h2 style="color: lightblue; font-weight: bolder;" class="my-4">Total: ${{ $income->total }}</h2>
 
-                    <h3>Income Details</h3>
                     <table class="table">
+                        <h4>Income Order Details</h4>
                         <thead>
                             <tr>
                                 <th>Product</th>
@@ -41,7 +41,7 @@
                         </tbody>
                     </table>
 
-                    <a href="{{ route('incomes.index') }}" class="btn btn-primary">Back to List</a>
+                    <a href="{{ route('incomes.index') }}" class="btn btn-primary my-3">Back to List</a>
                 </div>
             </div>
         </div>
