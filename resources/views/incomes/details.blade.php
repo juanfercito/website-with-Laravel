@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Order Details')
+
 @section('content_header_title', 'Incomes')
 @section('content_header_subtitle', 'Details')
 
@@ -42,8 +44,21 @@
                         </tbody>
                     </table>
 
-                    <a href="{{ route('incomes.index') }}" class="btn btn-primary my-3">Back to List</a>
+                    <td>
+                        <div class="btn-action">
+                            <form action="{{ route('incomes.cancel', $income->id) }}" method="POST">
+                                @csrf
+                                @method('PATCH')
+                                <button type="submit" class="btn btn-warning" style="color: white;">
+                                    <span class="d-none d-sm-inline">Cancel Order</span>
+                                    <i class="d-inline d-sm-none fa fa-ban"></i>
+                                </button>
+                            </form>
+
+                            <a href="{{ route('incomes.index') }}" class="btn btn-primary my-3">Back to List</a>
+                        </div>
                 </div>
+                </td>
             </div>
         </div>
     </div>

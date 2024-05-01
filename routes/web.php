@@ -39,6 +39,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('profile', ProfileController::class);
     Route::resource('customers', CustomerController::class);
     Route::resource('incomes', IncomeController::class);
+    Route::patch('incomes/{id}/cancel', [IncomeController::class, 'cancel'])->name('incomes.cancel');
 });
 
 // Define auth routes

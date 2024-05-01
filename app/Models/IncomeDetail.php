@@ -10,9 +10,7 @@ class IncomeDetail extends Model
     use HasFactory;
 
     protected $table = 'income_details';
-
     protected $primaryKey = 'id';
-
     public $timestamps = false;
 
     protected $fillable = [
@@ -24,4 +22,9 @@ class IncomeDetail extends Model
     ];
 
     protected $guarded = [];
+
+    public function income()
+    {
+        return $this->belongsTo(Income::class);
+    }
 }

@@ -484,6 +484,7 @@ return [
                 ],
             ],
         ],
+        ['header' => ' '],
         ['header' => 'labels'],
         [
             'text' => 'important',

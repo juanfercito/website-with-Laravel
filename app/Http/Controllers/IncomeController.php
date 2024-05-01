@@ -170,7 +170,15 @@ class IncomeController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy(Income $income)
+    {
+        $income->incomeDetails()->delete();
+        $income->delete();
+
+        return redirect()->route('incomes.index')->with('success', 'Income deleted successfully');
+    }
+
+    public function cancel($id)
     {
         try {
             $income = Income::findOrFail($id);
@@ -180,6 +188,17 @@ class IncomeController extends Controller
             return redirect()->route('incomes.index')->with('success', 'Income cancelled successfully');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error cancelling income: ' . $e->getMessage());
+        }
+    }
+
+    public function restore($id)
+    {
+        try {
+            $income = Income::withTrashed()->findOrFail($id);
+            $income->restore();
+            return redirect()->route('incomes.index')->with('success', 'Income restored successfully');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Error restoring income: ' . $e->getMessage());
         }
     }
 }

@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Incomes')
+
 @section('content_header_title', 'Incomes')
 @section('content_header_subtitle', 'View')
 
@@ -40,15 +42,15 @@
                             <thead style="background-color: #6777ef;">
                                 <tr>
 
-                                    <th style="color: #fff; display: flex; justify-content:center;">Actions</th>
-                                    <th style="color: #fff">ID</th>
-                                    <th style="color: #fff; white-space: nowrap;">Provider</th>
-                                    <th style="color: #fff;">Payment_proof</th>
-                                    <th style="color: #fff;">Proof_number</th>
-                                    <th style="color: #fff;">date_time</th>
-                                    <th style="color: #fff;">fee_tax</th>
-                                    <th style="color: #fff;">Total</th>
-                                    <th style="color: #fff;">status</th>
+                                    <th style="min-width: 60px; color: #fff; display: flex; justify-content:center;">Actions</th>
+                                    <th style="min-width: 50px; color: #fff">ID</th>
+                                    <th style="min-width: 150px; color: #fff; white-space: nowrap;">Provider</th>
+                                    <th style="min-width: 80px; color: #fff;">Payment_proof</th>
+                                    <th style="min-width: 80px; color: #fff;">Proof_number</th>
+                                    <th style="min-width: 120px; color: #fff;">date_time</th>
+                                    <th style="min-width: 80px; color: #fff;">fee_tax</th>
+                                    <th style="min-width: 80px; color: #fff;">Total</th>
+                                    <th style="min-width: 80px; color: #fff;">status</th>
 
                                 </tr>
                             </thead>
@@ -66,7 +68,7 @@
                                             <form method="POST" action="{{ route('incomes.destroy', $income->id) }}">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-sm">
+                                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">
                                                     <span class="d-none d-sm-inline">Delete</span>
                                                     <i class="d-inline d-sm-none fas fa-trash-alt"></i>
                                                 </button>

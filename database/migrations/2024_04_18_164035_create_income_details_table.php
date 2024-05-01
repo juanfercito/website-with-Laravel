@@ -14,7 +14,10 @@ return new class extends Migration
         Schema::create('income_details', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('income_id');
-            $table->foreign('income_id')->references('id')->on('incomes');
+            $table->foreign('income_id')
+                ->references('id')
+                ->on('incomes')
+                ->onDelete('cascade');
             $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')->references('id')->on('products');
             $table->integer('cant');
