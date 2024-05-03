@@ -387,7 +387,7 @@ return [
                 ],
                 [
                     'text' => ' Sales',
-                    'url' => '#',
+                    'route' => 'sales.index',
                     'icon' => 'fa fa-shopping-basket',
                     'icon_color' => 'warning',
                 ],

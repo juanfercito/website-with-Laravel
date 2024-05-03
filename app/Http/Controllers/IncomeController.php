@@ -127,7 +127,6 @@ class IncomeController extends Controller
         return redirect()->route('incomes.index')->with('success', 'Income created successfully');
     }
 
-
     /**
      * Display the specified resource.
      */

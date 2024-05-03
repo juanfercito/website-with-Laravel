@@ -19,6 +19,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\ShippingController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SaleController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -40,6 +41,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('customers', CustomerController::class);
     Route::resource('incomes', IncomeController::class);
     Route::patch('incomes/{id}/cancel', [IncomeController::class, 'cancel'])->name('incomes.cancel');
+    Route::resource('sales', SaleController::class);
+    Route::patch('sales/{id}/cancel', [SaleController::class, 'cancel'])->name('sales.cancel');
 });
 
 // Define auth routes
