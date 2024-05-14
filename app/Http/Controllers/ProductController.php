@@ -34,7 +34,7 @@ class ProductController extends Controller
                     $q->where('name', 'like', "%$query%");
                 });
         })
-            ->paginate(5);
+            ->paginate(7);
 
 
         return view('products.index', compact('products'));

@@ -59,4 +59,10 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('profile/modify', [ProfileController::class, 'edit'])->name('profile.modify');
 
+Route::get('/search-customer-by-dni', [CustomerController::class, 'searchByDni'])->name('search.customer.by.dni');
+
+Route::post('/customers/useExistingCustomer', [CustomerController::class, 'useExistingCustomer'])->name('customers.useExistingCustomer');
+
+//Route::get('/search-customer', [SaleController::class, 'searchCustomer'])->name('search.customer');
+
 //Route::get('products', 'App\Http\Controllers\RelationshipController@index');

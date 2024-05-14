@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Redirect;
 use App\Models\Sale;
 use App\Models\SaleDetail;
 use App\Models\Product;
+use App\Models\Customer;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
 
@@ -19,39 +20,46 @@ class SaleController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->has('search')) {
-            $query = trim($request->get('search'));
+        /*if ($request->has('search')) {
+            $query = $request->input('search');
 
-            // Cambio la consulta para usar un builder de consultas
             $sales = DB::table('sales as s')
                 ->join('customers as c', 's.customer_id', '=', 'c.id')
-                ->join('sale_details as sade', 'sade.sale_id', '=', 's.id')
+                ->join('sale_details as sd', 'sd.sale_id', '=', 's.id') 
                 ->select('s.id', 's.date_time', 'c.name', 's.proof_type', 's.proof_number', 's.tax_fee', 's.status', 's.sale_total')
                 ->where(function ($queryBuilder) use ($query) {
                     $queryBuilder->where('s.proof_number', 'LIKE', '%' . $query . '%')
                         ->orWhere('s.proof_type', 'LIKE', '%' . $query . '%')
                         ->orWhere('c.name', 'LIKE', '%' . $query . '%')
-                        ->orWhereDate('s.date_time', '=', $query); // Buscar por fecha
+                        ->orWhereDate('s.date_time', '=', $query);
                 })
-                ->groupBy('s.id', 's.date_time', 'c.name', 's.proof_type', 's.proof_number', 's.tax_fee', 'sale_total', 's.status')
+                ->groupBy('s.id', 's.date_time', 'c.name', 's.proof_type', 's.proof_number', 's.tax_fee', 's.status', 's.sale_total') // Agregar 's.sale_total' al grupo
                 ->orderBy('s.id', 'desc')
                 ->paginate(5);
 
-            return view('sales.index', ["incomes" => $sales, "search" => $query]);
+            return view('sales.index', ["sales" => $sales, "search" => $query]);
         } else {
-            // Si no hay parámetro de búsqueda, simplemente obtener todos los ingresos
             $sales = DB::table('sales as s')
                 ->join('customers as c', 's.customer_id', '=', 'c.id')
-                ->join('sale_details as sade', 'sade.sale_id', '=', 's.id')
-                ->select('s.id', 's.date_time', 'c.name', 's.proof_type', 's.proof_number', 's.tax_fee', 's.status', 's.sale_total')
-                ->groupBy('s.id', 's.date_time', 'c.name', 's.proof_type', 's.proof_number', 's.tax_fee', 'sale_total', 's.status')
+                ->join('sale_details as sd', 'sd.sale_id', '=', 's.id') 
+                ->select('s.id', 's.date_time', 'c.name', 's.proof_type', 's.proof_number', 's.tax_fee', 's.sale_total', 's.status')
+                ->groupBy('s.id', 's.date_time', 'c.name', 's.proof_type', 's.proof_number', 's.tax_fee', 's.sale_total', 's.status')
                 ->orderBy('s.id', 'desc')
                 ->paginate(5);
 
             return view('sales.index', ["sales" => $sales]);
-        }
+            
+        }*/
+        $query = $request->input('search');
+        $sales = Sale::where(function ($q) use ($query) {
+            $q->where('customer_id', 'like', "%$query%")
+                ->orWhere('proof_type', 'like', "%$query%")
+                ->orWhere('proof_number', 'like', "%$query%")
+                ->orWhere('date_time', 'like', "%$query%");
+        })
+            ->paginate(7);
+        return view('sales.index', compact('sales'));
     }
-
 
     /**
      * Show the form for creating a new resource.
@@ -65,23 +73,16 @@ class SaleController extends Controller
                 DB::raw('CONCAT(prod.id, " ", prod.title) AS Product'),
                 'prod.id',
                 'prod.stock',
-                DB::raw('avg(inde.sale_price) as avg_price')
+                DB::raw('ROUND(avg(sade.sale_price), 2) as avg_price')
             )
-            ->leftJoin('income_details as inde', 'inde.product_id', '=', 'prod.id')
+            ->leftJoin('income_details as sade', 'sade.product_id', '=', 'prod.id')
             ->where('prod.status', '=', 'Available')
             ->where('prod.stock', '>', '0')
             ->groupBy('Product', 'prod.id', 'prod.stock')
             ->get();
 
-        foreach ($products as $product) {
-            $product->income_details = DB::table('income_details')
-                ->where('product_id', $product->id)
-                ->get();
-        }
-
         return view("sales.insert", ["customers" => $customers, "products" => $products]);
     }
-
 
     /**
      * Store a newly created resource in storage.
@@ -91,38 +92,67 @@ class SaleController extends Controller
         try {
             DB::beginTransaction();
 
-            $sales = new Sale;
-            $sales->customer_id = $request->get('customer_id');
-            $sales->proof_type = $request->get('proof_type');
-            $sales->proof_number = $request->get('proof_number');
-            $sales->date_time = Carbon::now('America/Guayaquil')->toDateTimeString();
-            $sales->tax_fee = '12';
-            $sales->status = 'Successful';
+            // Obtener los datos del cliente del formulario
+            $dni = $request->input('dni');
+            $name = $request->input('customer_name');
+            $email = $request->input('email');
+            $telephone = $request->input('telephone');
 
-            $sales->save();
+            // Verificar si alguno de los campos del cliente está vacío
+            if (empty($dni) || empty($name) || empty($email) || empty($telephone)) {
+                return redirect()->back()->with('error', 'Por favor, complete todos los campos del cliente.');
+            }
 
+            // Verificar si el cliente ya existe en la base de datos, de lo contrario, crear un nuevo cliente
+            $customer = Customer::where('dni', $dni)->first();
+            if (!$customer) {
+                $customer = new Customer;
+                $customer->dni = $dni;
+                $customer->name = $name;
+                $customer->email = $email;
+                $customer->telephone = $telephone;
+                $customer->save();
+            }
+
+            // Calcular el subtotal, el descuento total y el total de la venta
+            $subtotal = 0;
+            $totalDiscount = 0;
+
+            foreach ($request->cant as $key => $value) {
+                $subtotal += $value * $request->sale_price[$key];
+                $totalDiscount += $value * $request->discount[$key];
+            }
+
+            $saleTotal = $subtotal - $totalDiscount;
+
+            // Crear una nueva venta
+            $sale = new Sale;
+            $sale->customer_id = $customer->id;
+            $sale->proof_type = $request->input('proof_type');
+            $sale->proof_number = $request->input('proof_number');
+            $sale->date_time = Carbon::now('America/Guayaquil')->toDateTimeString();
+            $sale->tax_fee = 12;
+            $sale->status = 'Successful';
+            $sale->sale_total = $saleTotal;
+            $sale->save();
+
+            // Guardar los detalles de la venta y actualizar el stock de productos
             $product_id = $request->get('idArticle');
             $cant = $request->get('cant');
-            $sale_price = $request->get('sale_price');
             $discount = $request->get('discount');
+            $sale_price = $request->get('sale_price');
 
             $cont = 0;
 
             while ($cont < count($product_id)) {
                 $details = new SaleDetail();
-                $details->sale_id = $sales->id;
+                $details->sale_id = $sale->id;
                 $details->product_id = $product_id[$cont];
                 $details->cant = $cant[$cont];
-                $details->sale_price = $sale_price[$cont];
                 $details->discount = $discount[$cont];
+                $details->sale_price = $sale_price[$cont];
                 $details->save();
-
-                // Actualizar el stock de productos
-                $product = Product::find($product_id[$cont]);
-                $product->stock -= $cant[$cont];
-                $product->save();
-
-                $cont++;
+                $cont = $cont + 1;
             }
 
             DB::commit();
@@ -131,8 +161,10 @@ class SaleController extends Controller
             return response()->json(['success' => false, 'error' => $e->getMessage()]);
         }
 
-        return redirect()->route('sales.index')->with('success', 'Sale closeout successfully');
+        return redirect()->route('sales.index')->with('success', 'Venta realizada con éxito');
     }
+
+
 
     /**
      * Display the specified resource.
@@ -142,10 +174,9 @@ class SaleController extends Controller
         $sales = DB::table('sales as s')
             ->join('customers as c', 's.customer_id', '=', 'c.id')
             ->join('sale_details as sade', 'sade.sale_id', '=', 's.id')
-            ->select('s.id', 's.date_time', 'c.name', 's.payment_proof', 's.proof_number', 's.tax_fee', 's.status', 's.sale_total')
-            ->where('i.id', '=', $id)
-            ->groupBy('s.id', 's.date_time', 'c.name', 's.payment_proof', 's.proof_number', 's.tax_fee', 's.status')
-            ->orderBy('s.id', 'desc')
+            ->select('s.id', 's.date_time', 'c.name', 's.proof_type', 's.proof_number', 's.tax_fee', 's.status', 's.sale_total')
+            ->where('s.id', '=', $id)
+            ->groupBy('s.id', 's.date_time', 'c.name', 's.proof_type', 's.proof_number', 's.tax_fee', 's.sale_total', 's.status')
             ->first();
 
         $details = DB::table('sale_details as sade')
@@ -154,7 +185,7 @@ class SaleController extends Controller
             ->where('sade.sale_id', '=', $id)
             ->get();
 
-        return view('sales.details', ["sale" => $sales, "details" => $details]);
+        return view('sales.details', ["sales" => $sales, "details" => $details]);
     }
 
     /**
@@ -197,6 +228,18 @@ class SaleController extends Controller
             return redirect()->route('sales.index')->with('success', 'sale cancelled successfully');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error cancelling sale: ' . $e->getMessage());
+        }
+    }
+
+    public function searchCustomer(Request $request)
+    {
+        $dni = $request->get('dni');
+        $customer = Customer::where('dni', $dni)->first();
+
+        if ($customer) {
+            return response()->json(['success' => true, 'customer' => $customer]);
+        } else {
+            return response()->json(['success' => false]);
         }
     }
 }

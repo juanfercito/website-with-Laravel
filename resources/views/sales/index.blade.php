@@ -15,7 +15,7 @@
                 <div class="card-body">
                     <div class="row">
 
-                        @can('insert-income')
+                        @can('insert-sale')
                         <a class="btn btn-warning my-3 text-white" href="{{route('sales.create')}}">New Sale Order</a>
                         @endcan
                         <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
@@ -44,8 +44,8 @@
 
                                     <th style="min-width: 60px; color: #fff; display: flex; justify-content:center;">Actions</th>
                                     <th style="min-width: 50px; color: #fff">ID</th>
-                                    <th style="min-width: 200px; color: #fff; white-space: nowrap;">Customer</th>
-                                    <th style="min-width: 90px; color: #fff;">Proof Type</th>
+                                    <th style="min-width: 150px; color: #fff; white-space: nowrap;">Customer</th>
+                                    <th style="min-width: 100px; color: #fff;">Proof Type</th>
                                     <th style="min-width: 80px; color: #fff;">Proof_number</th>
                                     <th style="min-width: 120px; color: #fff;">date_time</th>
                                     <th style="min-width: 80px; color: #fff;">Tax / Fee</th>
@@ -78,7 +78,7 @@
 
 
                                     <td>{{$sale->id}}</td>
-                                    <td>{{$sale->name}}</td>
+                                    <td>{{$sale->customer->name}}</td>
                                     <td>{{$sale->proof_type}}</td>
                                     <td>{{$sale->proof_number}}</td>
                                     <td>{{$sale->date_time}}</td>

@@ -41,7 +41,8 @@
                             <thead style="background-color: #6777ef;">
                                 <th style="color: #fff; display: flex; justify-content:center;">Actions</th>
                                 <th style="display: none;">ID</th>
-                                <th style="color: #fff;">Title</th>
+                                <th style="min-width: 80px; color:#fff;">Bars Code</th>
+                                <th style="min-width:200px; color: #fff;">Title</th>
                                 <th style="color: #fff;">Class</th>
                                 <th style="color: #fff;">Category</th>
                                 <th style="color: #fff;">Type</th>
@@ -77,6 +78,7 @@
                                         </div>
                                     </td>
 
+                                    <td>{{ $product->bars_code }}</td>
                                     <td>{{$product->title}}</td>
                                     <td>{{$product->productClass->name}}</td>
                                     <td>{{$product->productCategory->name}}</td>
