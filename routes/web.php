@@ -63,6 +63,13 @@ Route::get('/search-customer-by-dni', [CustomerController::class, 'searchByDni']
 
 Route::post('/customers/useExistingCustomer', [CustomerController::class, 'useExistingCustomer'])->name('customers.useExistingCustomer');
 
-//Route::get('/search-customer', [SaleController::class, 'searchCustomer'])->name('search.customer');
+// Define Client routes
+Route::get('/shopping-cart', function () {
+    return view('shoppingCart');
+});
 
-//Route::get('products', 'App\Http\Controllers\RelationshipController@index');
+Route::get('/welcome', function () {
+    return view('welcome');
+});
+
+Route::get('/get-products', 'ProductController@getProducts');

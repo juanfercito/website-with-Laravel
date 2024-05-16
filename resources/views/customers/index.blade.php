@@ -14,8 +14,7 @@
             <div class="card" style="border-radius: 16px;">
                 <div class="card-body">
                     <div class="row">
-
-
+                        <a class="btn btn-warning my-3" href="{{ route('customers.create') }}">New User</a>
                         <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
                             <div class="input-group my-3">
                                 <form action="{{ route('customers.index') }}" method="GET" class="input-group mb-6">

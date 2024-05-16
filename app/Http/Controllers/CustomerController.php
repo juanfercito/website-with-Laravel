@@ -38,19 +38,14 @@ class CustomerController extends Controller
             'telephone' => 'nullable',
         ]);
 
-        // Crear un nuevo cliente con los datos validados
         $customer = Customer::create($validatedData);
 
-        // Verifica si el cliente se creó correctamente
         if ($customer) {
-            // Coloca el dd(session('customer')); aquí para verificar la sesión antes de la redirección
             dd(session('customer'));
 
-            // Redirigir al usuario a la página de inserción de ventas y pasar los datos del cliente
-            return redirect()->route('customers.index')->with('customers', $customer);
+            return redirect()->route('customers.index');
         } else {
-            // Si hay un problema al crear el cliente, redirige con un mensaje de error
-            return redirect()->back()->with('error', 'Error al crear el cliente');
+            return redirect()->back()->with('error', 'Error creating customer');
         }
     }
 
@@ -62,15 +57,13 @@ class CustomerController extends Controller
         $customer = Customer::findOrFail($id);
 
         // Retorna la vista de edición con el cliente encontrado
-        return view('customers.modify', compact('customers'));
+        return view('customers.modify', compact('customer'));
     }
 
     public function update(Request $request, $id)
     {
         // Obtener el cliente por su ID
         $customer = Customer::findOrFail($id);
-
-        // Si hay cambios en los datos, realiza la validación y la actualización
         $validatedData = $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:customers,email,' . $customer->id,

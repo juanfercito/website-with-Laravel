@@ -1,188 +1,205 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+@extends('layouts.main')
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+@section('title', 'Welcome to Online Shop')
 
-    <title>Online Shop</title>
+@section('content')
+<div class="title-beginning">
+    <h2>All in a One Place</h2>
+</div>
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
-    <link rel="icon" type="image" href="favicons/favicon.ico">
-
-    <!-- Styles -->
-    <link rel="stylesheet" href="{{ asset('css/welcome.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
-</head>
-
-<body class="font-sans antialiased dark:bg-black dark:text-white/50">
-    <div class="row items-center gap-2 py-10 lg:grid-cols-3">
-        <header class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="header-fluid">
-
-                <!-- Elementos de tipo enlace -->
-                <div class="navbar-nav flex-row">
-                    @if (Route::has('login'))
-                    <nav class="navbar navbar-brand navbar-nav -mx-3 flex flex-1 justify-end">
-
-                        <!-- Logo -->
-                        <a class="navbar-brand" href="#">
-                            <img src="{{ asset('assets/onlineshop1.png') }}" alt="logo" style="max-height: 40px;">
-                        </a>
-
-                        <!-- links to info -->
-                        <div class="flex lg:justify-center lg:col-start-2">
-                            <a href="#" class="nav-info">About Us</a>
-                        </div>
-                        <div class="flex lg:justify-center lg:col-start-2">
-                            <a href="#" class="nav-info">Workshop</a>
-                        </div>
-                        <div class="flex lg:justify-center lg:col-start-2">
-                            <a href="#" class="nav-info">Contact</a>
-                        </div>
-
-                        <!-- Search Bar -->
-
-                        <form class="search d-flex flex-grow-1">
-                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                            <button class="search-btn" type="submit">
-                                <i class="text-white fas fa-search"></i>
-                            </button>
-                        </form>
-
-                        <a href="/" class="shopping-cart fa fa-cart-plus" aria-hidden="true"></a>
-
-
-                        @auth
-                        <a href="{{ url('/dashboard') }}" class=" nav-link rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
-                            Dashboard
-                        </a>
-                        @else
-                        <a href="{{ route('login') }}" class="nav-link rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
-                            Log in
-                        </a>
-
-                        @if (Route::has('register'))
-                        <a href="{{ route('register') }}" class="nav-link rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
-                            Register
-                        </a>
-                        @endif
-                        @endauth
-
-                        <div class="bars-menu">
-                            <button class="navbar-toggler" id="menuToggleBtn" aria-controls="menuDropdown" aria-expanded="false">
-                                <i class="text-white fas fa-bars"></i>
-                            </button>
-                        </div>
-
-                        <!--<ul class="menu-dropdown" id="menuDropdown">
-                            <li><a href="{{ route('login') }}" class="nav-link">Log in</a></li>
-                            <li><a href="{{ route('register') }}" class="nav-link">Register</a></li>
-                            <li class="li-drop"><a href="" class="nav-link">About Us</a></li>
-                            <li class="li-drop"><a href="" class="nav-link">Workshop</a></li>
-                            <li class="li-drop"><a href="" class="nav-link">Contact</a></li>
-                        </ul> -->
-
-                    </nav>
-                    @endif
-                </div>
-            </div>
-        </header>
+<div>
+    <div class="background-carousel" style="background-image: url('assets/foreground-nature.jpg');">
     </div>
 
+    <div class="container">
+        <div class="row justify-content-center align-items-end fixed-bottom mb-3">
+            <div class="col-md-3">
+                <!-- Latest added Products Content -->
+                <div class="card">
+                    <div class="card-content">
+                        <h3 class="card-title">Últimos añadidos</h3>
+                        <div class="card-body">
+                            <div id="product-container" class="product-row">
+                                @php
+                                $latestProducts = \App\Models\Product::latest()->get();
+                                @endphp
+                                @foreach($latestProducts as $product)
+                                <div class="product-card">
+                                    <div class="img">
+                                        <img src="/product-img/{{$product->image}}" alt="{{ $product->title }}" class="product-image">
+                                    </div>
+                                    <h4>{{ $product->title }}</h4>
+                                </div>
+                                @endforeach
+                            </div>
+                            <a class="watch-all" href="/">Watch All <i class="fa fa-arrow-right" style="margin-left:4px;"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <!-- Most Sold Products Content -->
+                <div class="card">
+                    <div class="card-content">
+                        <h3 class="card-title">Lo más vendido</h3>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6 col-lg-4">
+                                    <!-- Aquí va el contenido de cada producto -->
+                                    <div class="product-card">
+                                        <!-- Otros detalles del producto -->
+                                    </div>
+                                </div>
+                            </div>
+                            <a class="watch-all" href="/">Watch All <i class="fa fa-arrow-right" style="margin-left:4px;"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
 
-    <main class="main-content">
+@endsection
 
-        <div class="menu-dropdown" id="menuDropdown">
-            <ul>
-                <li><a href="{{ route('login') }}" class="nav-link">Log in</a></li>
-                <li><a href="{{ route('register') }}" class="nav-link">Register</a></li>
-                <li class="li-drop"><a href="" class="nav-link">About Us</a></li>
-                <li class="li-drop"><a href="" class="nav-link">Workshop</a></li>
-                <li class="li-drop"><a href="" class="nav-link">Contact</a></li>
-                <!-- Agrega más opciones según sea necesario -->
-            </ul>
-        </div>
+@push('css')
+<!-- Estilos CSS -->
+<style>
+    /* Estilos para el contenedor del producto */
+    .product-row {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        margin: -6px;
+        /* Compensar el padding negativo */
+    }
 
-        <div class="title-beginning">
-            <h2>All in a One Place</h2>
-        </div>
+    .product-card {
+        display: flex;
+        position: relative;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        background-color: rgba(255, 255, 255, 0.4);
+        border: 1px solid rgba(0, 0, 0, 0.4);
+        border-radius: 16px;
+        margin-bottom: 20px;
+        transition: all 0.3s ease;
+        margin-inline: 6px;
 
-        <div>
-            <div class="background-carousel" style="background-image: url('assets/foreground-nature.jpg');">
-            </div>
+        h4 {
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: white;
+        }
+    }
 
-            <div class="container">
-                <div class="row justify-content-center align-items-end fixed-bottom mb-3">
-                    <div class="card-container col-md-6">
-                        <!-- Contenido de Últimos añadidos -->
-                        <div class="card">
-                            <div class="card-body">
-                                <h3 class="card-title">Últimos añadidos</h3>
-                                <!-- Agrega aquí el contenido de los últimos productos -->
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-container col-md-6">
-                        <!-- Contenido de Lo más vendido -->
-                        <div class="card">
-                            <div class="card-body">
-                                <h3 class="card-title">Lo más vendido</h3>
-                                <!-- Agrega aquí el contenido de los productos más vendidos -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    .product-card:hover,
+    .product-card:hover .img {
+        cursor: pointer;
+        background-color: rgba(255, 255, 255, 0.2);
+    }
 
+    /* Estilos para el título del producto */
+    .product-title {
+        font-size: 16px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 8px;
+    }
 
-        <div class="footer">
-            <div class="footer-content">
-                <div class="row">
-                    <div class="credits">
-                        <div class="parr-1">
-                            <p>juanfercito Corp.</p>
-                        </div>
-                        <div class="parr-2">
-                            <p>By Juanfercito Content Inc.</p>
-                        </div>
-                        <div class="parr-3">
-                            <p>Almost All Rights Reserved</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
+    .img {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 70%;
+        height: 70%;
+        margin-bottom: 10px;
+        background-color: rgba(255, 255, 255, 0.5);
+        border-radius: 16px;
 
-    <!-- Script JavaScript -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#menuToggleBtn').click(function() {
-                $('#menuDropdown').toggle();
-            });
+        .product-image {
+            max-width: 80%;
+            max-height: 80%;
+        }
+    }
 
-            // Agregar controlador de eventos para cerrar el menú cuando se hace clic fuera
-            $(document).on('click', function(event) {
-                if (!$(event.target).closest('#menuToggleBtn, #menuDropdown').length) {
-                    $('#menuDropdown').hide();
-                }
-            });
+    /* Estilos para el enlace "Ver todos" */
+    .watch-all {
+        color: #fff;
+        position: absolute;
+        right: 24px;
+        bottom: 6px;
+        font-size: 1.2rem;
+        cursor: pointer;
+        text-decoration: none;
+    }
 
-            /* Agregar controlador de eventos para cerrar el menú cuando se cambia el tamaño de la pantalla
-            $(window).on('resize', function() {
-                $('#menuDropdown').hide();
-            });*/
-        });
-    </script>
+    .watch-all:hover {
+        color: yellow;
+    }
 
+    /* Estilos para el icono de flecha */
+    .watch-all i {
+        margin-left: 4px;
+        transition: transform 0.3s ease;
+    }
 
-</body>
+    /* Estilos para el icono de flecha al pasar el mouse */
+    .watch-all:hover i {
+        transform: translateX(3px);
+    }
 
-</html>
+    /* Estilos para el tamaño dinámico del producto */
+    @media (max-width: 550px) {
+        .product-card {
+            width: 200px;
+            height: 180px;
+        }
+    }
+
+    @media (min-width: 551px) {
+        .product-card {
+            width: 230px;
+            height: 200px;
+        }
+    }
+
+    @media (min-width: 851px) {
+        .product-card {
+            width: 270px;
+            height: 230px;
+        }
+    }
+
+    @media (min-width: 1200px) {
+        .card {
+            top: 200px;
+            transition: transform 0.3s ease;
+        }
+    }
+</style>
+@endpush
+
+@push('js')
+<!-- Scripts JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    var screenWidth = window.innerWidth;
+    $.ajax({
+        url: '/get-products',
+        type: 'GET',
+        data: {
+            screenWidth: screenWidth
+        },
+        success: function(response) {
+            $('#product-container').html(response);
+        },
+        error: function(xhr) {
+            console.error(xhr);
+        }
+    });
+</script>
+@endpush

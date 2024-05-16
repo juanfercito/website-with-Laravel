@@ -44,11 +44,11 @@
 
                                     <th style="min-width: 60px; color: #fff; display: flex; justify-content:center;">Actions</th>
                                     <th style="min-width: 50px; color: #fff">ID</th>
-                                    <th style="min-width: 150px; color: #fff; white-space: nowrap;">Customer</th>
-                                    <th style="min-width: 100px; color: #fff;">Proof Type</th>
+                                    <th style="min-width: 200px; color: #fff; white-space: nowrap;">Customer</th>
+                                    <th style="min-width: 120px; color: #fff;">Proof Type</th>
                                     <th style="min-width: 80px; color: #fff;">Proof_number</th>
                                     <th style="min-width: 120px; color: #fff;">date_time</th>
-                                    <th style="min-width: 80px; color: #fff;">Tax / Fee</th>
+                                    <th style="min-width: 80px; color: #fff;">Tax</th>
                                     <th style="min-width: 80px; color: #fff;">Total</th>
                                     <th style="min-width: 80px; color: #fff;">status</th>
 

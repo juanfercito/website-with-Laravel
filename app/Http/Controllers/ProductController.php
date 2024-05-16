@@ -89,9 +89,11 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        $products = Product::findOrFail($id);
+
+        return view('welcome', ['product' => $products]);
     }
 
     /**
@@ -155,5 +157,34 @@ class ProductController extends Controller
     {
         $product->delete();
         return redirect()->route('products.index');
+    }
+
+    /*
+    * Other methods for getting a list of products
+    */
+    public function welcome()
+    {
+        $latestProducts = Product::latest()->take(5)->get();
+
+        return view('welcome', compact('latestProducts'));
+    }
+
+    public function getProducts(Request $request)
+    {
+        $screenWidth = $request->input('screenWidth');
+
+        if ($screenWidth <= 550) {
+            $productsToShow = 2;
+        } elseif ($screenWidth <= 850) {
+            $productsToShow = 3;
+        } elseif ($screenWidth <= 1200) {
+            $productsToShow = 4;
+        } else {
+            $productsToShow = 5;
+        }
+
+        $latestProducts = Product::latest()->take($productsToShow)->get();
+
+        return view('welcome')->with('latestProducts', $latestProducts);
     }
 }

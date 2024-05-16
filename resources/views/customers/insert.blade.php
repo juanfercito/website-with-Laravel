@@ -60,7 +60,7 @@
             <div class="row">
 
                 <div class="col-xs-12 col-sm-12 col-md-4">
-                    <a href="{{ route('sales.index') }}" class="btn btn-warning mb-3">Back to List</a>
+                    <a href="{{ route('customers.index') }}" class="btn btn-warning mb-3">Back to List</a>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-4">
                     <button type="submit" class="btn btn-primary mb-3">Save Changes</button>

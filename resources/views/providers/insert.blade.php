@@ -90,7 +90,7 @@
                         <div class="form-group">
                             <label for="closing-order-date">Closing Order Date</label>
                             <div class="input-group">
-                                <input type="text" id="closing-order-date" name="closing-order-date" class="form-control">
+                                <input type="text" id="closing_order_date" name="closing_order_date" class="form-control">
                                 <div class="input-group-append">
                                     <span class="input-group-text">
                                         <i class="far fa-calendar-alt"></i>
@@ -102,7 +102,7 @@
                         <div class="form-group">
                             <label for="application-date">Application Date</label>
                             <div class="input-group">
-                                <input type="text" id="application-date" name="application-date" class="form-control">
+                                <input type="text" id="application_date" name="application_date" class="form-control">
                                 <div class="input-group-append">
                                     <span class="input-group-text">
                                         <i class="far fa-calendar-alt"></i>
@@ -145,28 +145,28 @@
 
 <script>
     // Inicializar el campo de entrada de fecha y hora
-    flatpickr("#closing-order-date", {
+    flatpickr("#closing_order_date", {
         enableTime: true,
         dateFormat: "Y-m-d H:i",
         altInput: true,
         altFormat: "F j, Y H:i",
         onChange: function(selectedDates, dateStr, instance) {
             // Actualizar el valor del campo de entrada al seleccionar una fecha en el calendario
-            document.getElementById("closing-order-date").value = dateStr;
+            document.getElementById("closing_order_date").value = dateStr;
         }
     });
 </script>
 
 <script>
     // Inicializar el campo de entrada de fecha y hora
-    flatpickr("#application-date", {
+    flatpickr("#application_date", {
         enableTime: true,
         dateFormat: "Y-m-d H:i",
         altInput: true,
         altFormat: "F j, Y H:i",
         onChange: function(selectedDates, dateStr, instance) {
             // Actualizar el valor del campo de entrada al seleccionar una fecha en el calendario
-            document.getElementById("application-date").value = dateStr;
+            document.getElementById("application_date").value = dateStr;
         }
     });
 </script>
