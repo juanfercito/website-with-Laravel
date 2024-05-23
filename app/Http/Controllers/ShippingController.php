@@ -21,7 +21,7 @@ class ShippingController extends Controller
      */
     public function index()
     {
-        $shippings = Shipping::paginate(5); // Aquí obtienes los datos de envío de la base de datos
+        $shippings = Shipping::paginate(5);
         return view('shipping.index', compact('shippings'));
     }
 

@@ -20,39 +20,52 @@
                         <h3 class="card-title">Últimos añadidos</h3>
                         <div class="card-body">
                             <div id="product-container" class="product-row">
-                                @php
-                                $latestProducts = \App\Models\Product::latest()->get();
-                                @endphp
+                                @if($latestProducts->isNotEmpty())
                                 @foreach($latestProducts as $product)
-                                <div class="product-card">
+                                <a href="{{ route('welcome.create', ['id' => $product->id]) }}" class="product_card" id="product_card">
                                     <div class="img">
                                         <img src="/product-img/{{$product->image}}" alt="{{ $product->title }}" class="product-image">
                                     </div>
                                     <h4>{{ $product->title }}</h4>
-                                </div>
+                                </a>
                                 @endforeach
+                                @else
+                                <p>No se encontraron productos.</p>
+                                @endif
                             </div>
-                            <a class="watch-all" href="/">Watch All <i class="fa fa-arrow-right" style="margin-left:4px;"></i></a>
+                            <a class="watch-all" href="{{ route('welcome.showAllProducts', ['sort' => 'latest']) }}">
+                                Watch All <i class="fa fa-arrow-right" style="margin-left:4px;"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="col-md-6">
+        <div class="row justify-content-center align-items-end fixed-bottom mb-3">
+            <div class="col-md-3">
                 <!-- Most Sold Products Content -->
                 <div class="card">
                     <div class="card-content">
                         <h3 class="card-title">Lo más vendido</h3>
                         <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-6 col-lg-4">
-                                    <!-- Aquí va el contenido de cada producto -->
-                                    <div class="product-card">
-                                        <!-- Otros detalles del producto -->
+                            <div id="product-container" class="product-row">
+                                @if($bestSellingProducts->isNotEmpty())
+                                @foreach($bestSellingProducts as $product)
+                                <a href="{{ route('welcome.create', ['id' => $product->id]) }}" class="product_card">
+                                    <div class="img">
+                                        <img src="/product-img/{{$product->image}}" alt="{{ $product->title }}" class="product-image">
                                     </div>
-                                </div>
+                                    <h4>{{ $product->title }}</h4>
+                                </a>
+                                @endforeach
+                                @else
+                                <p>No se encontraron productos.</p>
+                                @endif
                             </div>
-                            <a class="watch-all" href="/">Watch All <i class="fa fa-arrow-right" style="margin-left:4px;"></i></a>
+                            <a class="watch-all" href="{{ route('welcome.showAllProducts', ['sort' => 'bestselling']) }}">
+                                Watch All <i class="fa fa-arrow-right" style="margin-left:4px;"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -60,34 +73,33 @@
         </div>
     </div>
 </div>
+</div>
 
 @endsection
 
 @push('css')
 <!-- Estilos CSS -->
 <style>
-    /* Estilos para el contenedor del producto */
     .product-row {
         display: flex;
-        flex-direction: row;
         flex-wrap: wrap;
         margin: -6px;
-        /* Compensar el padding negativo */
+        max-height: 180px;
+        overflow: hidden;
     }
 
-    .product-card {
+    .product_card {
         display: flex;
-        position: relative;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        position: relative;
         background-color: rgba(255, 255, 255, 0.4);
         border: 1px solid rgba(0, 0, 0, 0.4);
         border-radius: 16px;
         margin-bottom: 20px;
         transition: all 0.3s ease;
         margin-inline: 6px;
+        text-decoration: none;
 
         h4 {
             font-size: 1.6rem;
@@ -96,8 +108,8 @@
         }
     }
 
-    .product-card:hover,
-    .product-card:hover .img {
+    .product_card:hover,
+    .product_card:hover .img {
         cursor: pointer;
         background-color: rgba(255, 255, 255, 0.2);
     }
@@ -131,7 +143,7 @@
         color: #fff;
         position: absolute;
         right: 24px;
-        bottom: 6px;
+        bottom: 4px;
         font-size: 1.2rem;
         cursor: pointer;
         text-decoration: none;
@@ -154,30 +166,49 @@
 
     /* Estilos para el tamaño dinámico del producto */
     @media (max-width: 550px) {
-        .product-card {
-            width: 200px;
-            height: 180px;
+
+        .product_card {
+            width: 180px;
+            height: 160px;
         }
     }
 
     @media (min-width: 551px) {
-        .product-card {
+        .product-row {
+            max-height: 220px;
+        }
+    }
+
+    @media (min-width: 551px) and (max-width: 820px) {
+        .product_card {
             width: 230px;
             height: 200px;
         }
     }
 
-    @media (min-width: 851px) {
-        .product-card {
-            width: 270px;
-            height: 230px;
+    @media (min-width:821px) and (max-width:950px) {
+        .product_card {
+            width: 230px;
+            height: 200px;
         }
     }
 
-    @media (min-width: 1200px) {
-        .card {
-            top: 200px;
-            transition: transform 0.3s ease;
+    @media (min-width:951px) {
+        .product_card {
+            width: 270px;
+            height: 230px;
+        }
+
+        .product-row {
+            max-height: 250px;
+        }
+
+    }
+
+    @media (min-width:1271px) {
+        .product_card {
+            width: 270px;
+            height: 230px;
         }
     }
 </style>
@@ -186,20 +217,36 @@
 @push('js')
 <!-- Scripts JS -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
-    var screenWidth = window.innerWidth;
-    $.ajax({
-        url: '/get-products',
-        type: 'GET',
-        data: {
-            screenWidth: screenWidth
-        },
-        success: function(response) {
-            $('#product-container').html(response);
-        },
-        error: function(xhr) {
-            console.error(xhr);
+    function adjustProductVisibility() {
+        const productCards = document.querySelectorAll('.product_card');
+        const width = window.innerWidth;
+        let maxVisible = 2; // Default to show at least 2 items
+
+        if (width > 1576) {
+            maxVisible = 6;
+        } else if (width > 1271) {
+            maxVisible = 5;
+        } else if (width > 951) {
+            maxVisible = 4;
+        } else if (width > 821) {
+            maxVisible = 3;
+        } else if (width > 550) {
+            maxVisible = 2;
         }
-    });
+
+        productCards.forEach((card, index) => {
+            if (index < maxVisible) {
+                card.style.display = 'flex'; // Mostrar los productos
+            } else {
+                card.style.display = 'none'; // Ocultar los productos que exceden el límite
+            }
+        });
+    }
+
+    window.addEventListener('resize', adjustProductVisibility);
+    window.addEventListener('load', adjustProductVisibility);
 </script>
+
 @endpush

@@ -45,7 +45,7 @@
                             <i class="text-white fas fa-search"></i>
                         </button>
                     </form>
-                    <a href="{{ url('/shopping-cart') }}" class="shopping-cart fa fa-cart-plus" aria-hidden="true"></a>
+                    <a href="{{ url('/shoppingCart') }}" class="shopping-cart fa fa-cart-plus" aria-hidden="true"></a>
                     @auth
                     <a href="{{ url('/dashboard') }}" class=" nav-link rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
                         Dashboard
@@ -128,4 +128,27 @@
 
 </html>
 @push('css')
+<style>
+    .back {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        margin-top: 60px;
+        margin-left: 10px;
+        width: 60px;
+        height: 30px;
+        font-size: 2rem;
+        border-radius: 10px;
+        background-color: #4299E1;
+        color: white;
+        border: 1px solid transparent;
+        z-index: 1;
+    }
+
+    .back:hover {
+        background: linear-gradient(to right, #4299E1, #1b2029, #4299E1);
+        cursor: pointer;
+    }
+</style>
 @endpush

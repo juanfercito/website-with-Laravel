@@ -5,19 +5,26 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use Illuminate\Support\Facades\DB;
 
 class WelcomeController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+
+    public function index(Request $request)
     {
-        $latestProducts = Product::latest()->get();
+        $latestProducts = Product::orderBy('created_at', 'desc')->take(6)->get(['title', 'image']);
 
-        // $mostSoldProducts = Product::orderBy('sold_count', 'desc')->take(5)->get();
+        $bestSellingProducts = Product::join('sale_details', 'products.id', '=', 'sale_details.product_id')
+            ->select('products.id', 'products.title', 'products.description', 'products.image', DB::raw('SUM(sale_details.cant) as total_sold'))
+            ->groupBy('products.id', 'products.title', 'products.description', 'products.image')
+            ->orderByDesc('total_sold')
+            ->take(6)
+            ->get();
 
-        return view('welcome', ['latestProducts' => $latestProducts]);
+        return view('welcome', compact('latestProducts', 'bestSellingProducts'));
     }
 
     /**
@@ -25,7 +32,7 @@ class WelcomeController extends Controller
      */
     public function create()
     {
-        //
+        return view('main.productDetails');
     }
 
     /**
@@ -66,5 +73,32 @@ class WelcomeController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    /*
+    * Other methods for interacting with the landing page
+     */
+    public function shoppingCart()
+    {
+        return view('main.ShoppingCart');
+    }
+
+    public function showAllProducts(Request $request)
+    {
+        $sort = $request->input('sort', 'latest'); // Por defecto, ordenar por los últimos añadidos
+        $perPage = 10; // Número de productos por página
+
+        if ($sort === 'bestselling') {
+            $products = Product::join('sale_details', 'products.id', '=', 'sale_details.product_id')
+                ->select('products.id', 'products.title', 'products.description', 'products.image', DB::raw('SUM(sale_details.cant) as total_sold'))
+                ->groupBy('products.id', 'products.title', 'products.description', 'products.image')
+                ->orderByDesc('total_sold')
+                ->paginate($perPage);
+        } else {
+            // Ordenar por los últimos añadidos
+            $products = Product::orderBy('created_at', 'desc')->paginate($perPage, ['id', 'title', 'description', 'image']);
+        }
+
+        return view('main.allProducts', compact('products', 'sort'));
     }
 }

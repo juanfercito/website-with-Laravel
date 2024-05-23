@@ -171,20 +171,9 @@ class ProductController extends Controller
 
     public function getProducts(Request $request)
     {
-        $screenWidth = $request->input('screenWidth');
+        $latestProducts = Product::orderBy('created_at', 'desc')->take(3)->get(['title', 'image']);
+        dd($latestProducts);
 
-        if ($screenWidth <= 550) {
-            $productsToShow = 2;
-        } elseif ($screenWidth <= 850) {
-            $productsToShow = 3;
-        } elseif ($screenWidth <= 1200) {
-            $productsToShow = 4;
-        } else {
-            $productsToShow = 5;
-        }
-
-        $latestProducts = Product::latest()->take($productsToShow)->get();
-
-        return view('welcome')->with('latestProducts', $latestProducts);
+        return view('welcome', compact('productsToShow', 'latestProducts'));
     }
 }

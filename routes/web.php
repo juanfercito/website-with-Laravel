@@ -20,16 +20,13 @@ use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\ShippingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SaleController;
+use App\Http\Controllers\WelcomeController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [App\Http\Controllers\WelcomeController::class, 'index']);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('roles', RoleController::class);
@@ -45,6 +42,16 @@ Route::group(['middleware' => 'auth'], function () {
     Route::patch('sales/{id}/cancel', [SaleController::class, 'cancel'])->name('sales.cancel');
 });
 
+Route::middleware([])->group(function () {
+    // Rutas para las vistas públicas
+    Route::resource('welcome', WelcomeController::class);
+    Route::get('/welcome', [WelcomeController::class, 'index']);
+    Route::get('/all-products', [WelcomeController::class, 'showAllProducts'])->name('welcome.showAllProducts');
+    // Otras rutas...
+});
+
+
+
 // Define auth routes
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/register', [RegisterController::class, 'create'])->name('register');
@@ -55,8 +62,6 @@ Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword']
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
 Route::get('profile/modify', [ProfileController::class, 'edit'])->name('profile.modify');
 
 Route::get('/search-customer-by-dni', [CustomerController::class, 'searchByDni'])->name('search.customer.by.dni');
@@ -64,12 +69,6 @@ Route::get('/search-customer-by-dni', [CustomerController::class, 'searchByDni']
 Route::post('/customers/useExistingCustomer', [CustomerController::class, 'useExistingCustomer'])->name('customers.useExistingCustomer');
 
 // Define Client routes
-Route::get('/shopping-cart', function () {
-    return view('shoppingCart');
+Route::get('/shoppingCart', function () {
+    return view('main.shoppingCart');
 });
-
-Route::get('/welcome', function () {
-    return view('welcome');
-});
-
-Route::get('/get-products', 'ProductController@getProducts');
