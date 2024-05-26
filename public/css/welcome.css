@@ -6,22 +6,22 @@
     padding: 0;
 }
 
-/* Estilos para la barra de navegación */
+/* Styles for NavBar */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 4px 8px;
-    background-color: #1b2029; /* Color de fondo de la barra de navegación */
-    position: fixed; /* Hace que la barra de navegación sea fija en la parte superior */
-    top: 0; /* Ajusta la posición desde la parte superior */
+    background-color: #1b2029; 
+    position: fixed; 
+    top: 0; 
     left: 0;
     right: 0;
-    z-index: 1000; /* Asegura que la barra de navegación esté por encima de otros elementos */
-    width: 100%; /* Ajusta el ancho de la barra de navegación */
-    box-sizing: border-box; /* Incluye el padding y el borde en el ancho total */
-    overflow-x: auto; /* Agrega desplazamiento horizontal si es necesario */
-    white-space: nowrap; /* Evita que los elementos se envuelvan */
+    z-index: 1000; 
+    width: 100%;
+    box-sizing: border-box;
+    overflow-x: auto;
+    white-space: nowrap;
 }
 
 .header-fluid {
@@ -31,10 +31,10 @@
     width: 100%;
 }
 
-/* Estilos para el logo */
+/* Styles for Logo */
 .navbar-brand img {
     width: 80px;
-    max-height: 80px; /* Altura máxima del logo */
+    max-height: 80px;
     display: flex;
     background: radial-gradient(ellipse at center, rgba(255,255,255,1) 50%, transparent 70%);
 }
@@ -57,7 +57,7 @@
 
 }
 
-/* Estilos para la barra de búsqueda */
+/* Styles for Search bar */
 .form-control {
     width: 100%;
     height: 30px;
@@ -103,27 +103,26 @@
     color: wheat;
 }
 
-/* Estilos para los elementos de tipo enlace */
+/* Styles for elemets link-type */
 .navbar-nav {
     display: flex;
-    gap: 14px; /* Espacio entre los elementos */
-    margin-right: 10px; /* Margen derecho para evitar desbordamientos */
+    gap: 14px;
+    margin-right: 10px;
 }
 .navbar-nav .nav-link {
-    color: white; /* Color del texto de los enlaces */
-    text-decoration: none; /* Quitar subrayado */
-    font-weight: bold; /* Texto en negrita */
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
     font-size: 1.2rem;
 }
 
-/* Estilos para los elementos de tipo enlace al pasar el mouse */
 .navbar-nav .nav-link:hover {
-    color: wheat; /* Color del texto de los enlaces al pasar el mouse */
+    color: wheat;
 }
 
-/* Estilos para el botón del menú */
+/* Styles for button Menu */
 .bars-menu {
-    position: relative; /* Asegura que el menú desplegable esté posicionado correctamente */
+    position: relative;
     display: none;
 }
 
@@ -151,14 +150,14 @@
 .menu-dropdown {
     display: none;
     position: absolute;
-    top: 48px; /* Posición debajo del botón de menú */
-    right: 0; /* Posición a la derecha del botón de menú */
-    width: 200px; /* Ancho del menú desplegable */
+    top: 48px;
+    right: 0;
+    width: 200px;
     padding: 10px;
     background-color: #1b2029;
     border: 1px solid #ccc;
     border-radius: 0 0 0 12px;
-    z-index: 1000; /* Asegura que el menú esté por encima de otros elementos */
+    z-index: 1000; 
 }
 .menu-dropdown ul {
     list-style: none;
@@ -222,12 +221,12 @@
     align-items: center;
     justify-content: center;
     position: fixed;
-    top: 100px; /* Ajusta la posición desde la parte superior según sea necesario */
+    top: 100px;
     left: 0;
     right: 0;
     margin: auto;
-    width: 80%; /* Ajusta el ancho según sea necesario */
-    max-width: 600px; /* Ajusta el ancho máximo según sea necesario */
+    width: 80%;
+    max-width: 600px;
 
     h2 {
         font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
@@ -310,7 +309,7 @@
     background-color: rgba(0, 0, 0, 0.4);
     padding: 10px 0;
     text-align: center;
-    z-index: 1000; /* Asegura que esté por encima de otros elementos */
+    z-index: 1000; 
 }
 
 .footer .footer-content {
@@ -321,8 +320,8 @@
 .footer .credits {
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Distribuye los elementos horizontalmente */
-    margin: 0 auto; /* Centra el contenido horizontalmente */
+    justify-content: space-between; 
+    margin: 0 auto;
     color: #aaa;
     margin-bottom: 0;
     

@@ -47,6 +47,8 @@ Route::middleware([])->group(function () {
     Route::resource('welcome', WelcomeController::class);
     Route::get('/welcome', [WelcomeController::class, 'index']);
     Route::get('/all-products', [WelcomeController::class, 'showAllProducts'])->name('welcome.showAllProducts');
+    Route::get('/product/{id}', [WelcomeController::class, 'create'])->name('welcome.create');
+    Route::post('/cart/add', [SaleController::class, 'addToCart'])->name('cart.add');
     // Otras rutas...
 });
 

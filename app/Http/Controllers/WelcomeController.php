@@ -13,10 +13,10 @@ class WelcomeController extends Controller
      * Display a listing of the resource.
      */
 
-    public function index(Request $request)
+    // WelcomeController.php
+    public function index()
     {
-        $latestProducts = Product::orderBy('created_at', 'desc')->take(6)->get(['title', 'image']);
-
+        $latestProducts = Product::orderBy('created_at', 'desc')->take(6)->get(['id', 'title', 'image']);
         $bestSellingProducts = Product::join('sale_details', 'products.id', '=', 'sale_details.product_id')
             ->select('products.id', 'products.title', 'products.description', 'products.image', DB::raw('SUM(sale_details.cant) as total_sold'))
             ->groupBy('products.id', 'products.title', 'products.description', 'products.image')
@@ -30,9 +30,10 @@ class WelcomeController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create($id)
     {
-        return view('main.productDetails');
+        $product = Product::findOrFail($id);
+        return view('main.productDetails', compact('product'));
     }
 
     /**

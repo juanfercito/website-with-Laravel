@@ -8,7 +8,7 @@
 </div>
 
 <div>
-    <div class="background-carousel" style="background-image: url('assets/foreground-nature.jpg');">
+    <div class="background-carousel" style="background-image: url('assets/e-commerce-img.jpg');">
     </div>
 
     <div class="container">

@@ -20,36 +20,6 @@ class SaleController extends Controller
      */
     public function index(Request $request)
     {
-        /*if ($request->has('search')) {
-            $query = $request->input('search');
-
-            $sales = DB::table('sales as s')
-                ->join('customers as c', 's.customer_id', '=', 'c.id')
-                ->join('sale_details as sd', 'sd.sale_id', '=', 's.id') 
-                ->select('s.id', 's.date_time', 'c.name', 's.proof_type', 's.proof_number', 's.tax_fee', 's.status', 's.sale_total')
-                ->where(function ($queryBuilder) use ($query) {
-                    $queryBuilder->where('s.proof_number', 'LIKE', '%' . $query . '%')
-                        ->orWhere('s.proof_type', 'LIKE', '%' . $query . '%')
-                        ->orWhere('c.name', 'LIKE', '%' . $query . '%')
-                        ->orWhereDate('s.date_time', '=', $query);
-                })
-                ->groupBy('s.id', 's.date_time', 'c.name', 's.proof_type', 's.proof_number', 's.tax_fee', 's.status', 's.sale_total') // Agregar 's.sale_total' al grupo
-                ->orderBy('s.id', 'desc')
-                ->paginate(5);
-
-            return view('sales.index', ["sales" => $sales, "search" => $query]);
-        } else {
-            $sales = DB::table('sales as s')
-                ->join('customers as c', 's.customer_id', '=', 'c.id')
-                ->join('sale_details as sd', 'sd.sale_id', '=', 's.id') 
-                ->select('s.id', 's.date_time', 'c.name', 's.proof_type', 's.proof_number', 's.tax_fee', 's.sale_total', 's.status')
-                ->groupBy('s.id', 's.date_time', 'c.name', 's.proof_type', 's.proof_number', 's.tax_fee', 's.sale_total', 's.status')
-                ->orderBy('s.id', 'desc')
-                ->paginate(5);
-
-            return view('sales.index', ["sales" => $sales]);
-            
-        }*/
         $query = $request->input('search');
         $sales = Sale::where(function ($q) use ($query) {
             $q->where('customer_id', 'like', "%$query%")
@@ -231,6 +201,7 @@ class SaleController extends Controller
         }
     }
 
+    /* Other functions for Products */
     public function searchCustomer(Request $request)
     {
         $dni = $request->get('dni');
@@ -241,5 +212,34 @@ class SaleController extends Controller
         } else {
             return response()->json(['success' => false]);
         }
+    }
+
+    public function productDetails($id)
+    {
+        $product = Product::findOrFail($id);
+        return view('main.productDetails', compact('product'));
+    }
+
+    public function addToCart(Request $request)
+    {
+        $productId = $request->input('product_id');
+        $quantity = $request->input('quantity');
+
+        // Lógica para agregar el producto al carrito.
+        $cart = session()->get('cart', []);
+        if (isset($cart[$productId])) {
+            $cart[$productId]['quantity'] += $quantity;
+        } else {
+            $product = Product::find($productId);
+            $cart[$productId] = [
+                "title" => $product->title,
+                "quantity" => $quantity,
+                "price" => $product->price,
+                "image" => $product->image
+            ];
+        }
+        session()->put('cart', $cart);
+
+        return redirect()->route('product.details', $productId)->with('success', 'Producto agregado al carrito');
     }
 }

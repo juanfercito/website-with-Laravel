@@ -36,9 +36,7 @@
                     {{ $products->appends(['sort' => $sort])->links() }}
                 </div>
             </div>
-
         </div>
-
     </div>
 
 </div>
