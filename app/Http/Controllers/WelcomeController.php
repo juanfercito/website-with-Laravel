@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\IncomeDetail;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Sale;
+use App\Models\SaleDetail;
 use Illuminate\Support\Facades\DB;
 
 class WelcomeController extends Controller
@@ -32,9 +35,16 @@ class WelcomeController extends Controller
      */
     public function create($id)
     {
-        $product = Product::findOrFail($id);
-        return view('main.productDetails', compact('product'));
+        $product = Product::with(['incomeDetails' => function ($query) {
+            $query->orderBy('id', 'desc');
+        }])->findOrFail($id);
+
+        $incomeDetail = $product->incomeDetails->first();
+
+        return view('main.productDetails', compact('product', 'incomeDetail'));
     }
+
+
 
     /**
      * Store a newly created resource in storage.

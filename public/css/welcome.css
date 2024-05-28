@@ -93,6 +93,7 @@
 }
 
 .shopping-cart {
+    position: relative;
     background-color: transparent;
     color: white;
     border: none;
@@ -101,6 +102,17 @@
 }
 .shopping-cart:hover {
     color: wheat;
+}
+.cart-count {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 4px 7px;
+    font-size: 12px;
+    font-weight: bold;
 }
 
 /* Styles for elemets link-type */

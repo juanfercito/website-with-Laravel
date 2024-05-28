@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -48,7 +49,11 @@ Route::middleware([])->group(function () {
     Route::get('/welcome', [WelcomeController::class, 'index']);
     Route::get('/all-products', [WelcomeController::class, 'showAllProducts'])->name('welcome.showAllProducts');
     Route::get('/product/{id}', [WelcomeController::class, 'create'])->name('welcome.create');
-    Route::post('/cart/add', [SaleController::class, 'addToCart'])->name('cart.add');
+    Route::post('/cart/addToCart', [CartController::class, 'addToCart'])->name('cart.addToCart');
+    Route::get('/cart/count', [CartController::class, 'getCartCount']);
+    Route::get('/cart/watch', [CartController::class, 'showCart'])->name('cart.show');
+    Route::get('/cart/clear', [CartController::class, 'clearCart'])->name('cart.clearCart');
+    Route::post('/cart/remove', [CartController::class, 'removeFromCart'])->name('cart.removeFromCart');
     // Otras rutas...
 });
 

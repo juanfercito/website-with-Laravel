@@ -45,7 +45,10 @@
                             <i class="text-white fas fa-search"></i>
                         </button>
                     </form>
-                    <a href="{{ url('/shoppingCart') }}" class="shopping-cart fa fa-cart-plus" aria-hidden="true"></a>
+                    <a href="{{ route('cart.show') }}" class="shopping-cart fa fa-shopping-cart" aria-hidden="true">
+                        <span class="cart-count">{{\Cart::count()}}</span>
+                    </a>
+
                     @auth
                     <a href="{{ url('/dashboard') }}" class=" nav-link rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
                         Dashboard
@@ -124,6 +127,13 @@
             });
         });
     </script>
+    <!-- <script>
+        function updateCartCount(count) {
+            document.querySelector('.cart-count').textContent = count;
+        }
+
+        updateCartCount(5);
+    </script> -->
 </body>
 
 </html>

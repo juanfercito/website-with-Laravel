@@ -3,32 +3,32 @@
 @section('title', 'Online Shop | Shopping Cart')
 
 @section('content')
-<section>
-    <div class="box">
-        <div class="box-title">
-            <h2>Shopping Cart</h2>
-        </div>
-    </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12 col-md-12 col-lg-12">
-                <div class="card">
-                    <div class="card-header bg-primary text-white">Your Order</div>
-
-                    <div class="card-body">
-                        <p class="text-center">Tu carrito de compras está vacío.</p>
-                    </div>
-
-                    <div class="card-footer text-center">
-                        <a href="{{ url('/welcome') }}" class="btn btn-secondary">Continuar comprando</a>
-                        <a href="/" class="btn btn-success">Realizar compra</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-@stop
+<div class="container">
+    <h1>Your Shopping Cart</h1>
+    @if (session('cart'))
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (session('cart') as $product)
+            <tr>
+                <td>{{ $product['title'] }}</td>
+                <td>{{ $product['price'] }}</td>
+                <td>{{ $product['quantity'] }}</td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
+    @else
+    <p>Your cart is empty.</p>
+    @endif
+</div>
+@endsection
 
 @push('css')
 

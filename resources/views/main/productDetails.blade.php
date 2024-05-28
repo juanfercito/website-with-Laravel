@@ -38,13 +38,24 @@
                                 <input type="number" class="stock" value="{{ $product->stock }}" disabled>
                             </div>
                             <div class="row-group">
-                                <label for="cant">Cant</label>
-                                <input type="number" class="cant" min="0" placeholder="0">
+                                <label for="sale-price">Sale Price</label>
+                                <input type="number" class="sale_price" value="{{ $incomeDetail ? $incomeDetail->sale_price : 'N/A' }}" disabled>
                             </div>
                         </div>
-                        <div class="cart">
-                            <button type="button" class="fas fa-cart-plus"></button>
+
+                        <div class="cant">
+                            <label for="cant">Cant</label>
+                            <input type="number" min="0" placeholder="0">
                         </div>
+                        <div class="cart">
+                            <label for="add-to-cart">Add to Cart</label>
+                            <form action="{{ route('cart.addToCart') }}" method="post">
+                                @csrf
+                                <input type="hidden" name="id" value="{{ $product->id }}">
+                                <button type="submit" name="add-to-cart" class="add-to-cart fas fa-cart-plus"></button>
+                            </form>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -172,14 +183,15 @@
             align-items: center;
             justify-content: center;
             width: 100%;
-            margin-inline: 10px;
+            margin-inline: 6px;
 
             input {
-                width: 60%;
+                color: #222;
+                font-weight: bold;
+                width: 50%;
                 height: 30px;
                 margin-left: 4px;
                 padding: 4px;
-                font-size: 1.4rem;
                 border: 1px solid #bbb;
                 border-radius: 10px;
             }
@@ -203,32 +215,52 @@
     }
 
     .stock,
-    .cant {
+    .sale_price {
         width: 100%;
-        margin-top: 30px;
+        margin-top: 20px;
         margin-bottom: 20px;
+        font-size: 1.3rem;
+    }
+
+    .cant {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+
+        input {
+            width: 50%;
+            height: 30px;
+            margin-left: 4px;
+            padding: 4px;
+            font-size: 1.4rem;
+            border: 1px solid #bbb;
+            border-radius: 10px;
+        }
     }
 
     .cart {
         margin-bottom: 10px;
-
-        button {
-            font-size: 1.6rem;
-            width: 60px;
-            height: 30px;
-            border: none;
-            background: #4299E1;
-            color: white;
-            border-radius: 10px;
-        }
-
-        button:hover {
-            cursor: pointer;
-            background: linear-gradient(to right, #4299E1, #1b2029, #4299E1);
-            color: white;
-            border-radius: 10px;
-        }
+        z-index: 1;
     }
+
+    .cart .add-to-cart {
+        font-size: 1.6rem;
+        width: 60px;
+        height: 30px;
+        border: none;
+        background: #4299E1;
+        color: white;
+        border-radius: 10px;
+    }
+
+    .cart .add-to-cart:hover {
+        cursor: pointer;
+        background: linear-gradient(to right, #4299E1, #1b2029, #4299E1);
+        color: white;
+        border-radius: 10px;
+    }
+
 
     /* Estilos para el título del producto */
     .product-title {
@@ -284,10 +316,24 @@
         }
 
         .stock,
-        .cant {
+        .sale_price {
             width: 100%;
-            margin-top: 30px;
+            margin-top: 20px;
             margin-bottom: 20px;
+        }
+
+        .cant {
+            margin-bottom: 20px;
+
+            input {
+                width: 50%;
+                height: 30px;
+                margin-left: 4px;
+                padding: 4px;
+                font-size: 1.4rem;
+                border: 1px solid #bbb;
+                border-radius: 10px;
+            }
         }
     }
 
@@ -319,7 +365,8 @@
         }
 
         .column-2 textarea,
-        .column-2 label {
+        .column-2 label,
+        .column-2 input {
             font-size: 1.6rem;
         }
 
@@ -329,4 +376,8 @@
         }
     }
 </style>
+@endpush
+
+@push('js')
+
 @endpush
