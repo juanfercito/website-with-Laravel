@@ -6,6 +6,19 @@
 
 <div class="container">
 
+    @if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+    @endif
+
+    @if (session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+    @endif
+
+
     <a href="javascript:history.back()" class="back"><i class="fa fa-arrow-left"></i></a>
 
     <<div class="background-carousel" style='background-image: url("{{ asset('assets/e-commerce-img.jpg') }}");'>
@@ -39,28 +52,33 @@
                             </div>
                             <div class="row-group">
                                 <label for="sale-price">Sale Price</label>
-                                <input type="number" class="sale_price" value="{{ $incomeDetail ? $incomeDetail->sale_price : 'N/A' }}" disabled>
+                                <input type="number" name="sale_price" class="sale_price" value="{{ $incomeDetail ? $incomeDetail->sale_price : 'N/A' }}" disabled>
                             </div>
                         </div>
 
-                        <div class="cant">
-                            <label for="cant">Cant</label>
-                            <input type="number" min="0" placeholder="0">
-                        </div>
-                        <div class="cart">
-                            <label for="add-to-cart">Add to Cart</label>
-                            <form action="{{ route('cart.addToCart') }}" method="post">
-                                @csrf
-                                <input type="hidden" name="id" value="{{ $product->id }}">
-                                <button type="submit" name="add-to-cart" class="add-to-cart fas fa-cart-plus"></button>
-                            </form>
-                        </div>
 
+
+                        <form action="{{ route('cart.addToCart') }}" method="post">
+                            @csrf
+                            <div class="cant">
+                                <label for="cant">Cant</label>
+                                <input type="number" name="cant" min="1" value="1">
+                            </div>
+
+                            <div class="cart">
+                                <label for="add-to-cart">Add to Cart</label>
+                                <input type="hidden" name="id" value="{{ $product->id }}">
+                                <input type="hidden" name="title" value="{{ $product->title }}">
+                                <input type="hidden" name="sale_price" value="{{ $product->sale_price }}">
+                                <button type="submit" name="add-to-cart" class="add-to-cart fas fa-cart-plus"></button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>
 </div>
 
