@@ -2,131 +2,281 @@
 
 @section('title', 'Online Shop | Shopping Cart')
 
-@extends('layouts.main')
-
-@section('title', 'Online Shop | Shopping Cart')
-
 @section('content')
+
 <div class="container">
-    <div class="card">
-        <h1>Your Shopping Cart</h1>
-        <div class="card-body">
-            @php
-            $totalQuantity = 0;
-            $subtotal = 0;
+    <h1>Your Shopping Cart</h1>
+    <form id="purchase-form" action="{{ route('cart.savePurchase') }}" method="post">
+        @csrf
 
-            foreach (session('cart', []) as $product) {
-            $productTotal = isset($incomeDetails[$product['id']]) ? $product['quantity'] * $incomeDetails[$product['id']]->sale_price : 0;
-            $subtotal += $productTotal;
-            $totalQuantity += $product['quantity'];
-            }
+        <div class="card">
+            <div class="card-body">
+                @php
+                $totalQuantity = 0;
+                $subtotal = 0;
 
-            $discount = 0;
-            if ($totalQuantity >= 5 && $totalQuantity <= 10) { $discount=5; } elseif ($totalQuantity> 10 && $totalQuantity <= 20) { $discount=10; } elseif ($totalQuantity> 20) {
-                    $discount = 15;
-                    }
+                foreach (session('cart', []) as $product) {
+                $productTotal = isset($incomeDetails[$product['id']]) ? $product['quantity'] * $incomeDetails[$product['id']]->sale_price : 0;
+                $subtotal += $productTotal;
+                $totalQuantity += $product['quantity'];
+                }
 
-                    $discountAmount = ($subtotal * $discount) / 100;
-                    $total = $subtotal - $discountAmount;
-                    @endphp
-                    <div class="row">
-                        <h2 class="product-cant">Products: <span>{{ Cart::count() }}</span></h2>
-                        <h2 class="discount-avg">Discount: <span>{{ $discount }}%</span></h2>
-                    </div>
-                    @if (session('cart'))
-                    <div class="table-container">
+                $discount = 0;
+                if ($totalQuantity >= 5 && $totalQuantity <= 10) { $discount=5; } elseif ($totalQuantity> 10 && $totalQuantity <= 20) { $discount=10; } elseif ($totalQuantity> 20) {
+                        $discount = 15;
+                        }
+
+                        $discountAmount = ($subtotal * $discount) / 100;
+                        $total = $subtotal - $discountAmount;
+                        @endphp
                         <div class="row">
-                            <div class="table-title">
-                                <div class="remove-product">
-                                    <p>Action</p>
-                                </div>
-                                <div class="description">
-                                    <p>Description</p>
-                                </div>
-                                <div class="unit-price">
-                                    <p>Unit Price</p>
-                                </div>
-                                <div class="cant">
-                                    <p>Quantity</p>
-                                </div>
-                                <div class="total-price">
-                                    <p>Total Price</p>
-                                </div>
-                            </div>
+                            <h2 class="product-cant">Products: <span>{{ Cart::count() }}</span></h2>
+                            <h2 class="discount-avg">Discount: <span>{{ $discount }}%</span></h2>
                         </div>
-
-                        <div class="table-content">
-                            @foreach (session('cart') as $product)
-                            @php
-                            $productTotal = isset($incomeDetails[$product['id']]) ? $product['quantity'] * $incomeDetails[$product['id']]->sale_price : 0;
-                            @endphp
+                        @if (session('cart'))
+                        <div class="table-container">
                             <div class="row">
-                                <div class="table-product">
+                                <div class="table-title" id="tableTitleToggle">
                                     <div class="remove-product">
-                                        <form action="{{ route('cart.removeFromCart') }}" method="post">
-                                            @csrf
-                                            <input type="hidden" name="id" value="{{ $product['id'] }}">
-                                            <button type="submit" class="btn btn-danger">X</button>
-                                        </form>
+                                        <p>Action</p>
                                     </div>
                                     <div class="description">
-                                        <p>{{ $product['title'] }}</p>
+                                        <p>Description</p>
                                     </div>
                                     <div class="unit-price">
-                                        <p>{{ isset($incomeDetails[$product['id']]) ? $incomeDetails[$product['id']]->sale_price : 'N/A' }}</p>
+                                        <p>Unit Price</p>
                                     </div>
                                     <div class="cant">
-                                        <p>{{ $product['quantity'] }}</p>
+                                        <p>Quantity</p>
                                     </div>
                                     <div class="total-price">
-                                        <p>{{ number_format(isset($incomeDetails[$product['id']]) ? $product['quantity'] * $incomeDetails[$product['id']]->sale_price : 'N/A', 2) }}</p>
+                                        <p>Total Price</p>
                                     </div>
                                 </div>
                             </div>
-                            @endforeach
-                        </div>
-                        @else
-                        <div class="text-center">
-                            <a href="/" class="btn btn-primary">Empty. Add a Product</a>
-                        </div>
-                        @endif
-                    </div>
-                    <div class="table-totals">
-                        <div class="row">
-                            <div class="titles">
-                                <div class="subtotal">
-                                    <p>SUBTOTAL</p>
+
+                            <div class="table-content">
+                                @foreach (session('cart') as $product)
+                                @php
+                                $productTotal = isset($incomeDetails[$product['id']]) ? $product['quantity'] * $incomeDetails[$product['id']]->sale_price : 0;
+                                @endphp
+                                <div class="row">
+                                    <div class="table-product">
+                                        <div class="remove-product">
+                                            <form action="{{ route('cart.removeFromCart') }}" method="post">
+                                                @csrf
+                                                <input type="hidden" name="id" value="{{ $product['id'] }}">
+                                                <button type="submit" class="btn btn-danger">X</button>
+                                            </form>
+                                        </div>
+
+                                        <div class="description">
+                                            <p>{{ $product['title'] }}</p>
+                                        </div>
+                                        <div class="unit-price">
+                                            <p>{{ isset($incomeDetails[$product['id']]) ? $incomeDetails[$product['id']]->sale_price : 'N/A' }}</p>
+                                        </div>
+                                        <div class="cant">
+                                            <p>{{ $product['quantity'] }}</p>
+                                        </div>
+                                        <div class="total-price">
+                                            <p>{{ number_format(isset($incomeDetails[$product['id']]) ? $product['quantity'] * $incomeDetails[$product['id']]->sale_price : 'N/A', 2) }}</p>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="discount">
-                                    <p>DISCOUNT</p>
+                                @endforeach
+                            </div>
+                        </div>
+                        <div class="clear-cart">
+                            <form action="{{ route('cart.clearCart') }}" method="post">
+                                @csrf
+                                <button type="submit" class="btn btn-danger">Clear Cart</button>
+                            </form>
+                        </div>
+
+                        <div class="table-totals">
+                            <div class="row">
+                                <div class="titles">
+                                    <div class="subtotal">
+                                        <p>SUBTOTAL</p>
+                                    </div>
+                                    <div class="discount">
+                                        <p>DISCOUNT</p>
+                                    </div>
+                                    <div class="total">
+                                        <p>TOTAL</p>
+                                    </div>
                                 </div>
-                                <div class="total">
-                                    <p>TOTAL</p>
+                                <div class="values">
+                                    <div class="subtotal">
+                                        <p>{{ number_format($subtotal, 2) }}</p>
+                                    </div>
+                                    <div class="discount">
+                                        <p>{{ number_format($discountAmount, 2) }}</p>
+                                    </div>
+                                    <div class="total">
+                                        <p>{{ number_format($total, 2) }}</p>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="values">
-                                <div class="subtotal">
-                                    <p>{{ number_format($subtotal, 2) }}</p>
-                                </div>
-                                <div class="discount">
-                                    <p>{{ number_format($discountAmount, 2) }}</p>
-                                </div>
-                                <div class="total">
-                                    <p>{{ number_format($total, 2) }}</p>
-                                </div>
-                            </div>
+                        </div>
+            </div>
+            <div class="user-data">
+                <div class="row">
+                    <div class="dni">
+                        <div class="form-floating">
+                            <label for="dni">DNI</label>
+                            <input type="text" name="dni" id="dni" class="form-control" value="">
                         </div>
                     </div>
+
+                    <div class="name">
+                        <div class="form-floating">
+                            <label for="customer_name">Customer Name</label>
+                            <input name="customer_name" id="customer_name" class="form-control" autocomplete="name">
+                        </div>
+                    </div>
+
+                    <div class="email">
+                        <div class="form-floating">
+                            <label for="email">Email</label>
+                            <input type="email" name="email" id="email" class="form-control" autocomplete="email">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="telephone">
+                        <div class="form-floating">
+                            <label for="telephone">Telephone</label>
+                            <input name="telephone" id="telephone" class="form-control" autocomplete="telephone">
+                        </div>
+                    </div>
+                    <div class="proof-type">
+                        <div class="form-floating">
+                            <label for="proof_type">Payment Type</label>
+                            <select name="proof_type" id="proof_type" class="form-control">
+                                <option value="Vaucher">Vaucher</option>
+                                <option value="Transfer">Transfer</option>
+                                <option value="Paypal">Paypal</option>
+                                <option value="Check">Check</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="proof-number">
+                        <div class="form-floating">
+                            <label for="proof_number">Ticket Number</label>
+                            <input type="number" class="form-control" id="proof_number" name="proof_number">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="buy">
+                <button type="button" class="btn btn-success" onclick="handlePurchase()">
+                    <i class="fas fa-shopping-cart"></i> Comprar
+                </button>
+            </div>
+            @if (session('success'))
+            <script>
+                alert("{{ session('success') }}");
+            </script>
+            @endif
+            @else
+            <div class="text-center">
+                <a href="/" class="btn btn-primary">Empty. Add a Product</a>
+            </div>
+            @endif
         </div>
-    </div>
+    </form>
 </div>
+
+<!-- Use of Jquery and serching for customers before the purchase -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#dni').keypress(function(event) {
+            if (event.which === 13) { // 13 is the Enter key code
+                event.preventDefault();
+                var dni = $(this).val();
+
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('search.customer.by.dni') }}",
+                    data: {
+                        dni: dni
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            $('#customer_name').val(response.name);
+                            $('#email').val(response.email);
+                            $('#telephone').val(response.telephone);
+                        } else {
+                            alert('Customer not found. Please enter a valid DNI.');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(xhr.responseText);
+                        alert('Error searching for customer. Please try again.');
+                    }
+                });
+            }
+        });
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const tableTitle = document.getElementById("tableTitleToggle");
+        const tableContent = document.querySelector(".table-content");
+
+        tableTitle.addEventListener("click", function() {
+            if (tableContent.style.display === "none" || tableContent.style.display === "") {
+                tableContent.style.display = "block";
+            } else {
+                tableContent.style.display = "none";
+            }
+        });
+    });
+</script>
+
+<!-- Purchase management -->
+<script>
+    function handlePurchase() {
+        var purchaseForm = document.getElementById('purchase-form');
+
+        // Crear una instancia de FormData con los datos del formulario
+        var formData = new FormData(purchaseForm);
+
+        fetch(purchaseForm.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                // Realizar la recarga de la página si la respuesta es exitosa
+                location.reload();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error al realizar la compra. Por favor, inténtelo de nuevo.');
+            });
+    }
+</script>
+
+
 @endsection
 
 @push('css')
 <style>
     .container {
         display: flex;
-        align-items: flex-start;
+        align-items: start;
         justify-content: center;
         width: 100%;
         height: 100vh;
@@ -134,9 +284,18 @@
         background: linear-gradient(to bottom, #4299E1, #1b2029, #4299E1);
     }
 
+    form {
+        display: flex;
+        align-items: start;
+        justify-content: center;
+    }
+
     h1 {
-        font-size: 3rem;
-        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        position: absolute;
+        font-size: 4rem;
+        margin-top: 70px;
         color: white;
     }
 
@@ -156,6 +315,9 @@
         width: 90%;
 
         .card-body {
+            display: flex;
+            flex-direction: column;
+
             .row {
                 display: flex;
                 flex-direction: row;
@@ -167,7 +329,32 @@
                 }
 
                 .discount-avg {
+                    padding-left: 6px;
                     padding-right: 6px;
+                }
+            }
+
+            .clear-cart {
+                display: flex;
+                position: absolute;
+                bottom: 20%;
+                left: 30%;
+
+                .btn {
+                    width: 100px;
+                    height: 30px;
+                    font-size: 1.4rem;
+                    font-weight: bold;
+                    background-color: goldenrod;
+                    border: 2px solid transparent;
+                    border-radius: 10px;
+                    color: #555;
+                }
+
+                .btn:hover {
+                    cursor: pointer;
+                    background: radial-gradient(ellipse at center, #fff, crimson);
+                    border-bottom: 2px solid darkred;
                 }
             }
         }
@@ -253,11 +440,19 @@
                     color: white;
                 }
             }
+
+            .table-title:hover {
+                cursor: pointer;
+
+                p {
+                    color: wheat;
+                }
+            }
         }
     }
 
     .table-content {
-        display: flex;
+        display: none;
         flex-direction: column;
         align-items: center;
         justify-content: center;
@@ -300,16 +495,19 @@
                     .btn {
                         width: 55px;
                         height: 35px;
-                        font-size: 1.6rem;
+                        font-size: 2rem;
                         background-color: goldenrod;
                         color: white;
                         font-weight: bold;
+                        border: 2px transparent;
                         border-radius: 8px;
                     }
 
                     .btn:hover {
                         cursor: pointer;
-                        background-color: crimson;
+                        background: radial-gradient(circle at center, #fff, crimson);
+                        color: #333;
+                        border-bottom: 2px solid darkred;
                     }
                 }
 
@@ -374,6 +572,10 @@
             color: white;
             font-size: 2rem;
             text-decoration: none;
+        }
+
+        a:hover {
+            color: wheat;
         }
     }
 
@@ -493,6 +695,97 @@
         }
     }
 
+    .user-data {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        margin-top: 20px;
+        background-color: rgba(0, 0, 0, 0.4);
+        border-radius: 10px;
+
+        .row {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            margin: 6px;
+            width: 100%;
+            padding: 4px;
+
+            label {
+                font-size: 1.6rem;
+                color: white;
+            }
+
+            input {
+                font-size: 1.6rem;
+                color: #444;
+                font-weight: bold;
+            }
+
+            .form-floating {
+                margin-inline: 4px;
+            }
+
+            .dni,
+            .telephone {
+                width: 20%;
+                margin: 4px;
+
+                label {
+                    margin-bottom: 4px;
+                }
+            }
+
+            .name,
+            .email,
+            .proof-type,
+            .proof-number {
+                width: 40%;
+            }
+
+            .proof-type select {
+                display: flex;
+                align-items: start;
+                font-size: 1.6rem;
+                border: none;
+
+                option {
+                    font-size: 1.4rem;
+                }
+            }
+        }
+    }
+
+    .buy {
+        display: flex;
+        align-items: center;
+        justify-content: end;
+        width: 100%;
+        height: 60px;
+
+        .btn {
+            min-width: 120px;
+            height: 30px;
+            font-size: 1.6rem;
+            margin-right: 6px;
+            border-radius: 10px;
+            background-color: springgreen;
+            color: #333;
+            font-weight: bold;
+            border: none;
+        }
+
+        .btn:hover {
+            cursor: pointer;
+            color: white;
+            background: linear-gradient(to bottom, #4299E1, #1b2029, #4299E1);
+            border-bottom: 2px solid #ccc;
+        }
+    }
+
     /* Responsive design */
     @media (max-width: 700px) {
         .table-container {
@@ -532,6 +825,54 @@
                     .cant,
                     .total-price {
                         align-items: center;
+                    }
+                }
+            }
+        }
+
+        .table-totals {
+            .row {
+
+                .titles {
+                    p {
+                        font-size: 1rem;
+                    }
+                }
+
+                .values {
+                    p {
+                        font-size: 1.2rem;
+                    }
+                }
+            }
+        }
+
+        .user-data {
+            flex-direction: row;
+
+            .row {
+                flex-direction: column;
+
+                label {
+                    font-size: 1.2rem;
+                    bottom: 4px;
+                }
+
+                .dni,
+                .telephone,
+                .name,
+                .proof-type,
+                .proof-number,
+                .email {
+                    width: 100%;
+                    margin-top: 6px;
+                    margin-bottom: 6px;
+                }
+
+                .proof-type select {
+                    option {
+                        font-size: 1.2rem;
+                        width: 100px;
                     }
                 }
             }

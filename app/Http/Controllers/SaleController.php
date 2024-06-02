@@ -134,8 +134,6 @@ class SaleController extends Controller
         return redirect()->route('sales.index')->with('success', 'Venta realizada con éxito');
     }
 
-
-
     /**
      * Display the specified resource.
      */

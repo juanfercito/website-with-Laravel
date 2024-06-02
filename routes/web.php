@@ -52,8 +52,12 @@ Route::middleware([])->group(function () {
     Route::post('/cart/addToCart', [CartController::class, 'addToCart'])->name('cart.addToCart');
     Route::get('/cart/count', [CartController::class, 'getCartCount']);
     Route::get('/cart/watch', [CartController::class, 'showCart'])->name('cart.show');
-    Route::get('/cart/clear', [CartController::class, 'clearCart'])->name('cart.clearCart');
+    Route::match(['get', 'post'], '/cart/clear', [CartController::class, 'clearCart'])->name('cart.clearCart');
     Route::post('/cart/remove', [CartController::class, 'removeFromCart'])->name('cart.removeFromCart');
+    Route::get('/cart/search-customer-by-dni', [CartController::class, 'searchByDni'])->name('search.customer.by.dni');
+    Route::post('/cart/save-purchase', [CartController::class, 'savePurchase'])->name('cart.savePurchase');
+
+
     // Otras rutas...
 });
 
@@ -72,7 +76,6 @@ Auth::routes();
 Route::get('profile/modify', [ProfileController::class, 'edit'])->name('profile.modify');
 
 Route::get('/search-customer-by-dni', [CustomerController::class, 'searchByDni'])->name('search.customer.by.dni');
-
 Route::post('/customers/useExistingCustomer', [CustomerController::class, 'useExistingCustomer'])->name('customers.useExistingCustomer');
 
 // Define Client routes
