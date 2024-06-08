@@ -328,7 +328,6 @@
     max-width: 1200px;
     margin: 0 auto;
 }
-    /* Estilos para el contenido del footer */
 .footer .credits {
     display: flex;
     align-items: center;
@@ -343,8 +342,6 @@
         ;
     }
 }
-
-
 
 /* Responsive Styles */
 @media (max-width:550px) {

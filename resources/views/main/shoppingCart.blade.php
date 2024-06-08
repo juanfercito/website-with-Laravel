@@ -65,23 +65,27 @@
                                         <div class="remove-product">
                                             <form action="{{ route('cart.removeFromCart') }}" method="post">
                                                 @csrf
-                                                <input type="hidden" name="id" value="{{ $product['id'] }}">
-                                                <button type="submit" class="btn btn-danger">X</button>
+                                                <input type="hidden" name="rmRow" value="{{ $product['id'] }}">
+                                                <input type="submit" class="btn btn-danger" value="X">
                                             </form>
                                         </div>
-
                                         <div class="description">
+                                            <input type="hidden" name="idArticle[]" value="{{ $product['id'] }}">
                                             <p>{{ $product['title'] }}</p>
                                         </div>
                                         <div class="unit-price">
+                                            <input type="hidden" name="sale_price[]" value="{{ isset($incomeDetails[$product['id']]) ? $incomeDetails[$product['id']]->sale_price : 0 }}">
                                             <p>{{ isset($incomeDetails[$product['id']]) ? $incomeDetails[$product['id']]->sale_price : 'N/A' }}</p>
                                         </div>
                                         <div class="cant">
+                                            <input type="hidden" name="quantity[]" value="{{ $product['quantity'] }}">
                                             <p>{{ $product['quantity'] }}</p>
                                         </div>
                                         <div class="total-price">
                                             <p>{{ number_format(isset($incomeDetails[$product['id']]) ? $product['quantity'] * $incomeDetails[$product['id']]->sale_price : 'N/A', 2) }}</p>
                                         </div>
+                                        <!-- Hidden input for discountAmount -->
+                                        <input type="hidden" name="discountAmount[]" value="{{ number_format(isset($incomeDetails[$product['id']]) ? ($product['quantity'] * $incomeDetails[$product['id']]->sale_price * $discount) / 100 : 0, 2) }}">
                                     </div>
                                 </div>
                                 @endforeach
@@ -173,7 +177,7 @@
                 </div>
             </div>
             <div class="buy">
-                <button type="button" class="btn btn-success" onclick="handlePurchase()">
+                <button type="submit" class="btn btn-success" onclick="handlePurchase()">
                     <i class="fas fa-shopping-cart"></i> Comprar
                 </button>
             </div>
@@ -239,36 +243,6 @@
         });
     });
 </script>
-
-<!-- Purchase management -->
-<script>
-    function handlePurchase() {
-        var purchaseForm = document.getElementById('purchase-form');
-
-        // Crear una instancia de FormData con los datos del formulario
-        var formData = new FormData(purchaseForm);
-
-        fetch(purchaseForm.action, {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                }
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                // Realizar la recarga de la página si la respuesta es exitosa
-                location.reload();
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Error al realizar la compra. Por favor, inténtelo de nuevo.');
-            });
-    }
-</script>
-
 
 @endsection
 
@@ -880,3 +854,35 @@
     }
 </style>
 @endpush
+
+@section('js')
+
+<!-- Purchase management -->
+<script>
+    function handlePurchase() {
+        var purchaseForm = document.getElementById('purchase-form');
+
+        // Crear una instancia de FormData con los datos del formulario
+        var formData = new FormData(purchaseForm);
+
+        fetch(purchaseForm.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                // Realizar la recarga de la página si la respuesta es exitosa
+                location.reload();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error al realizar la compra. Por favor, inténtelo de nuevo.');
+            });
+    }
+</script>
+@endsection

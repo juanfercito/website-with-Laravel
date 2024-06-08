@@ -10,13 +10,11 @@ class Cart
 
         $exists = false;
 
-        // Verificar si el producto ya está en el carrito
         foreach ($cart as &$item) {
             if ($item['id'] == $productData['id']) {
                 if (isset($item['quantity'])) {
                     $item['quantity']++;
                 } else {
-                    // Si no está definido, inicializamos la cantidad en 1
                     $item['quantity'] = 1;
                 }
                 $exists = true;
@@ -24,7 +22,6 @@ class Cart
             }
         }
 
-        // Si el producto no está en el carrito, agregarlo
         if (!$exists) {
             $cart[] = [
                 'id' => $productData['id'],
@@ -36,6 +33,7 @@ class Cart
 
         session()->put('cart', $cart);
     }
+
     public static function getCart()
     {
         return session()->get('cart', []);
@@ -47,12 +45,33 @@ class Cart
         $count = 0;
 
         foreach ($cart as $item) {
-            // Verifica si el elemento tiene la clave 'quantity' antes de sumar
             if (isset($item['quantity'])) {
                 $count += $item['quantity'];
             }
         }
 
         return $count;
+    }
+
+    public static function remove($productId)
+    {
+        $cart = session()->get('cart', []);
+
+        foreach ($cart as $key => $item) {
+            if ($item['id'] == $productId) {
+                unset($cart[$key]);
+                break;
+            }
+        }
+
+        // Reindexar el array para mantener el orden correcto
+        $cart = array_values($cart);
+
+        session()->put('cart', $cart);
+    }
+
+    public static function clearCart()
+    {
+        session()->forget('cart');
     }
 }

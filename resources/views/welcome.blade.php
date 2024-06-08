@@ -17,7 +17,7 @@
                 <!-- Latest added Products Content -->
                 <div class="card">
                     <div class="card-content">
-                        <h3 class="card-title">Últimos añadidos</h3>
+                        <h3 class="card-title">Latest Added</h3>
                         <div class="card-body">
                             <div id="product-container" class="product-row">
                                 @if($latestProducts->isNotEmpty())
@@ -30,7 +30,7 @@
                                 </a>
                                 @endforeach
                                 @else
-                                <p>No se encontraron productos.</p>
+                                <p>Products not Found.</p>
                                 @endif
                             </div>
                             <a class="watch-all" href="{{ route('welcome.showAllProducts', ['sort' => 'latest']) }}">
@@ -47,7 +47,7 @@
                 <!-- Most Sold Products Content -->
                 <div class="card">
                     <div class="card-content">
-                        <h3 class="card-title">Lo más vendido</h3>
+                        <h3 class="card-title">The Most Sold</h3>
                         <div class="card-body">
                             <div id="product-container" class="product-row">
                                 @if($bestSellingProducts->isNotEmpty())
@@ -60,7 +60,7 @@
                                 </a>
                                 @endforeach
                                 @else
-                                <p>No se encontraron productos.</p>
+                                <p>Products not Found.</p>
                                 @endif
                             </div>
                             <a class="watch-all" href="{{ route('welcome.showAllProducts', ['sort' => 'bestselling']) }}">
@@ -114,7 +114,6 @@
         background-color: rgba(255, 255, 255, 0.2);
     }
 
-    /* Estilos para el título del producto */
     .product-title {
         font-size: 16px;
         font-weight: bold;
@@ -138,7 +137,7 @@
         }
     }
 
-    /* Estilos para el enlace "Ver todos" */
+    /* Styles for links "Watch All" */
     .watch-all {
         color: #fff;
         position: absolute;
@@ -153,18 +152,16 @@
         color: yellow;
     }
 
-    /* Estilos para el icono de flecha */
     .watch-all i {
         margin-left: 4px;
         transition: transform 0.3s ease;
     }
 
-    /* Estilos para el icono de flecha al pasar el mouse */
     .watch-all:hover i {
         transform: translateX(3px);
     }
 
-    /* Estilos para el tamaño dinámico del producto */
+    /* Styles for responsive size for products */
     @media (max-width: 550px) {
 
         .product_card {

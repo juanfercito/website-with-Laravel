@@ -54,34 +54,20 @@ class CartController extends Controller
 
     public function removeFromCart(Request $request)
     {
-        $cart = session()->get('cart', []);
-
-        // Debugging
-        Log::info('Request ID: ' . $request->id);
-        Log::info('Cart before removal: ' . print_r($cart, true));
-
-        foreach ($cart as $key => $item) {
-            if ($item['id'] == $request->id) {
-                unset($cart[$key]);
-                break;
-            }
+        $productId = $request->input('rmRow');
+        if (isset($productId)) {
+            Cart::remove($productId);
+            return redirect()->back()->with('success', 'Product deleted successfully');
+        } else {
+            return redirect()->back()->with('error', 'Could not delete product');
         }
-
-        session()->put('cart', array_values($cart)); // Reindex the array
-
-        // Debugging
-        Log::info('Cart after removal: ' . print_r($cart, true));
-
-        return redirect()->back()->with('success', 'Product removed from cart');
     }
-
     public function clearCart()
     {
         session()->forget('cart');
 
         return redirect()->back()->with('success', 'Cart cleared successfully');
     }
-
 
     public function searchByDni(Request $request)
     {
@@ -111,7 +97,6 @@ class CartController extends Controller
                 return redirect()->back()->with('error', 'Por favor, complete todos los campos del cliente.');
             }
 
-            // Verificar si el cliente ya existe en la base de datos, de lo contrario, crear un nuevo cliente
             $customer = Customer::where('dni', $dni)->first();
             if (!$customer) {
                 $customer = new Customer;
@@ -122,34 +107,31 @@ class CartController extends Controller
                 $customer->save();
             }
 
-            // Calcular el subtotal, el descuento total y el total de la venta
             $subtotal = 0;
             $totalDiscount = 0;
 
-            $cart = session()->get('cart', []);
-            $incomeDetails = []; // Definimos la variable $incomeDetails
+            $productIds = $request->input('idArticle');
+            $quantities = $request->input('quantity');
+            $salePrices = $request->input('sale_price');
+            $discountAmounts = $request->input('discountAmount');
 
-            foreach ($cart as $product) {
-                $incomeDetail = $incomeDetails[$product['id']] ?? null;
-                if ($incomeDetail) {
-                    $productTotal = $product['quantity'] * $incomeDetail->sale_price;
-                    $subtotal += $productTotal;
-                }
+            foreach ($productIds as $key => $productId) {
+                $subtotal += $quantities[$key] * $salePrices[$key];
             }
 
-            $totalQuantity = array_sum(array_column($cart, 'quantity'));
-            $discount = 0;
+            $discountPercentage = 0;
+            $totalQuantity = array_sum($quantities);
             if ($totalQuantity >= 5 && $totalQuantity <= 10) {
-                $discount = 5;
+                $discountPercentage = 5;
             } elseif ($totalQuantity > 10 && $totalQuantity <= 20) {
-                $discount = 10;
+                $discountPercentage = 10;
             } elseif ($totalQuantity > 20) {
-                $discount = 15;
+                $discountPercentage = 15;
             }
-            $totalDiscount = ($subtotal * $discount) / 100;
+            $totalDiscount = ($subtotal * $discountPercentage) / 100;
+
             $saleTotal = $subtotal - $totalDiscount;
 
-            // Crear una nueva venta
             $sale = new Sale;
             $sale->customer_id = $customer->id;
             $sale->proof_type = $request->input('proof_type');
@@ -160,37 +142,29 @@ class CartController extends Controller
             $sale->sale_total = $saleTotal;
             $sale->save();
 
-            // Guardar los detalles de la venta y actualizar el stock de productos
-            foreach ($cart as $product) {
-                $incomeDetail = $incomeDetails[$product['id']] ?? null;
-                if ($incomeDetail) {
-                    $details = new SaleDetail();
-                    $details->sale_id = $sale->id;
-                    $details->product_id = $product['id'];
-                    $details->cant = $product['quantity'];
-                    $details->discount = ($product['quantity'] * $incomeDetail->sale_price * $discount) / 100;
-                    $details->sale_price = $incomeDetail->sale_price;
-                    $details->save();
+            foreach ($productIds as $key => $productId) {
+                $details = new SaleDetail();
+                $details->sale_id = $sale->id;
+                $details->product_id = $productId;
+                $details->cant = $quantities[$key];
+                $details->discount = ($salePrices[$key] * $discountPercentage) / 100;
+                $details->sale_price = $salePrices[$key];
+                $details->save();
 
-                    // Actualizar el stock del producto
-                    $productModel = Product::find($product['id']);
-                    if ($productModel) {
-                        $productModel->stock -= $product['quantity'];
-                        $productModel->save();
-                    }
+                $product = Product::find($productId);
+                if ($product) {
+                    $product->stock -= $quantities[$key];
+                    $product->save();
                 }
             }
 
-            DB::commit();
-
-            // Limpiar el carrito
             session()->forget('cart');
 
-            // Mostrar el modal de éxito
-            return redirect()->route('main.shoppingCart')->with('success', 'Venta realizada con éxito');
+            DB::commit();
+            return redirect()->back()->with('success', 'Venta realizada con éxito');
         } catch (\Exception $e) {
             DB::rollback();
-            return redirect()->back()->with('error', 'Error al realizar la compra: ' . $e->getMessage());
+            return response()->json(['success' => false, 'error' => $e->getMessage()]);
         }
     }
 }
