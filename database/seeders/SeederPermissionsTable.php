@@ -46,10 +46,22 @@ class SeederPermissionsTable extends Seeder
             'modify-role',
             'delete-role',
 
+            // table incomes
+            'watch-incomes',
+            'insert-income',
+            'modify-income',
+            'delete-income',
+
+            // table sales
+            'watch-sales',
+            'insert-sale',
+            'modify-sale',
+            'delete-sale',
+
         ];
 
         foreach ($permissions as $permission) {
-            Permission::create(['name' => $permission]);
+            Permission::firstOrCreate(['name' => $permission]);
         };
     }
 }

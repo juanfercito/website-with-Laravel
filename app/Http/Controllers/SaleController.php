@@ -15,6 +15,15 @@ use Illuminate\Support\Carbon;
 
 class SaleController extends Controller
 {
+
+    function __construct()
+    {
+        $this->middleware('permission:watch-sales|insert-sale|modify-sale|delete-sale', ['only' => ['index']]);
+        $this->middleware('permission:insert-sale', ['only' => ['create', 'store']]);
+        $this->middleware('permission:modify-sale', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:delete-sale', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      */
